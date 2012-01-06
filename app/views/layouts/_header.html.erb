@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="column grid_7">
+    <%= link_to logo, :root %>
+  </div>
+  <div class="column grid_5 text-center" style="padding-top: 40px;">
+    <h1>Zapisy trwają do 20. stycznia!</h1>    
+  </div>
+</div>
+<div class="row">
+  <div class="column grid_12">
+    <ul class="main-navigation">
+        <li class="current"><%= link_to t('home'), root_path %></li>
+        <% if user_signed_in? then %>              
+          <li><%= link_to t('edit_user_registration'), edit_user_registration_path %></li>     
+          <li><%= link_to t('sign_out'), destroy_user_session_path, :method => :delete %></li> 
+        <% else %>
+          <li><%= link_to t('sign_up'), new_user_registration_path %></li>        
+          <li><%= link_to t('sign_in'), new_user_session_path %></li>        
+        <% end %>
+        
+        <li><%= link_to t('forum'), t('forum_link') %></li>          
+        
+        <% if user_signed_in? then %>
+          <li style="float: right"><%= "#{t('signed_in_as')} #{current_user.email}" %></li>     
+        <% end %>
+    </ul>
+  </div>
+</div>

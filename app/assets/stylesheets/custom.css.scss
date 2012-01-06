@@ -1,0 +1,54 @@
+// Place all the styles related to the Home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+    //background-color: #aaa8be;
+    background: url("bg.jpg") no-repeat fixed center top #eadece;
+    //background: #FFF url("bg_gray_tile.png");
+}
+
+.round {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.section {
+    background-color: #fffcf9;    
+    margin-top: 1em;
+    padding: 8px;    
+}
+
+.section-no-bg {
+    margin-top: 1em;
+    padding: 8px;    
+}
+
+.error, .alert, .notice, .success, .info {
+    padding: 0.8em;
+    margin-bottom: 1em;
+    border:2px solid #ddd;
+}
+
+.success {
+    background: #e6efc2;
+    color: #264409;
+    border-color: #c6d880;
+}
+
+.alert {
+    background-color: #ffefdb;
+    color: #264409;
+    border-color: #f8dab2;
+}
+
+.error {
+    background-color: #fbdbdd;
+    color: #264409;
+    border-color: #f8b2b7;
+}
+
+.notice {
+    background-color: #e8ecff;
+}

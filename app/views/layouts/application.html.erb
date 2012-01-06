@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<%= render 'layouts/head' %>
+<body>
+<%= render 'layouts/header' %>
+<div class="row">
+  <div class="column grid_12 round section">
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, :class => "flash #{key}") %>
+    <% end %>      
+    <%= yield %>
+  </div>
+</div>
+<%= render 'layouts/footer' %>
+</body>
+</html>
