@@ -1,0 +1,69 @@
+<h1><%= t('offers.page_title') %></h1>
+
+<p>Oferty można wysyłać bezpośrednio z <%= link_to "listy drużyn", teams_path %> (prośby o dołączenie) lub z listy zawodników (zaproszenia do drużyny).
+
+<h2><%= t('offers.received') %></h2>
+<% if not @received.empty? %>
+  <table id="minimalist-table-hor-a" summary="<%= t('offers.received') %>">
+    <thead>
+      <tr>
+        <th scope="col"><%= t('activerecord.attributes.offer.from') %></th>
+        <th scope="col"><%= t('activerecord.attributes.offer.to') %></th>
+        <th scope="col"><%= t('activerecord.attributes.offer.subject') %></th>
+        <th scope="col"><%= t('offers.created') %></th>
+        <th scope="col"><%= t('more') %></th>
+        <th scope="col"></th>  
+      </tr>
+    </thead>
+    <tbody>
+      <% for offer in @received do %>      
+        <tr>
+          <td><%= offer.from %></td>
+          <td><%= offer.to %></td>
+          <td><%= offer.subject %></td>
+          <td><%= time_ago_in_words(offer.created_at) %></td>        
+          <td>
+            <%= form_tag offer_path(offer), :method => :get do %>
+              <%= submit_tag t('offers.more'), :class => 'submit button' %>    
+            <% end %>            
+          </td>           
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p><%= t('offers.no_offers') %></p>
+<% end %>
+
+<h2><%= t('offers.sent') %></h2>
+<% if not @sent.empty? %>
+  <table id="minimalist-table-hor-a" summary="<%= t('offers.sent') %>">
+    <thead>
+      <tr>
+        <th scope="col"><%= t('activerecord.attributes.offer.from') %></th>
+        <th scope="col"><%= t('activerecord.attributes.offer.to') %></th>
+        <th scope="col"><%= t('activerecord.attributes.offer.subject') %></th>
+        <th scope="col"><%= t('offers.created') %></th>
+        <th scope="col"><%= t('more') %></th>
+        <th scope="col"></th>  
+      </tr>
+    </thead>
+    <tbody>
+      <% for offer in @sent do %>      
+        <tr>
+          <td><%= offer.from %></td>
+          <td><%= offer.to %></td>
+          <td><%= offer.subject %></td>
+          <td><%= time_ago_in_words(offer.created_at) %></td>        
+          <td>
+            <%= form_tag offer_path(offer), :method => :get do %>
+              <%= submit_tag t('offers.more'), :class => 'submit button' %>    
+            <% end %>            
+          </td>           
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p><%= t('offers.no_offers') %></p>
+<% end %>

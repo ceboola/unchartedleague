@@ -1,0 +1,30 @@
+<h1><%= t('teams.new') %></h1>
+<% if @team.errors.any? %>
+  <div class="flash error">
+    <h2><%= pluralize_localized(@team.errors.count, t('error')) %> <%= t('in_your_form') %></h2>
+    <p><%= t('problems_detected') %>:</p>
+    <ul class="fancy">
+    <% @team.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div id="stylized-form">
+  <%= form_tag :action => 'create' do %>		
+    <div class="wrapper-block">
+      <label><%= t('activerecord.attributes.team.tag') %>:<span class="small-label">maksymalnie 4 znaki</span></label>
+      <%= text_field :team, :tag, { :maxlength => "4" } %>
+    </div>    
+    <div class="wrapper-block">
+      <label><%= t('activerecord.attributes.team.name') %>:<span class="small-label">pełna nazwa drużyny (max. 35)</span></label>
+      <%= text_field :team, :name, { :maxlength => "35" } %>
+    </div>   
+    <div class="wrapper-block">
+      <label for="comments"><%= t('activerecord.attributes.team.description') %>:<span class="small-label">Opis drużyny, motto, itd.</span></label>
+      <%= text_area(:team, :description, :size => "10x3", :maxlength => "250") %>
+    </div>    
+    <input type="submit" value="<%= t('teams.add') %>" class="submit btn-form" />
+  <% end %>
+</div>

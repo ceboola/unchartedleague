@@ -11,7 +11,37 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120106115157) do
+ActiveRecord::Schema.define(:version => 20120107014513) do
+
+  create_table "offers", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.boolean  "originated_from_player"
+    t.boolean  "open"
+    t.boolean  "accepted"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "content"
+  end
+
+  add_index "offers", ["team_id"], :name => "index_offers_on_team_id"
+  add_index "offers", ["user_id"], :name => "index_offers_on_user_id"
+
+  create_table "team_participations", :force => true do |t|
+    t.integer  "team_id"
+    t.integer  "user_id"
+    t.integer  "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teams", :force => true do |t|
+    t.string   "name"
+    t.string   "tag"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "description"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

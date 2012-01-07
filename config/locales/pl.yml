@@ -7,9 +7,60 @@ pl:
   link: "Forum"
   forum_link: "/forum"
   sign_out: "Wyloguj się"
-  edit_user_registration: "Edytuj konto"
-  home: "Strona główna"
+  edit_user_registration: "Edytuj konto"  
   signed_in_as: "Zalogowano jako"
+  error: "błąd"
+  in_your_form: "w Twoim formularzu"
+  problems_detected: "Problemy zostały wykryte w następujących miejscach"
+  are_you_sure: "Czy jesteś pewien?"
+  actions: "Akcje"
+  remove: "Usuń"
+  more: "Więcej"
+  
+  home: 
+    page_title: "Strona główna"
+  
+  teams:    
+    page_title: "Drużyny"
+    team: "Drużyna"
+    new: "Nowa drużyna"
+    add: "Dodaj drużynę"
+    remove: "Usuń drużynę"
+    created_successfully: "Drużyna stworzona!"
+    removed_successfully: "Drużyna usunięta!"
+    doesnt_exist: "Drużyna nie istnieje!"
+    more: "Zobacz drużynę"
+    exists_since: "Istnieje od"
+    join: "Dołącz"
+  
+  players:
+    page_title: "Zawodnicy"
+    role: "Rola"
+    player: "Zawodnik"
+    in_team_since: "W drużynie od"
+    remove: "Usuń zawodnika"    
+    removed_successfully: "Zawodnik usunięty!"
+    doesnt_exist: "Zawodnik nie istnieje!"
+    cannot_remove_owner: "Właściciel nie może zostać usunięty!"
+    cannot_remove: "Nie można usunąć zawodnika!"
+    roles:
+      owner: "właściciel"
+      captain: "kapitan"
+      first_team: "podstawowy"
+      reserve: "rezerwowy"  
+      
+  offers:
+    page_title: "Oferty"
+    new: "Nowa oferta"
+    send: "Wyślij ofertę"
+    cannot_send: "Nie można wysłać oferty!"
+    sent_successfully: "Oferta wysłana!"
+    too_many_open_offers: "Masz za dużo otwartych ofert! Posprzątaj stare oferty, zanim wyślesz nowe."
+    sent: "Wysłane"
+    received: "Otrzymane"
+    no_offers: "Brak ofert"
+    created: "Istnieje od"
+    more: "Zobacz ofertę"
   
   date:
     formats:
@@ -161,7 +212,7 @@ pl:
       submit: 'Zapisz %{model}'
 
   errors:
-    format: "%{attribute} %{message}"
+    format: "Pole %{attribute} %{message}."
 
     messages: &errors_messages
       inclusion: "nie znajduje się na liście dopuszczalnych wartości"
@@ -199,3 +250,13 @@ pl:
 
       full_messages:
         format: "%{attribute}%{message}"
+    attributes:
+      team:
+        name: "Nazwa"
+        tag: "Tag"
+        description: "Opis"
+      offer:
+        from: "Od"
+        to: "Do"
+        subject: "Temat"
+        content: "Treść"

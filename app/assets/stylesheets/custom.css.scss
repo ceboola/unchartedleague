@@ -52,3 +52,17 @@ body {
 .notice {
     background-color: #e8ecff;
 }
+
+a.button, input.button { 
+    margin: 5px;
+    padding:4px 28px 4px 8px; 
+    display:inline-block; 
+    font-size:11px; 
+    color:#fff; 
+    border:1px solid #444; 
+    background:#333 url(btn-arrow.png) no-repeat right; 
+    border-radius:4px; 
+    -webkit-border-radius:4px; 
+    -moz-border-radius:4px; 
+    cursor:pointer; 
+}

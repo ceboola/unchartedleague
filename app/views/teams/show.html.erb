@@ -1,0 +1,38 @@
+<h1><%= @team.full_name %></h1>
+<p><%= @team.description %></p>
+
+<h2><%= t('players.page_title') %></h2>
+<table id="minimalist-table-hor-a" summary="<%= t('players.page_title') %>">
+  <thead>
+    <tr>
+      <th scope="col"><%= t('players.player') %></th>
+      <th scope="col"><%= t('players.role') %></th>
+      <th scope="col"><%= t('players.in_team_since') %></th>
+      <% if @team.can_be_managed_by? current_user %>
+        <th scope="col"><%= t('remove') %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% for tp in @team.team_participations do %>
+      <tr>
+        <td><%= tp.user.email %></td>
+        <td><%= t('players.roles.' + tp.role_name) %></td>
+        <td><%= time_ago_in_words(tp.created_at) %></td>
+        <% if @team.can_be_managed_by? current_user %>
+          <td>
+            <%= form_tag team_participation_path(tp), :method => :delete do %>
+              <%= submit_tag t('players.remove'), :confirm => t('are_you_sure'), :class => 'submit button' %>    
+            <% end %>            
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if @team.can_be_managed_by? current_user %>
+  <%= form_tag team_path(@team), :method => :delete do %>
+    <%= submit_tag t('teams.remove'), :confirm => t('are_you_sure'), :class => 'submit button' %>    
+  <% end %>
+<% end %>

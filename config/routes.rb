@@ -1,7 +1,10 @@
 Unchartedleague::Application.routes.draw do
-  root :to => 'home#index'
-  
+  root :to => 'home#index'  
   devise_for :users
+  
+  resources :teams
+  resources :team_participations
+  resources :offers
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

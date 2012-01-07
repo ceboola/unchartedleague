@@ -9,9 +9,11 @@
 <div class="row">
   <div class="column grid_12">
     <ul class="main-navigation">
-        <li class="current"><%= link_to t('home'), root_path %></li>
+        <li><%= link_to t('home.page_title'), root_path %></li>
+        <li><%= link_to t('teams.page_title'), teams_path %></li>
         <% if user_signed_in? then %>              
-          <li><%= link_to t('edit_user_registration'), edit_user_registration_path %></li>     
+          <li><%= link_to t('teams.new'), new_team_path %></li>
+          <li><%= link_to t('offers.page_title') + offers_count(current_user), offers_path %></li>          
           <li><%= link_to t('sign_out'), destroy_user_session_path, :method => :delete %></li> 
         <% else %>
           <li><%= link_to t('sign_up'), new_user_registration_path %></li>        
@@ -21,7 +23,7 @@
         <li><%= link_to t('forum'), t('forum_link') %></li>          
         
         <% if user_signed_in? then %>
-          <li style="float: right"><%= "#{t('signed_in_as')} #{current_user.email}" %></li>     
+          <li style="float: right"><%= "#{t('signed_in_as')} #{current_user}" %></li>     
         <% end %>
     </ul>
   </div>
