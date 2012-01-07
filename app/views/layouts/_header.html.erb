@@ -21,14 +21,14 @@
   <div class="column grid_12">
     <ul class="main-navigation">
         <li><%= link_to t('home.page_title'), root_path %></li>
-        <li><%= link_to t('teams.page_title'), teams_path %></li>
-        <li><%= link_to t('players.page_title'), players_index_path %></li> 
+        <li><%= link_to t('players.page_title'), players_index_path %></li>
+        <li><%= link_to t('teams.page_title'), teams_path %></li>         
         <% if user_signed_in? then %>              
           <li><%= link_to t('teams.new'), new_team_path %></li>          
           <li><%= link_to t('offers.page_title') + offers_count(current_user), offers_path %></li>              
         <% end %>
         
-        <li><%= link_to t('forum'), t('forum_link') %></li>          
+        <li><%= link_to t('forum'), 'http://unchartedleague.com/forum' %></li>          
     </ul>
   </div>
 </div>

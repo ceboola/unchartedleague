@@ -23,7 +23,7 @@
     </div>   
     <div class="wrapper-block">
       <label for="comments"><%= t('activerecord.attributes.team.description') %>:<span class="small-label">Opis drużyny, motto, itd.</span></label>
-      <%= text_area(:team, :description, :size => "10x3", :maxlength => "250") %>
+      <%= text_area(:team, :description, :size => "70x3", :maxlength => "250") %>
     </div>    
     <input type="submit" value="<%= t('teams.add') %>" class="submit btn-form" />
   <% end %>

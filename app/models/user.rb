@@ -11,17 +11,18 @@ class User < ActiveRecord::Base
       
   has_many :teams, :through => :team_participations
   has_many :team_participations
+  has_many :offers, :dependent => :destroy
   
   def to_s
     psn_name
   end
   
   def received_offers_count
-    Offer.count(:id, :conditions => ['(team_id == ? and open == ? and originated_from_player = ?) or (user_id == ? and open == ? and originated_from_player = ?)', user_teams, true, true, id, true, false])
+    Offer.count(:id, :conditions => ['(team_id = ? and open = ? and originated_from_player = ?) or (user_id = ? and open = ? and originated_from_player = ?)', user_teams, true, true, id, true, false])
   end
   
   def sent_offers_count
-    Offer.count(:id, :conditions => ['(user_id == ? and open == ? and originated_from_player = ?) or (team_id == ? and open == ? and originated_from_player = ?)', id, true, true, user_teams, true, false])
+    Offer.count(:id, :conditions => ['(user_id = ? and open = ? and originated_from_player = ?) or (team_id = ? and open = ? and originated_from_player = ?)', id, true, true, user_teams, true, false])
   end
   
   def can_create_offers?

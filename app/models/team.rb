@@ -1,6 +1,7 @@
 class Team < ActiveRecord::Base
   has_many :users, :through => :team_participations
   has_many :team_participations, :dependent => :destroy
+  has_many :offers, :dependent => :destroy
   
   validates :tag, :presence => true, :length => { :maximum => 4 }, :uniqueness => true
   validates :name, :presence => true, :length => { :maximum => 35 }, :uniqueness => true
