@@ -25,7 +25,7 @@ class OffersController < ApplicationController
       @offer.accepted = false
       if @offer.save
         flash[:success] = t('offers.sent_successfully')
-        render :action => 'index'
+        redirect_to :action => 'index'
       else       
         render :action => 'new'
       end      
@@ -33,5 +33,60 @@ class OffersController < ApplicationController
       flash[:error] = t('offers.cannot_send')
       redirect_to offers_path
     end
+  end
+  
+  def show
+    begin
+      @offer = Offer.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = t('offers.doesnt_exist')
+      redirect_to offers_path
+    end
+  end
+  
+  def update
+    begin
+      @offer = Offer.find(params[:id])
+      if @offer.is_sane?      
+        if params[:accept]          
+          if @offer.accept
+            flash[:success] = t('offers.accepted')
+            redirect_to team_path @offer.team            
+          else
+              cannot_process_offer @offer
+          end
+        elsif params[:reject]
+          if @offer.reject
+            flash[:success] = t('offers.rejected')
+            redirect_to offers_path
+          else
+            cannot_process_offer @offer
+          end
+        elsif params[:remove]         
+          if @offer.close
+            flash[:success] = t('offers.removed')
+            redirect_to offers_path
+          else
+            cannot_process_offer @offer
+          end       
+        else
+          cannot_process_offer @offer
+        end
+      else
+        @offer.close
+        flash[:alert] = t('offers.is_not_sane')
+        redirect_to offers_path
+      end
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = t('offers.doesnt_exist')
+      redirect_to offers_path
+    end
+  end
+  
+  private 
+  
+  def cannot_process_offer(offer)
+    flash[:error] = t('offers.cannot_process')
+    redirect_to offer_path offer      
   end
 end

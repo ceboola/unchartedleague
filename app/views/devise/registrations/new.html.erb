@@ -1,10 +1,23 @@
-<h2>Sign up</h2>
+<h1><%= t('sign_up') %></h1>
+
+<% if @user.errors.any? %>
+  <div class="flash error">
+    <h2><%= pluralize_localized(@user.errors.count, t('error')) %> <%= t('in_your_form') %></h2>
+    <p><%= t('problems_detected') %>:</p>
+    <ul class="fancy">
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
+
+  <div><%= f.label :psn_name %><br />
+  <%= f.text_field :psn_name, :size => 40, :maxlength => 200 %></div>
 
   <div><%= f.label :password %><br />
   <%= f.password_field :password %></div>
@@ -12,7 +25,7 @@
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.submit "Sign up" %></div>
+  <div><%= f.submit t('sign_up') %></div>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>

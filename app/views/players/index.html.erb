@@ -1,0 +1,39 @@
+<h1><%= t('players.page_title') %></h1>
+
+<% if @team %>
+  <p>Jesteś w trybie zapraszenia do drużyny <%= link_to @team.full_name, @team %>.</p>
+<% else %>
+  <p>Jeśli chcesz zaprosić graczy do swoich drużyn, kliknij "Zaproś do drużyny" na stronie głównej swojej drużyny. <%= link_to 'Zobacz drużyny', teams_path %>.</p>
+<% end %>
+
+<table id="minimalist-table-hor-a" summary="<%= t('players.page_title') %>">
+  <thead>
+    <tr>
+      <th scope="col"><%= t('players.player') %></th>
+      <th scope="col"><%= t('teams.page_title') %></th>
+      <th scope="col"><%= t('players.exists_since') %></th>
+      <% if @team %>
+        <th scope="col"><%= t('more') %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% for user in @users do %>      
+      <tr>
+        <td><%= user %></td>
+        <td><%= user.teams.join(', ') %></td>
+        <td><%= time_ago_in_words(user.created_at) %></td>
+        <% if @team %>
+          <td>
+            <%= form_tag new_offer_path, :method => :get do %>
+              <%= hidden_field_tag 'originated_from_player', false %>
+              <%= hidden_field_tag 'team_id', @team.id %>
+              <%= hidden_field_tag 'user_id', user.id %>
+              <%= submit_tag "#{t('teams.invite')} #{@team.full_tag}", :class => 'submit button' %>    
+            <% end %>            
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

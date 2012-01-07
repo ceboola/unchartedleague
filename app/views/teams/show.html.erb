@@ -16,7 +16,7 @@
   <tbody>
     <% for tp in @team.team_participations do %>
       <tr>
-        <td><%= tp.user.email %></td>
+        <td><%= tp.user %></td>
         <td><%= t('players.roles.' + tp.role_name) %></td>
         <td><%= time_ago_in_words(tp.created_at) %></td>
         <% if @team.can_be_managed_by? current_user %>
@@ -32,7 +32,18 @@
 </table>
 
 <% if @team.can_be_managed_by? current_user %>
-  <%= form_tag team_path(@team), :method => :delete do %>
-    <%= submit_tag t('teams.remove'), :confirm => t('are_you_sure'), :class => 'submit button' %>    
-  <% end %>
+  <h2><%= t('teams.manage') %></h2>
+  <table><tr>
+      <td>
+        <%= form_tag team_path(@team), :method => :delete do %>
+          <%= submit_tag t('teams.remove'), :confirm => t('are_you_sure'), :class => 'submit button' %>    
+        <% end %>
+      </td>
+      <td>
+        <%= form_tag players_index_path, :method => :get do %>
+          <%= hidden_field_tag 'team_invite_id', @team.id %>
+          <%= submit_tag t('teams.invite'), :class => 'submit button' %>    
+        <% end %>
+      </td>
+  </tr></table>
 <% end %>

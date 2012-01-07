@@ -7,7 +7,11 @@ class Team < ActiveRecord::Base
   validates :description, :length => { :maximum => 250 }  
  
   def full_name
-    "[#{tag}] #{name}"
+    "#{full_tag} #{name}"
+  end
+  
+  def full_tag
+    "[#{tag}]"
   end
   
   def can_be_managed_by?(user)

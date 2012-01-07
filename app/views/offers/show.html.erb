@@ -1,0 +1,28 @@
+<h1><%= t('offers.offer') %></h1>
+
+<div id="stylized-form">
+  <%= form_for @offer, :action => :update do %>   
+    <div class="wrapper-block">
+      <label><%= t('activerecord.attributes.offer.from') %>:<span class="small-label">Nadawca oferty</span></label>
+      <%= text_field :offer, :from, { :disabled => "true", :size => "50" } %>
+    </div>    
+    <div class="wrapper-block">
+      <label><%= t('activerecord.attributes.offer.to') %>:<span class="small-label">Adresat oferty</span></label>
+      <%= text_field :offer, :to, { :disabled => "true", :size => "50" } %>
+    </div> 
+    <div class="wrapper-block">
+      <label><%= t('activerecord.attributes.offer.subject') %>:<span class="small-label">Cel oferty</span></label>
+      <%= text_field :offer, :subject, { :disabled => "true", :size => "70" } %>
+    </div> 
+    <div class="wrapper-block">
+      <label for="comments"><%= t('activerecord.attributes.offer.content') %>:<span class="small-label">Treść oferty</span></label>
+      <%= text_area_tag(:content, @offer.content, :size => "80x5", :maxlength => "350", :disabled => true) %>
+    </div>
+    <% if @offer.can_be_processed_by? current_user %>
+      <input type="submit" name="accept" value="<%= t('offers.accept') %>" class="submit btn-form" />
+      <input type="submit" reject="reject" value="<%= t('offers.reject') %>" class="submit btn-form" />
+    <% elsif @offer.can_only_be_removed_by? current_user %>
+      <input type="submit" reject="remove" value="<%= t('offers.remove') %>" class="submit btn-form" />
+    <% end %>  
+  <% end %>
+</div>

@@ -4,7 +4,7 @@
 pl:
   sign_up: "Zarejestruj się"
   sign_in: "Zaloguj się"
-  link: "Forum"
+  forum: "Forum"
   forum_link: "/forum"
   sign_out: "Wyloguj się"
   edit_user_registration: "Edytuj konto"  
@@ -16,9 +16,14 @@ pl:
   actions: "Akcje"
   remove: "Usuń"
   more: "Więcej"
+  hello_guest: "Witaj nieznajomy!"
+  or: "lub"
+  none: "brak"
+  forgot_your_password: "Zapomniałeś hasła?"
+  send_me_password_reset_instructions: "Wyślij mi instrukcje"
   
   home: 
-    page_title: "Strona główna"
+    page_title: "Główna"
   
   teams:    
     page_title: "Drużyny"
@@ -32,6 +37,9 @@ pl:
     more: "Zobacz drużynę"
     exists_since: "Istnieje od"
     join: "Dołącz"
+    manage: "Zarządzaj drużyną"
+    invite: "Zaproś do drużyny"   
+    members_quantity: "Liczba graczy"
   
   players:
     page_title: "Zawodnicy"
@@ -46,8 +54,9 @@ pl:
     roles:
       owner: "właściciel"
       captain: "kapitan"
-      first_team: "podstawowy"
+      first_team: "zawodnik"
       reserve: "rezerwowy"  
+    exists_since: "W lidze od"
       
   offers:
     page_title: "Oferty"
@@ -61,6 +70,19 @@ pl:
     no_offers: "Brak ofert"
     created: "Istnieje od"
     more: "Zobacz ofertę"
+    doesnt_exist: "Oferta nie istnieje!"
+    offer: "Oferta"
+    accept: "Akceptuj ofertę"
+    reject: "Odrzuć ofertę"
+    remove: "Wycofaj ofertę"
+    cannot_process: "Nie można przetworzyć oferty."
+    is_not_sane: "Ta oferta nie ma już sensu!"
+    accepted: "Oferta zaakceptowana!"
+    rejected: "Oferta odrzucona!"
+    removed: "Oferta wycofana."
+    
+  competitions:
+    page_title: "Rozgrywki"
   
   date:
     formats:
@@ -260,3 +282,9 @@ pl:
         to: "Do"
         subject: "Temat"
         content: "Treść"
+      user:
+        email: "E-mail"
+        password: "Hasło"
+        password_confirmation: "Potwierdzenie hasła"
+        psn_name: "Nazwa PSN"
+        remember_me: "Pamiętaj mnie"

@@ -5,13 +5,15 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :psn_name
   
+  validates :psn_name, :presence => true, :uniqueness => true, :length => { :maximum => 200 }
+      
   has_many :teams, :through => :team_participations
   has_many :team_participations
   
   def to_s
-    email
+    psn_name
   end
   
   def received_offers_count
@@ -23,23 +25,16 @@ class User < ActiveRecord::Base
   end
   
   def can_create_offers?
-    sent_offers_count < 2
+    sent_offers_count < 10
   end
   
   def user_teams
-    if not @user_teams
-      refresh_user_teams
-    else
-      @user_teams
-    end
-  end
-  
-  def refresh_user_teams
-    @user_teams = []
+    user_teams = []
     for team in Team.all
       if team.can_be_managed_by? self
         user_teams << team.id     
       end
     end
-  end
+    user_teams
+  end  
 end

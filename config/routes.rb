@@ -1,4 +1,6 @@
 Unchartedleague::Application.routes.draw do
+  get "players/index"
+
   root :to => 'home#index'  
   devise_for :users
   
