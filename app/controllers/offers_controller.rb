@@ -48,7 +48,7 @@ class OffersController < ApplicationController
   
   def update
     begin
-      @offer = Offer.find(params[:id])
+      @offer = Offer.find(params[:id])      
       if @offer.is_sane?      
         if params[:accept]          
           if @offer.accept
@@ -57,7 +57,7 @@ class OffersController < ApplicationController
           else
               cannot_process_offer @offer
           end
-        elsif params[:reject]
+        elsif params[:reject]          
           if @offer.reject
             flash[:success] = t('offers.rejected')
             redirect_to offers_path

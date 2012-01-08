@@ -73,3 +73,14 @@ a.button, input.button {
     -moz-border-radius:4px; 
     cursor:pointer; 
 }
+
+.pagination {
+    a { 
+        text-decoration: none; 
+        font-weight: normal; 
+        font-face: Arial;         
+    }
+
+    .current { text-decoration: none; font-weight: bold; }
+    .disabled { color: #9f9f9f; }
+}
