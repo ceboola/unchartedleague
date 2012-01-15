@@ -1,40 +1,60 @@
 <h1><%= t('teams.page_title') %></h1>
-<table id="minimalist-table-hor-a" summary="<%= t('teams.page_title') %>">
-  <thead>
-    <tr>
-      <th scope="col"><%= t('teams.team') %></th>
-      <th scope="col"><%= t('players.roles.owner').capitalize %></th>
-      <th scope="col"><%= t('teams.members_quantity') %></th>
-      <th scope="col"><%= t('teams.exists_since') %></th>
-      <th scope="col"><%= t('competitions.page_title') %></th>
-      <th scope="col"><%= t('more') %></th>      
-      <th scope="col"></th>  
-    </tr>
-  </thead>
-  <tbody>
-    <% for team in @teams do %>
+
+<% if user_signed_in? %>
+  <div id="filter_buttons">
+    <label for="allTeamsToggleButton"><%= t('teams.all') %></label>
+    <input type="radio" name="show_filter" id="allTeamsToggleButton" 
+           onClick="goTo('<%=  url_for :action => 'index', :show_my => nil %>')"
+           <%= unless current_page?(:show_my => 'true') then 'checked' else '' end %> />
+
+    <label for="myTeamsToggleButton"><%= t('teams.my') %></label>
+    <input type="radio" name="show_filter" id="myTeamsToggleButton" 
+           onClick="goTo('<%=  url_for :action => 'index', :show_my => 'true' %>')" 
+           <%= if current_page?(:show_my => 'true') then 'checked' else '' end %> />
+  </div>
+<% end %>
+
+<% if @teams.any? %>
+  <table id="minimalist-table-hor-a" summary="<%= t('teams.page_title') %>">
+    <thead>
       <tr>
-        <td><%= team %></td>
-        <td><%= team.owner %></td>
-        <td><%= team.users.size %></td>
-        <td><%= time_ago_in_words(team.created_at) %></td>        
-        <td><%= t('none') %></td>      
-        <td>
-          <%= form_tag team_path(team), :method => :get do %>
-            <%= submit_tag t('teams.more'), :class => 'submit button' %>    
-          <% end %>            
-        </td>        
-        <td>
-          <% if user_signed_in? and not team.has_member? current_user %>
-            <%= form_tag new_offer_path, :method => :get do %>
-              <%= hidden_field_tag 'originated_from_player', true %>
-              <%= hidden_field_tag 'team_id', team.id %>
-              <%= hidden_field_tag 'user_id', current_user.id %>
-              <%= submit_tag t('teams.join'), :class => 'submit button' %>    
-            <% end %>            
-          <% end %>
-        </td>     
+        <th scope="col"><%= t('teams.team') %></th>
+        <th scope="col"><%= t('players.roles.captain').capitalize %></th>
+        <th scope="col"><%= t('teams.members_quantity') %></th>
+        <th scope="col"><%= t('teams.exists_since') %></th>
+        <th scope="col"><%= t('competitions.page_title') %></th>
+        <th scope="col"><%= t('more') %></th>      
+        <th scope="col"></th>  
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% for team in @teams do %>
+        <tr>
+          <td><%= team %></td>
+          <td><%= team.owner %></td>
+          <td><%= team.users.size %></td>
+          <td><%= time_ago_in_words(team.created_at) %></td>        
+          <td><%= t('none') %></td>      
+          <td>
+            <%= form_tag team_path(team), :method => :get do %>
+              <%= submit_tag t('teams.more'), :class => 'submit button', :name => nil %>    
+            <% end %>            
+          </td>        
+          <td>
+            <% if user_signed_in? and not team.has_member? current_user %>
+              <%= form_tag new_offer_path, :method => :get do %>
+                <%= hidden_field_tag 'originated_from_player', true %>
+                <%= hidden_field_tag 'team_id', team.id %>
+                <%= hidden_field_tag 'user_id', current_user.id %>
+                <%= submit_tag t('teams.join'), :class => 'submit button', :name => nil %>    
+              <% end %>            
+            <% end %>
+          </td>     
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @teams %>
+<% else %>  
+  <p style='margin-top: 7px;'><%= t('teams.none') %></p>
+<% end %>

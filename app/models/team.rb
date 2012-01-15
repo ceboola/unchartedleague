@@ -24,6 +24,23 @@ class Team < ActiveRecord::Base
     return false
   end
   
+  def members(filtered_roles = [])
+    member_participations(filtered_roles).collect { |x| x.user }
+  end
+  
+  def member_participations(filtered_roles = [])
+    team_participations.select { |x| not filtered_roles.include? x.role }                       
+  end
+  
+  def member_participation(member)
+    team_participations.each do |tp|
+      if tp.user == member
+        return tp
+      end
+    end
+    return nil
+  end
+  
   def has_member?(user)
     for tp in team_participations
       if tp.user == user
@@ -33,16 +50,28 @@ class Team < ActiveRecord::Base
     return false
   end
   
-  def owner
+  def owner_participation
     for tp in team_participations
       if tp.is_owner?
-        return tp.user
+        return tp
       end
     end
     return nil
   end
   
+  def owner
+    owner_participation.user
+  end
+  
   def to_s
     full_name
+  end
+  
+  def self.user_teams(user)
+    unless user.nil?
+      Team.joins(:team_participations).where('team_participations.user_id = ?', user.id)
+    else
+      Team.scoped
+    end
   end
 end

@@ -1,11 +1,23 @@
 <h1><%= t('players.page_title') %></h1>
 
 <% if @team %>
-  <p>Jesteś w trybie zapraszenia do drużyny <%= link_to @team.full_name, @team %>.</p>
-<% else %>
-  <p>Jeśli chcesz zaprosić graczy do swoich drużyn, kliknij "Zaproś do drużyny" na stronie głównej swojej drużyny. <%= link_to 'Zobacz drużyny', teams_path %>.</p>
+  <%= info_section "#{t('teams.invite_mode_intro')} #{link_to @team.full_name, @team}." %>
+<%  else %>
+  <%= info_section "#{t('teams.invite_mode_explanation')} #{link_to t('teams.see_teams'), url_for(:controller => 'teams', :action => 'index', :show_my => 'true')}." %>
 <% end %>
 
+<div id="filter_buttons">
+  <label for="allPlayersToggleButton"><%= t('players.all') %></label>
+  <input type="radio" name="show_filter" id="allPlayersToggleButton" 
+         onClick="goTo('<%=  url_for :action => 'index', :show_without_team => nil, :team_invite_id => params[:team_invite_id] %>')"
+         <%= unless current_page?(:show_without_team => 'true', :team_invite_id => params[:team_invite_id], :page => params[:page]) then 'checked' else '' end %> />
+
+  <label for="playersWithoutTeamToggleButton"><%= t('players.without_team') %></label>
+  <input type="radio" name="show_filter" id="playersWithoutTeamToggleButton" 
+         onClick="goTo('<%=  url_for :action => 'index', :show_without_team => 'true', :team_invite_id => params[:team_invite_id] %>')" 
+         <%= if current_page?(:show_without_team => 'true', :team_invite_id => params[:team_invite_id], :page => params[:page]) then 'checked' else '' end %> />
+</div>
+  
 <table id="minimalist-table-hor-a" summary="<%= t('players.page_title') %>">
   <thead>
     <tr>
@@ -21,7 +33,7 @@
     <% for user in @users do %>      
       <tr>
         <td><%= user %></td>
-        <td><%= user.teams.join(', ') %></td>
+        <td><%= (user.teams.any? ? user.teams.join(', ') : t('teams.none')) %></td>
         <td><%= time_ago_in_words(user.created_at) %></td>
         <% if @team %>
           <td>

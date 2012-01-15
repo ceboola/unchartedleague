@@ -18,11 +18,11 @@ class User < ActiveRecord::Base
   end
   
   def received_offers_count
-    Offer.count(:id, :conditions => ['(team_id = ? and open = ? and originated_from_player = ?) or (user_id = ? and open = ? and originated_from_player = ?)', user_teams, true, true, id, true, false])
+    Offer.count(:id, :conditions => ['(team_id in (?) and open = ? and originated_from_player = ?) or (user_id in (?) and open = ? and originated_from_player = ?)', user_teams, true, true, id, true, false])
   end
   
   def sent_offers_count
-    Offer.count(:id, :conditions => ['(user_id = ? and open = ? and originated_from_player = ?) or (team_id = ? and open = ? and originated_from_player = ?)', id, true, true, user_teams, true, false])
+    Offer.count(:id, :conditions => ['(user_id in (?) and open = ? and originated_from_player = ?) or (team_id in (?) and open = ? and originated_from_player = ?)', id, true, true, user_teams, true, false])
   end
   
   def can_create_offers?
@@ -38,4 +38,12 @@ class User < ActiveRecord::Base
     end
     user_teams
   end  
+  
+  def self.custom_filter(params)
+    if params[:show_without_team].present? and params[:show_without_team] == 'true'    
+      includes(:team_participations).where('team_participations.team_id is null')
+    else
+      scoped
+    end
+  end
 end

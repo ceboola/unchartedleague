@@ -17,4 +17,8 @@ module ApplicationHelper
     end    
     pluralize(count, unit)
   end
+  
+  def one_line(sb)
+    sb.gsub(/\n/, '').html_safe
+  end
 end

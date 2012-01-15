@@ -6,4 +6,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require_tree .
+
+var goTo = function(url) {
+    window.location.href = url;
+}

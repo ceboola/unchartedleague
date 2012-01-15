@@ -40,6 +40,14 @@ pl:
     manage: "Zarządzaj drużyną"
     invite: "Zaproś do drużyny"   
     members_quantity: "Liczba graczy"
+    cannot_manage: "Nie możesz zarządzać tą drużyną!"
+    leave: "Opuść drużynę"
+    my: "Moje drużyny"
+    all: "Wszystkie drużyny"
+    none: "Brak drużyn"
+    invite_mode_intro: "Jesteś w trybie zapraszenia do drużyny"
+    invite_mode_explanation: "Jeśli chcesz zaprosić graczy do swoich drużyn, kliknij \"Zaproś do drużyny\" na stronie głównej swojej drużyny."
+    see_teams: "Zobacz drużyny"
   
   players:
     page_title: "Zawodnicy"
@@ -52,11 +60,17 @@ pl:
     cannot_remove_owner: "Właściciel nie może zostać usunięty!"
     cannot_remove: "Nie można usunąć zawodnika!"
     roles:
-      owner: "właściciel"
       captain: "kapitan"
       first_team: "zawodnik"
       reserve: "rezerwowy"  
     exists_since: "W lidze od"
+    change_role: "Zmień rolę"
+    cant_change_role: "Nie można zmienić roli w ten sposób!"
+    new_captain: "Nowy kapitan"
+    change_captain_role_notice: "Pamiętaj! W drużynie może być tylko jeden kapitan! Przyznanie innemu członkowi kapitana, jest równoznaczne ze zrzeknięciem się tej funkcji przez Ciebie!"
+    left_team_successfully: "Nie jesteś już członkiem tej drużyny! :("
+    all: "Wszyscy zawodnicy"
+    without_team: "Zawodnicy bez drużyny"
       
   offers:
     page_title: "Oferty"
@@ -288,6 +302,8 @@ pl:
         password_confirmation: "Potwierdzenie hasła"
         psn_name: "Nazwa PSN"
         remember_me: "Pamiętaj mnie"
+      team_participation:
+        role: "Rola"
         
   will_paginate:
     previous_label: "&#8592; Poprzednie"

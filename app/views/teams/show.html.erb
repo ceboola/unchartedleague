@@ -9,20 +9,33 @@
       <th scope="col"><%= t('players.role') %></th>
       <th scope="col"><%= t('players.in_team_since') %></th>
       <% if @team.can_be_managed_by? current_user %>
-        <th scope="col"><%= t('remove') %></th>
-      <% end %>
+        <th scope="col" colspan="2"><%= t('more') %></th>        
+      <% elsif @team.has_member? current_user %>
+        <th scope="col"><%= t('more') %></th>        
+      <% end %>  
     </tr>
   </thead>
   <tbody>
     <% for tp in @team.team_participations do %>
       <tr>
         <td><%= tp.user %></td>
-        <td><%= t('players.roles.' + tp.role_name) %></td>
+        <td id="player_role_<%= tp.id %>"><%= t('players.roles.' + tp.role_name) %></td>
         <td><%= time_ago_in_words(tp.created_at) %></td>
         <% if @team.can_be_managed_by? current_user %>
           <td>
             <%= form_tag team_participation_path(tp), :method => :delete do %>
-              <%= submit_tag t('players.remove'), :confirm => t('are_you_sure'), :class => 'submit button' %>    
+              <%= submit_tag t('players.remove'), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
+            <% end %>            
+          </td>
+          <td>
+            <%= form_tag edit_team_participation_path(tp), :method => :get, :remote => true do %>
+              <%= submit_tag t('players.change_role'), :class => 'submit button', :name => nil %>    
+            <% end %>  
+          </td>
+        <% elsif tp.user == current_user %>
+          <td>
+            <%= form_tag team_participation_path(tp), :method => :delete do %>
+              <%= submit_tag t('teams.leave'), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
             <% end %>            
           </td>
         <% end %>
@@ -36,14 +49,16 @@
   <table><tr>
       <td>
         <%= form_tag team_path(@team), :method => :delete do %>
-          <%= submit_tag t('teams.remove'), :confirm => t('are_you_sure'), :class => 'submit button' %>    
+          <%= submit_tag t('teams.remove'), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
         <% end %>
       </td>
       <td>
         <%= form_tag players_index_path, :method => :get do %>
           <%= hidden_field_tag 'team_invite_id', @team.id %>
-          <%= submit_tag t('teams.invite'), :class => 'submit button' %>    
+          <%= submit_tag t('teams.invite'), :class => 'submit button', :name => nil %>    
         <% end %>
       </td>
   </tr></table>
 <% end %>
+
+<div id="change-role-dialog"></div>

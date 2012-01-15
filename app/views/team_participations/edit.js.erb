@@ -1,0 +1,42 @@
+var el = $('#change-role-dialog')
+el.empty()
+el.dialog({ minWidth: 460, minHeight: 200, autoOpen: false, modal: true, title: '<%= t('players.change_role') %> - <%= @tp.user %>' });
+
+el.append('<p><%= t('players.change_captain_role_notice') %></p>');
+
+form_div = $('<div id="stylized-form">');
+el.append(form_div);
+
+form = $('<%= one_line form_tag(team_participation_path(@tp), :method => :put, :remote => true) %>');		
+form_div.append(form);
+
+role_wrapper = $('<div class="wrapper-block">');
+
+role_label = $('<label>');
+role_label.append('<%= t('activerecord.attributes.team_participation.role') %>:');
+role_label.append('<span class="small-label">wybierz nową rolę</span>');
+
+role_select = $('<%= one_line select('team_participation', 'role', @available_roles.collect {|x| [t('players.roles.' + x[0]), x[1]]}) %>');
+
+role_wrapper.append(role_label);
+role_wrapper.append(role_select);
+form.append(role_wrapper);
+
+<% if @tp.is_owner? %>
+  new_owner_wrapper = $('<div class="wrapper-block">');
+
+  new_owner_label = $('<label>');
+  new_owner_label.append('<%= t('players.new_captain') %>:');
+  new_owner_label.append('<span class="small-label">wybierz nowego kapitana</span>');
+
+  new_owner_select = $('<%= one_line select('user', 'id', @tp.team.members([0]).collect {|x| [x, x.id] }) %>');
+
+  new_owner_wrapper.append(new_owner_label);
+  new_owner_wrapper.append(new_owner_select);
+  form.append(new_owner_wrapper);
+<% end %>
+  
+button = $('<%= one_line submit_tag t('players.change_role'), :class => 'submit btn-form', :name => nil %>');
+form.append(button);
+
+el.dialog('open');

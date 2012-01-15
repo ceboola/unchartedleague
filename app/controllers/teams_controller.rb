@@ -1,20 +1,11 @@
 class TeamsController < ApplicationController  
   def index
-    # FIXME: active record + paging
-    
-    teams = Team.all
-    user_teams = []
-    for team in teams
-      if team.has_member? current_user
-        user_teams << team        
-      end
+    if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
+      user = current_user
+    else
+      user = nil
     end
-    
-    for team in user_teams
-      teams.delete(team)
-    end
-    
-    @teams = user_teams + teams
+    @teams = Team.user_teams(user).order("lower(name) asc").paginate(:per_page => 20, :page => params[:page])    
   end
 
   def show
@@ -35,7 +26,7 @@ class TeamsController < ApplicationController
     tp = @team.team_participations.build
     tp.user = current_user
     tp.team = @team
-    tp.role = TeamParticipation::ROLES.index('owner')    
+    tp.role = TeamParticipation::ROLES.index('captain')    
     if @team.save
       flash[:success] = t('teams.created_successfully')
       redirect_to team_path(@team)
@@ -50,11 +41,16 @@ class TeamsController < ApplicationController
   def destroy
     begin
       @team = Team.find(params[:id])
-      if @team.destroy
-        flash[:success] = t('teams.removed_successfully')
-        redirect_to teams_path
-      else      
-        render :action => 'show'    
+      if @team.can_be_managed_by? current_user
+        if @team.destroy
+          flash[:success] = t('teams.removed_successfully')
+          redirect_to teams_path
+        else      
+          render :action => 'show'    
+        end
+      else
+        flash[:error] = t('teams.cannot_manage')
+        redirect_to team_path @team
       end
     rescue ActiveRecord::RecordNotFound
       flash[:error] = t('teams.doesnt_exist')

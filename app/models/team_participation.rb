@@ -1,5 +1,5 @@
 class TeamParticipation < ActiveRecord::Base 
-  ROLES = %w(owner captain first_team reserve)
+  ROLES = %w(captain first_team reserve)
   
   belongs_to :user
   belongs_to :team

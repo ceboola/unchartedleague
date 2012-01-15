@@ -1,0 +1,13 @@
+$('#change-role-dialog').dialog('close');
+<% if @tp %>
+  el = $('#player_role_<%= @tp.id %>')
+  el.effect("highlight", {}, 3000);
+  el.html('<%= t('players.roles.' + @tp.role_name) %>');
+  <% if @owner_tp %>
+    owner_el = $('#player_role_<%= @owner_tp.id %>');
+    owner_el.effect("highlight", {}, 3000);
+    owner_el.html('<%= t('players.roles.' + @owner_tp.role_name) %>');
+  <% end %>
+<% else %>
+  alert('<%= t('players.cant_change_role') %>');
+<% end %>
