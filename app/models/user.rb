@@ -18,25 +18,19 @@ class User < ActiveRecord::Base
   end
   
   def received_offers_count
-    Offer.count(:id, :conditions => ['(team_id in (?) and open = ? and originated_from_player = ?) or (user_id in (?) and open = ? and originated_from_player = ?)', user_teams, true, true, id, true, false])
+    Offer.count(:id, :conditions => ['(team_id in (?) and open = ? and originated_from_player = ?) or (user_id in (?) and open = ? and originated_from_player = ?)', user_teams_ids, true, true, id, true, false])
   end
   
   def sent_offers_count
-    Offer.count(:id, :conditions => ['(user_id in (?) and open = ? and originated_from_player = ?) or (team_id in (?) and open = ? and originated_from_player = ?)', id, true, true, user_teams, true, false])
+    Offer.count(:id, :conditions => ['(user_id in (?) and open = ? and originated_from_player = ?) or (team_id in (?) and open = ? and originated_from_player = ?)', id, true, true, user_teams_ids, true, false])
   end
   
   def can_create_offers?
     sent_offers_count < 10
   end
   
-  def user_teams
-    user_teams = []
-    for team in Team.all
-      if team.can_be_managed_by? self
-        user_teams << team.id     
-      end
-    end
-    user_teams
+  def user_teams_ids
+    Team.user_teams(self).collect { |x| x.id }
   end  
   
   def self.custom_filter(params)

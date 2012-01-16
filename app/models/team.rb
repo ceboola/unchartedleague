@@ -74,4 +74,8 @@ class Team < ActiveRecord::Base
       Team.scoped
     end
   end
+  
+  def member_count    
+    Team.joins(:team_participations).where('teams.id = ?', id).count    
+  end
 end
