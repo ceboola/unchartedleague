@@ -57,7 +57,7 @@
           <td><%= time_ago_in_words(offer.created_at) %></td>        
           <td>
             <%= form_tag offer_path(offer), :method => :get do %>
-              <%= submit_tag t('offers.more'), :class => 'submit button' %>    
+              <%= submit_tag t('offers.more'), :class => 'submit button', :name => nil %>    
             <% end %>            
           </td>           
         </tr>

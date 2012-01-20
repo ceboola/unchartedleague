@@ -50,12 +50,17 @@ class OffersController < ApplicationController
     begin
       @offer = Offer.find(params[:id])      
       if @offer.is_sane?      
-        if params[:accept]          
-          if @offer.accept
-            flash[:success] = t('offers.accepted')
-            redirect_to team_path @offer.team            
+        if params[:accept]
+          if @offer.are_competition_rules_valid?
+            if @offer.accept
+              flash[:success] = t('offers.accepted')
+              redirect_to team_path @offer.team            
+            else
+                cannot_process_offer @offer
+            end
           else
-              cannot_process_offer @offer
+            flash[:error] = t('players.cannot_join_team_due_to_competitions')
+            redirect_to team_path @offer.team   
           end
         elsif params[:reject]          
           if @offer.reject

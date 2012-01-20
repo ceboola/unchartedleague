@@ -34,7 +34,7 @@
           <td><%= team.owner %></td>
           <td><%= team.users.size %></td>
           <td><%= time_ago_in_words(team.created_at) %></td>        
-          <td><%= t('none') %></td>      
+          <td><%= (team.competitions.any? ? team.competitions.join(', ') : t('none')) %></td>
           <td>
             <%= form_tag team_path(team), :method => :get do %>
               <%= submit_tag t('teams.more'), :class => 'submit button', :name => nil %>    

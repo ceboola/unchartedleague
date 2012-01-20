@@ -1,0 +1,108 @@
+<h1><%= t('competitions.page_title') %></h1>
+
+<% for competition in @competitions do %>
+  <h2><%= competition.name %></h2>
+  <p><%= competition.description %></p>
+  
+  <table style="width: 100%; padding: 10px;">
+    <tr>
+      <td colspan="2" class="text-center">
+        <img src="<%= competition.logo_url %>" alt="<%= competition.name %>" />        
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%;">
+        <h4>Zasady rozgrywek</h4>
+        <ul class="fancy">
+          <li>każdy z każdym gra po maksymalnie po jednym meczu,</li>
+          <li>punktów za zwycięstwo do zera: 3,</li>
+          <li>punktów za zwycięstwo jedną mapą: 2,</li>
+          <li>punktów za porażkę do zera: 0,</li>
+          <li>punktów za porażkę jedną mapą: 1.</li>
+          <li>punktów za rozegranie meczu w terminie: 1 (punkt przysługuje również drużynom, które wygrały walkowerem),</li>
+          <li>kwalifikują się drużyny, które rozegrają co najmniej 2 mecze,</li>
+          <li>o kolejności w tabeli decydują kolejno: liczba zdobytych punktów, różnica fragów, zdobyte fragi, wynik meczów między zainteresowanymi zespołami, mniejsza liczba zawodników w ciągu sezonu, losowanie.
+        </ul>
+      </td>
+      <td style="width: 50%;">
+        <h4>Zasady meczów</h4>
+        <ul class="fancy">
+          <li>tryb rozgrywki: Hardcore,</li>
+          <li>limit zabójstw: 100,</li>
+          <li>limit czasu: 20 minut,</li>
+          <li>liczba wylosowanych map: 3,</li>
+          <li>minimalna liczba graczy w obu drużynach w czasie meczu: 4,</li>
+          <li>dostępne mapy: Aistrip, Chateau, Yemen, Desert Village, London Underground, Syria, City of Brass, Facility, Molten Ruins, Highrise, Museum;</li>
+          <li>gdy w ciągu pierwszych 60. sekund meczu ktoś zostanie wyrzucony z gry, mapę należy powtórzyć (zasada działa tylko raz na mapę),
+          <li>zwycięża drużyna, która wygra na 2 mapach jako pierwsza,</li>          
+          <li>w przypadku remisu po 3 mapach, wszyscy w lobby biorą udział w głosowaniu na następną mapę,</li>
+          <li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h4>Ograniczenia ogólne i kary</h4>
+        <ul class="fancy">
+          <li>minimalna liczba graczy w drużynie: 6,</li>
+          <li>maksymalna liczba graczy w drużynie w ciągu sezonu: 10,</li>
+          <li>zawodnik może 1 raz zmienić drużynę w ciągu sezonu,</li>
+          <li>zawodnik po transferze nie może grać przeciw byłej drużynie,</li>
+          <li>mecz rozegrany przez drużynę niezgodną z regulaminem jest rozstrzygany na korzyść przeciwników jako walkower,</li>          
+          <li>zabronione jest wykorzystywanie jakichkolwiek błędów i glitchów w grze,</li>
+          <li>zabronione jest korzystanie z urządzeń generujących pingi,</li>
+          <li>zabronione jest jeżdżenie do Gdańska i innych miejscowości, aby grać na czyjejś konsoli pod nieswoim nickiem,</li>
+          <li>za każde najmniejsze naruszenie regulaminu drużyny mogą być karane walkowerem lub wykluczeniem z rozgrywek, a zawodnicy zawieszeniem czasowym.</li>
+        </ul>
+      </td>
+      <td>
+        <h4>Dodatkowe informacje</h4>
+        <ul class="fancy">
+          <li>dzień i godzinę meczu ustalają kapitanowie obu drużyn,</li>
+          <li>sędzia może przyznać punkt za rozegranie meczu w terminie tylko wybranej drużynie, jeśli termin został przekroczony,</li>
+          <li>nie można posiadać dwóch aktywnych kont w lidze,</li>          
+          <li>w przypadkach kontrowersyjnych i spornych, decydujący głos ma sędzia spotkania, a następnie administracja rozgrywek,</li>
+          <li>rejestracja w tych rozgrywkach jest jednoznaczna z akceptacją wszystkich zapisów.</li>    
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="text-center">        
+        <h4>Zapisane drużyny</h4>
+        <% if not @entries.nil? and @entries.any? %>
+          <table id="minimalist-table-hor-a" class="center" summary="<%= t('teams.page_title') %>">
+            <thead>
+              <tr>
+                <th scope="col"><%= t('teams.team') %></th>
+                <th scope="col"><%= t('players.roles.captain').capitalize %></th>
+                <th scope="col"><%= t('competitions.team_exists_since') %></th>                
+              </tr>
+            </thead>
+            <tbody>
+              <% for entry in @entries do %>
+                <tr>
+                  <td><%= link_to entry.team, entry.team %></td>
+                  <td><%= entry.team.owner %></td>
+                  <td><%= time_ago_in_words(entry.created_at) %></td> 
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </td>
+    </tr>
+    <% unless @possible_teams.nil? %>
+      <tr>
+        <td colspan="2" class="text-center">        
+          <% for team in @possible_teams %>
+            <%= form_tag competition_entries_path, :action => "create" do %>
+              <%= hidden_field_tag 'competition_id', competition.id %>
+              <%= hidden_field_tag 'team_id', team.id %>
+              <%= submit_tag t('competitions.team_sign_up', :team => team), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
+            <% end %>               
+          <% end %>        
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

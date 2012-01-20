@@ -4,16 +4,24 @@ class TeamParticipationsController < ApplicationController
       tp = TeamParticipation.find(params[:id])      
       team = tp.team
       if team.can_be_managed_by? current_user or tp.user == current_user
-        if not tp.is_owner? 
-          if tp.destroy
+        if not tp.is_owner?
+          can_leave = true
+          for entry in team.competition_entries
+            can_leave &= entry.competition.can_user_leave_team? team
+          end
+          if can_leave and tp.destroy
             if tp.user == current_user
               flash[:success] = t('players.left_team_successfully')
             else
               flash[:success] = t('players.removed_successfully')
             end
             redirect_to team_path(team)
-          else
-            flash[:error] = t('players.cannot_remove')
+          else            
+            if can_leave 
+              flash[:error] = t('players.cannot_remove')
+            else
+              flash[:error] = t('players.cannot_leave_team_due_to_competitions')
+            end
             redirect_to teams_path
           end
         else

@@ -71,6 +71,15 @@ class Offer < ActiveRecord::Base
     return false
   end
   
+  def are_competition_rules_valid?
+    is_user_ok = true
+    for competition in team.competitions 
+      is_user_ok &= (not competition.is_user_signed_up? user)
+    end
+
+    is_user_ok
+  end
+  
   def accept
     begin
       tp = team.team_participations.build

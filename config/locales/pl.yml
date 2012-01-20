@@ -71,6 +71,8 @@ pl:
     left_team_successfully: "Nie jesteś już członkiem tej drużyny! :("
     all: "Wszyscy zawodnicy"
     without_team: "Zawodnicy bez drużyny"
+    cannot_leave_team_due_to_competitions: "Gracz nie może zostać usunięty, gdyż łamałoby to zasady rozgrywek."
+    cannot_join_team_due_to_competitions: "Gracz nie może dołączyć, gdyż łamałoby to zasady rozgrywek."
       
   offers:
     page_title: "Oferty"
@@ -97,6 +99,12 @@ pl:
     
   competitions:
     page_title: "Rozgrywki"
+    team_sign_up: "Zapisz do rozgrywek drużynę %{team}"
+    team_exists_since: "W rozgrywkach od"
+    sign_up_error: "Wystąpił błąd podczas zapisywania drużyny do rozgrywek."
+    signed_up_successfully: "Zapisano drużynę do rozgrywek!"
+    user_already_signed_up: "Użytkownik %{user} już bierze udział w tych rozgrywkach."
+    team_too_small: "Drużyna ma za mało graczy!"
   
   date:
     formats:
