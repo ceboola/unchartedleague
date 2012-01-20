@@ -3,7 +3,7 @@ class Competition < ActiveRecord::Base
   has_many :competition_entries, :dependent => :destroy
   
   def min_players
-    2
+    6
   end
   
   def is_user_signed_up? (user)
