@@ -11,6 +11,7 @@ class TeamsController < ApplicationController
   def show
     begin
       @team = Team.find(params[:id])
+      @team_participations = TeamParticipation.where("team_id = ?", @team.id).order("role asc")
     rescue ActiveRecord::RecordNotFound
       flash[:error] = t('teams.doesnt_exist')
       redirect_to teams_path

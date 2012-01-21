@@ -16,7 +16,7 @@
     </tr>
   </thead>
   <tbody>
-    <% for tp in @team.team_participations do %>
+    <% for tp in @team_participations do %>
       <tr>
         <td><%= tp.user %></td>
         <td id="player_role_<%= tp.id %>"><%= t('players.roles.' + tp.role_name) %></td>
