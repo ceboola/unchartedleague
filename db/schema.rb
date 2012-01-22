@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120120150535) do
+ActiveRecord::Schema.define(:version => 20120122210520) do
 
   create_table "competition_entries", :force => true do |t|
     t.integer  "competition_id"
@@ -30,6 +30,55 @@ ActiveRecord::Schema.define(:version => 20120120150535) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "maps", :force => true do |t|
+    t.string   "name"
+    t.integer  "competition_id"
+    t.string   "image_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "maps", ["competition_id"], :name => "index_maps_on_competition_id"
+
+  create_table "match_entries", :force => true do |t|
+    t.integer  "match_id"
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.integer  "score"
+    t.integer  "kills"
+    t.integer  "deaths"
+    t.integer  "assists"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "match_entries", ["match_id"], :name => "index_match_entries_on_match_id"
+  add_index "match_entries", ["team_id"], :name => "index_match_entries_on_team_id"
+  add_index "match_entries", ["user_id"], :name => "index_match_entries_on_user_id"
+
+  create_table "match_maps", :force => true do |t|
+    t.integer  "match_id"
+    t.integer  "map_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "match_maps", ["map_id"], :name => "index_match_maps_on_map_id"
+  add_index "match_maps", ["match_id"], :name => "index_match_maps_on_match_id"
+
+  create_table "matches", :force => true do |t|
+    t.integer  "competition_id"
+    t.integer  "team1_id"
+    t.integer  "team2_id"
+    t.datetime "scheduled_at"
+    t.integer  "judge_id"
+    t.boolean  "processed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "matches", ["competition_id"], :name => "index_matches_on_competition_id"
 
   create_table "offers", :force => true do |t|
     t.integer  "user_id"

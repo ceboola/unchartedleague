@@ -5,12 +5,12 @@
     <label for="allTeamsToggleButton"><%= t('teams.all') %></label>
     <input type="radio" name="show_filter" id="allTeamsToggleButton" 
            onClick="goTo('<%=  url_for :action => 'index', :show_my => nil %>')"
-           <%= unless current_page?(:show_my => 'true') then 'checked' else '' end %> />
+           <%= unless current_page?(:show_my => 'true', :page => params[:page]) then 'checked' else '' end %> />
 
     <label for="myTeamsToggleButton"><%= t('teams.my') %></label>
     <input type="radio" name="show_filter" id="myTeamsToggleButton" 
            onClick="goTo('<%=  url_for :action => 'index', :show_my => 'true' %>')" 
-           <%= if current_page?(:show_my => 'true') then 'checked' else '' end %> />
+           <%= if current_page?(:show_my => 'true', :page => params[:page]) then 'checked' else '' end %> />
   </div>
 <% end %>
 

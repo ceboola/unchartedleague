@@ -1,0 +1,8 @@
+<h1><%= @match.team1 %> vs <%= @match.team2 %></h1>
+<%= info_section t('matches.waiting_to_be_accepted') %>
+<ul type="fancy">
+  <li><%= t('competitions.page_title') %>: <%= @match.competition %></li>
+  <li><%= t('matches.scheduled_at') %>: <%= time_tag(@match.scheduled_at) %></li>
+  <li><%= t('matches.judge') %>: <%= (@match.judge.nil? ? t('matches.no_judge') : @match.judge) %></li>
+  <li><%= t('matches.processed') %>: <%= (@match.processed ? t('choice_yes') : t('choice_no')) %></li>
+</ul>

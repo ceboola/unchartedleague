@@ -21,6 +21,8 @@ pl:
   none: "brak"
   forgot_your_password: "Zapomniałeś hasła?"
   send_me_password_reset_instructions: "Wyślij mi instrukcje"
+  choice_yes: "tak"
+  choice_no: "nie"
   
   home: 
     page_title: "Główna"
@@ -48,6 +50,40 @@ pl:
     invite_mode_intro: "Jesteś w trybie zapraszenia do drużyny"
     invite_mode_explanation: "Jeśli chcesz zaprosić graczy do swoich drużyn, kliknij \"Zaproś do drużyny\" na stronie głównej swojej drużyny."
     see_teams: "Zobacz drużyny"
+  
+  matches:    
+    page_title: "Mecze"    
+    new: "Nowy mecz"
+    add: "Dodaj mecz"
+    propose: "Zaproponuj mecz"
+    remove_proposal: "Wycofaj termin"
+    remove: "Usuń mecz"
+    created_successfully: "Mecz dodany!"
+    removed_successfully: "Mecz usunięty."
+    proposal_created_successfully: "Nowy termin meczu został dodany! Teraz czekaj na akceptację przez inną drużynę."
+    proposal_removed_successfully: "Termin meczu został usunięty."
+    doesnt_exist: "Mecz nie istnieje!"
+    cannot_remove: "Meczu nie można usunąć!"
+    cannot_remove_with_error: "Wystąpił błąd podczas próby usuwania meczu."
+    cannot_accept: "Tego terminu nie można zaakceptować!"
+    cannot_accept_with_error: "Wystąpił błąd podczas próby akceptacji terminu meczu."
+    proposal_accepted_successfully: "Termin został zaakceptowany. Prosimy dostarczyć wyniki poprzez stronę meczu najpóźniej 24h po terminie."
+    more: "Zobacz mecz"
+    accept: "Akceptuj ten termin"               
+    cannot_manage: "Nie możesz zarządzać tym meczem!"    
+    my: "Mecze mojej drużyny"
+    all: "Wszystkie mecze"
+    none: "Brak meczów"    
+    scheduled_at: "Termin"
+    result: "Wynik"
+    open_spot: "???"
+    match: "Mecz"
+    judge: "Sędzia"
+    intro: "W tym miejscu można umawiać się na mecze. Nie jesteś kapitanem żadnej drużyny zapisanej do rozgrywek. Skontaktuj się z kapitanem, gdy któryś z terminów jest odpowiedni dla Twojej drużyny"
+    manager_intro: "W tym miejscu można umawiać się na mecze. Kapitanowie, w tym Ty, mogą tworzyć nowe terminy i akceptować terminy stworzone przez innych. Proponowany termin można wycofywać, dopóki inna drużyna go nie zaakceptuje. Akceptacja terminu jest nieodwracalna. W tej sekcji reprezentujesz drużynę " 
+    processed: "Zakończony"
+    no_judge: "Nie przydzielono"
+    waiting_to_be_accepted: "Mecz musi zostać zaakceptowany przez administrację. Gdy tak się stanie, zostanie przydzielony sędzia i wylosowane mapy."
   
   players:
     page_title: "Zawodnicy"
@@ -105,12 +141,13 @@ pl:
     signed_up_successfully: "Zapisano drużynę do rozgrywek!"
     user_already_signed_up: "Użytkownik %{user} już bierze udział w tych rozgrywkach."
     team_too_small: "Drużyna ma za mało graczy!"
+    sign_up_ended: "Termin zapisów do rozgrywek wygasł."
   
   date:
     formats:
       default: "%d-%m-%Y"
       short: "%d %b"
-      long: "%B %d, %Y"
+      long: "%b %d, %Y"
 
     day_names: [niedziela, poniedziałek, wtorek, środa, czwartek, piątek, sobota]
     abbr_day_names: [nie, pn, wt, śr, czw, pt, sob]
@@ -126,7 +163,7 @@ pl:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z"
       short: "%d %b %H:%M"
-      long: "%B %d, %Y %H:%M"
+      long: "%d/%m/%Y %H:%M (%A)"
     am: "przed południem"
     pm: "po południu"
 
@@ -312,6 +349,10 @@ pl:
         remember_me: "Pamiętaj mnie"
       team_participation:
         role: "Rola"
+      match:
+        team1: "Drużyna"
+        competition: "Rozgrywki"
+        scheduled_at: "Termin meczu"
         
   will_paginate:
     previous_label: "&#8592; Poprzednie"

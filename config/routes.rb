@@ -1,6 +1,4 @@
 Unchartedleague::Application.routes.draw do  
-  get "competition_entries/create"
-
   root :to => 'home#index'  
   devise_for :users
   get "players/index"
@@ -10,6 +8,10 @@ Unchartedleague::Application.routes.draw do
   resources :offers
   resources :competitions
   resources :competition_entries
+  resources :matches
+  resources :match_maps
+  resources :match_entries
+  resources :maps
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
