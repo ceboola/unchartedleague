@@ -4,6 +4,7 @@ gem 'rails', '3.1.1'
 gem 'jquery-rails', '1.0.19'
 gem 'will_paginate', '3.0.2'
 gem 'devise', '1.4.9'
+gem 'cancan', '1.6.7'
 
 group :production_only do  
   gem 'mime-types', '1.16'

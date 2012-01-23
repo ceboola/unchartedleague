@@ -35,7 +35,7 @@
       <tbody>
         <% for match in @matches do %>
           <tr>
-            <td><%= link_to match.team1.name, match.team1 %> vs <%= (match.open_spot? ? t('matches.open_spot') : (link_to match.team2.name, match.team2)) %></td>
+            <td><%= match_teams(match) %></td>
             <td><%= match.result %></td>
             <td><%= time_tag(match.scheduled_at) %></td>          
             <td><%= link_to @competition.name, @competition %></td>               
@@ -51,6 +51,10 @@
                     <%= submit_tag t('matches.remove_proposal'), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
                   <% end %>            
                 <% end %>
+              <% elsif not match.open_spot? %>
+                <%= form_tag match_path(match), :method => :get do %>                    
+                  <%= submit_tag t('matches.more'), :class => 'submit button', :name => nil %>    
+                <% end %>  
               <% else %>
                 <%= t('none') %>
               <% end %>

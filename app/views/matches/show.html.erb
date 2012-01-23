@@ -1,8 +1,34 @@
-<h1><%= @match.team1 %> vs <%= @match.team2 %></h1>
-<%= info_section t('matches.waiting_to_be_accepted') %>
-<ul type="fancy">
+<h1><%= match_teams(@match) %></h1>
+<% if @match.judge.nil? %>
+  <%= info_section t('matches.waiting_to_be_accepted') %>
+<% end %>
+<ul class="fancy">
   <li><%= t('competitions.page_title') %>: <%= @match.competition %></li>
   <li><%= t('matches.scheduled_at') %>: <%= time_tag(@match.scheduled_at) %></li>
   <li><%= t('matches.judge') %>: <%= (@match.judge.nil? ? t('matches.no_judge') : @match.judge) %></li>
   <li><%= t('matches.processed') %>: <%= (@match.processed ? t('choice_yes') : t('choice_no')) %></li>
 </ul>
+
+<table id="minimalist-table-hor-a" summary="<%= t('matches.page_title') %>">
+  <thead>
+    <tr>
+      <th scope="col"><%= t('matches.map') %></th>
+           
+    </tr>
+  </thead>
+  <tbody>
+    <% for map in @match.maps %>
+      <tr>
+        <td class="text-center">
+          <%= image_tag map.image_url, :alt => map.name %><br/>
+          <h3><%= map.name %></h3>
+        </td>
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if user_signed_in? and current_user.id == 1 %>
+  <%= render 'forum_match_topic', :match => @match %>
+<% end %>

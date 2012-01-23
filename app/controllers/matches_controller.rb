@@ -1,4 +1,8 @@
 class MatchesController < ApplicationController
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
+  
   def index
     if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
       user = current_user
@@ -36,28 +40,28 @@ class MatchesController < ApplicationController
   end
   
   def update
-    begin
+    #begin
       @match = Match.find(params[:id])
       @team2 = Team.find(params[:team2_id])
       if @match.open_spot? and @team2.can_be_managed_by? current_user
         @match.team2 = @team2
         # @match.judge = User.find(1)
-        generate_maps(@match)
+        @match.generate_match_maps
         if @match.save
           flash[:success] = t('matches.proposal_accepted_successfully')
           redirect_to match_path @match
         else      
-          flash[:error] = t('matches.cannot_accept_with_error') + "2"
+          flash[:error] = t('matches.cannot_accept_with_error') 
           redirect_to matches_path  
         end
       else
         flash[:error] = t('matches.cannot_accept')
         redirect_to matches_path
       end
-    rescue Exception
-      flash[:error] = t('matches.cannot_accept_with_error') + "1"
-      redirect_to matches_path
-    end
+    #rescue Exception
+      #flash[:error] = t('matches.cannot_accept_with_error')
+      #redirect_to matches_path
+    #end
   end
   
   def destroy
@@ -79,11 +83,5 @@ class MatchesController < ApplicationController
       flash[:error] = t('matches.cannot_remove_with_error')
       redirect_to matches_path
     end
-  end
-  
-  private
-  
-  def generate_maps(match)
-    
   end
 end
