@@ -12,18 +12,25 @@
 <table id="minimalist-table-hor-a" summary="<%= t('matches.page_title') %>">
   <thead>
     <tr>
-      <th scope="col"><%= t('matches.map') %></th>
-           
+      <th scope="col" class="text-center"><%= t('matches.maps') %></th>
+      <th scope="col" class="text-center"><%= @match.team1.full_tag %></th>
+      <th scope="col" class="text-center"><%= @match.team2.full_tag %></th>
     </tr>
   </thead>
   <tbody>
+    <% i = 1 %>
     <% for map in @match.maps %>
       <tr>
         <td class="text-center">
           <%= image_tag map.image_url, :alt => map.name %><br/>
           <h3><%= map.name %></h3>
         </td>
-        
+        <td class="text-center">
+          <%= render :partial => 'match_entry', :locals => { :match => @match, :map => map, :team => @match.team1, :i => 1 } %>
+        </td>
+        <td class="text-center">
+          <%= render :partial => 'match_entry', :locals => { :match => @match, :map => map, :team => @match.team2, :i => 2 } %>
+        </td>
       </tr>
     <% end %>
   </tbody>

@@ -85,6 +85,7 @@ pl:
     no_judge: "Nie przydzielono"
     waiting_to_be_accepted: "Mecz musi zostać zaakceptowany przez administrację. Gdy tak się stanie, zostanie przydzielony sędzia i wylosowane mapy."
     map: "Mapa"
+    maps: "Mapy"
     results: "Wyniki"
   
   players:
