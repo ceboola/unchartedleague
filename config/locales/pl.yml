@@ -87,6 +87,12 @@ pl:
     map: "Mapa"
     maps: "Mapy"
     results: "Wyniki"
+    kills: "Fragi"
+    deaths: "Śmierci"
+    assists: "Asysty"
+    add_photo: "Dodaj fotkę"
+    add_results: "Dodaj wyniki"
+    results_added: "Wyniki dodane."
   
   players:
     page_title: "Zawodnicy"

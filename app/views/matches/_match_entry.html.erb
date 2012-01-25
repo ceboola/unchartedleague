@@ -1,4 +1,16 @@
-<table>
-  <%= debug @team  %><br/>
-  <%= debug @map  %><br/>
+<table>  
+  <thead>
+    <th scope="col">Zawodnik</th>
+    <th scope="col">Fragi</th>
+    <th scope="col">Śmierci</th>
+    <th scope="col">Asysty</th>
+  </thead>  
+  <% for user in team.users %>
+    <tr>      
+      <td><%= user %></td>
+      <td><%= text_field "match[match_maps][#{match_map.id}][match_entries][teams][#{team.id}][users][#{user.id}]", :kills, :size => 1 %></td>
+      <td><%= text_field "match[match_maps][#{match_map.id}][match_entries][teams][#{team.id}][users][#{user.id}]", :deaths, :size => 1 %></td>  
+      <td><%= text_field "match[match_maps][#{match_map.id}][match_entries][teams][#{team.id}][users][#{user.id}]", :assists, :size => 1 %></td> 
+    </tr>
+  <% end %>
 </table>

@@ -29,4 +29,8 @@ class Match < ActiveRecord::Base
       match_maps.build(:map_id => map.id)
     end
   end
+  
+  def teams
+    [team1, team2]
+  end
 end
