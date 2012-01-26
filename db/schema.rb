@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120122210520) do
+ActiveRecord::Schema.define(:version => 20120126230225) do
 
   create_table "competition_entries", :force => true do |t|
     t.integer  "competition_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20120122210520) do
     t.integer  "assists"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "match_map_id"
   end
 
   add_index "match_entries", ["match_id"], :name => "index_match_entries_on_match_id"
