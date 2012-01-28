@@ -9,18 +9,6 @@
   <li><%= t('matches.processed') %>: <%= (@match.processed ? t('choice_yes') : t('choice_no')) %></li>
 </ul>
 
-<% if @match.errors.any? %>
-  <div class="flash error">
-    <h2><%= pluralize_localized(@match.errors.count, t('error')) %> <%= t('in_your_form') %></h2>
-    <p><%= t('problems_detected') %>:</p>
-    <ul class="fancy">
-    <% @match.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-
 <table id="minimalist-table-hor-a" summary="<%= t('matches.page_title') %>">
   <thead>
     <tr>
@@ -30,34 +18,30 @@
     </tr>
   </thead>
   <tbody>
-    <%= form_tag :controller => :match_entries, :action => :create do %>
-      <%= hidden_field_tag 'match[id]', @match.id %>
-      <% for match_map in @match.match_maps %>
-        <tr>
-          <td class="text-center" rowspan="2">
-            <div><%= image_tag match_map.map.image_url, :alt => match_map.map.name %></div>
-            <h3><%= match_map.map.name %></h3>
-          </td>
-          <td class="text-center">
-            <%= render :partial => 'matches/match_entry', :locals => { :match_map => match_map, :team => @match.team1 } %>
-          </td>
-          <td class="text-center">
-            <%= render :partial => 'matches/match_entry', :locals => { :match_map => match_map, :team => @match.team2 } %>
-          </td>
-        </tr>
-        <tr>        
-          <td class="text-center" colspan="2">
-            
-              <%= image_tag asset_path("photo_add.png"), :alt => t('matches.add_photo') %><h5><%= t('matches.add_photo') %></h5></td>        
-            
-        </tr>
-      <% end %>
-        <tr>
-          <td colspan="3" class="text-center">
-            <%= submit_tag t('matches.add_results'), :name => nil, :class => "submit btn-form" %>
-          </td>
-        </tr>
+    <% for match_map in @match.match_maps %>
+      <tr>
+        <td class="text-center" rowspan="2">
+          <div><%= image_tag match_map.map.image_url, :alt => match_map.map.name %></div>
+          <h3><%= match_map.map.name %></h3>
+        </td>
+        <td class="text-center">
+          <%= render :partial => 'matches/match_entry', :locals => { :match_map => match_map, :team => @match.team1 } %>
+        </td>
+        <td class="text-center">
+          <%= render :partial => 'matches/match_entry', :locals => { :match_map => match_map, :team => @match.team2 } %>
+        </td>
+      </tr>
+      <tr>        
+        <td class="text-center" colspan="2">
+          <%= image_tag asset_path("photo_add.png"), :alt => t('matches.add_photo') %><h5><%= t('matches.add_photo') %></h5>
+        </td>
+      </tr>
     <% end %>
+      <tr>
+        <td colspan="3" class="text-center">
+          <%= submit_tag t('matches.add_results'), :name => nil, :class => "submit btn-form" %>
+        </td>
+      </tr>
   </tbody>  
 </table>
 

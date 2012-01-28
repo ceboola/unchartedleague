@@ -24,8 +24,15 @@ class MatchesController < ApplicationController
     end
   end
   
-  def show
+  def show    
     @match = Match.find(params[:id])
+    for match_map in @match.match_maps do
+      for team in @match.teams do
+        for user in team.users do
+          match_map.match_entries.build(:match_id => @match.id, :team_id => team.id, :user_id => user.id)
+        end
+      end
+    end
   end
   
   def create    
