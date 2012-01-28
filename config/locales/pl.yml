@@ -92,8 +92,8 @@ pl:
     assists: "Asysty"
     add_photo: "Dodaj fotkę"
     add_results: "Dodaj wyniki"
-    results_added: "Wyniki dodane."
-  
+    results_updated: "Wyniki dodane!"
+      
   players:
     page_title: "Zawodnicy"
     role: "Rola"

@@ -3,8 +3,10 @@ class Match < ActiveRecord::Base
   belongs_to :team1, :class_name => "Team"
   belongs_to :team2, :class_name => "Team"
   belongs_to :judge, :class_name => "User"
-  has_many :match_maps, :dependent => :destroy
+  has_many :match_maps, :dependent => :destroy, :autosave => true
   has_many :maps, :through => :match_maps
+  
+  validates_associated :match_maps
   
   def self.filtered(user)
     unless user.nil?      
