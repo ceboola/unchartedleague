@@ -25,10 +25,10 @@
           <h3><%= match_map.map.name %></h3>
         </td>
         <td class="text-center">
-          <%= render :partial => 'matches/match_entry', :locals => { :match_map => match_map, :team => @match.team1 } %>
+          <%= render 'match_entries', :match_map => match_map, :team => @match.team1 %>
         </td>
         <td class="text-center">
-          <%= render :partial => 'matches/match_entry', :locals => { :match_map => match_map, :team => @match.team2 } %>
+          <%= render 'match_entries', :match_map => match_map, :team => @match.team2 %>
         </td>
       </tr>
       <tr>        
@@ -39,7 +39,7 @@
     <% end %>
       <tr>
         <td colspan="3" class="text-center">
-          <%= submit_tag t('matches.add_results'), :name => nil, :class => "submit btn-form" %>
+          <%= submit_tag t('matches.add_results'), :name => nil, :class => "submit btn-form-single" %>
         </td>
       </tr>
   </tbody>  

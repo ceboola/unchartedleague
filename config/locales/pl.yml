@@ -304,7 +304,7 @@ pl:
       prompt: "Proszę wybrać"
 
     submit:
-      create: 'Utwórz %{model}'
+      create: 'Dodaj %{model}'
       update: 'Aktualizuj %{model}'
       submit: 'Zapisz %{model}'
 
@@ -347,6 +347,9 @@ pl:
 
       full_messages:
         format: "%{attribute}%{message}"
+    models:
+      match_map: "wynik na mapie"
+      
     attributes:
       team:
         name: "Nazwa"

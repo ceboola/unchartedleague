@@ -134,7 +134,8 @@
 	.wrapper-inline textarea				{ padding:4px 2px; border:solid 1px #bbbbbb; width:140px; margin:2px 0 15px 10px; font:12px "Century Gothic", "Trebuchet MS", Helvetica, sans-serif; float:left; }
 	
 	a.btn-form, input.btn-form				{ margin:5px 0 5px 150px; padding:4px 28px 4px 8px; display:inline-block; font-size:11px; color:#fff; border:1px solid #444; background:#333 url(btn-arrow.png) no-repeat right; border-radius:4px; -webkit-border-radius:4px; -moz-border-radius:4px; cursor:pointer; }
-	
+	a.btn-form-single, input.btn-form-single		{ padding:4px 28px 4px 8px; display:inline-block; font-size:11px; color:#fff; border:1px solid #444; background:#333 url(btn-arrow.png) no-repeat right; border-radius:4px; -webkit-border-radius:4px; -moz-border-radius:4px; cursor:pointer; }
+        
 	.small-label							{ display:block; font-size:10px; font-weight:normal; color:#666; text-align:right; width:140px; }
 
 /***** Tables  *****/

@@ -10,7 +10,6 @@ Unchartedleague::Application.routes.draw do
   resources :competition_entries
   resources :matches
   resources :match_maps
-  resources :match_entries
   resources :maps
   
   # The priority is based upon order of creation:

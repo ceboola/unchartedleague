@@ -14,7 +14,10 @@
           <td><%= me.text_field :deaths, :size => 1 %></td>  
           <td><%= me.text_field :assists, :size => 1 %></td> 
         </tr>
-      <% end %>
+      <% end %>        
     <% end %>
+        <tr>
+          <td colspan="4" class="text-center"><%= f.submit :class => 'submit btn-form-single' %></td>
+        </tr>
   <% end %>
 </table>
