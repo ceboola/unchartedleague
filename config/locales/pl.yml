@@ -91,8 +91,8 @@ pl:
     deaths: "Śmierci"
     assists: "Asysty"
     add_photo: "Dodaj fotkę"
-    add_results: "Dodaj wyniki"
-    results_updated: "Wyniki dodane!"
+    results_updated: "Wyniki zaktualizowane!"
+    update_all_results: "Zaktualizuj wszystkie wpisane wyniki"
       
   players:
     page_title: "Zawodnicy"
@@ -331,7 +331,7 @@ pl:
       less_than_or_equal_to: "musi być mniejsze lub równe %{count}"
       odd: "musi być nieparzyste"
       even: "musi być parzyste"
-
+    
   activerecord:
     errors:
       template:
@@ -347,6 +347,7 @@ pl:
 
       full_messages:
         format: "%{attribute}%{message}"
+                  
     models:
       match_map: "wynik na mapie"
       
@@ -355,23 +356,37 @@ pl:
         name: "Nazwa"
         tag: "Tag"
         description: "Opis"
+        
       offer:
         from: "Od"
         to: "Do"
         subject: "Temat"
         content: "Treść"
+        
       user:
         email: "E-mail"
         password: "Hasło"
         password_confirmation: "Potwierdzenie hasła"
         psn_name: "Nazwa PSN"
         remember_me: "Pamiętaj mnie"
+        
       team_participation:
         role: "Rola"
+        
       match:
         team1: "Drużyna"
         competition: "Rozgrywki"
         scheduled_at: "Termin meczu"
+        
+      match_map:        
+        match_entries:
+          one: "Wynik na mapie"
+          other: "Wyniki na mapie" 
+          kills:
+            one: "Fragi"
+            other: "Fragi"
+          deaths: "Śmierci"
+          assists: "Asysty"
         
   will_paginate:
     previous_label: "&#8592; Poprzednie"

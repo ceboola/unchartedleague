@@ -27,12 +27,15 @@ class MatchesController < ApplicationController
   def show    
     @match = Match.find(params[:id])
     for match_map in @match.match_maps do
-      for team in @match.teams do
-        for user in team.users do
-          match_map.match_entries.build(:match_id => @match.id, :team_id => team.id, :user_id => user.id)
+      for team in @match.teams        
+        max = team.users.size
+        max = @match.competition.max_players_per_team if max > @match.competition.max_players_per_team
+        existing = match_map.match_entries.select { |x| x.team == team }.collect { |x| x.user.id }
+        team.users.select { |x| not existing.include? x.id }.slice(0...(max - existing.size)).each do |x| 
+          match_map.match_entries.build(:team_id => team.id, :match_id => @match.id, :user_id => x.id)
         end
       end
-    end
+    end    
   end
   
   def create    

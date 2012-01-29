@@ -5,19 +5,26 @@
     <th scope="col">Śmierci</th>
     <th scope="col">Asysty</th>
   </thead>
-  <%= form_for match_map do |f| %>
+  <% results_updated_token = "update_results_#{match_map.id}_#{team.id}" %>
+  <%= form_for match_map, :remote => true do |f| %>    
+    <%= hidden_field_tag :results_updated_token, results_updated_token %>
     <%= f.fields_for :match_entries do |me| %>
       <% if me.object.team == team %>
-        <tr>      
-          <td><%= me.object.user %></td>
+        <%= me.hidden_field :team_id %>
+        <%= me.hidden_field :match_id %>
+        <tr>          
+          <td><%= me.select(:user_id, team.users.collect {|x| [x, x.id]}) %></td>
           <td><%= me.text_field :kills, :size => 1 %></td>
           <td><%= me.text_field :deaths, :size => 1 %></td>  
           <td><%= me.text_field :assists, :size => 1 %></td> 
         </tr>
-      <% end %>        
+      <% end %>
     <% end %>
         <tr>
-          <td colspan="4" class="text-center"><%= f.submit :class => 'submit btn-form-single' %></td>
+          <td colspan="4" class="results_updated_token" id="<%= results_updated_token %>"></td>
+        </tr>
+        <tr>
+          <td colspan="4" class="text-center"><%= f.submit :class => 'submit btn-form-single', :onClick => "window.show_waiting_info('##{results_updated_token}');" %></td>
         </tr>
   <% end %>
 </table>

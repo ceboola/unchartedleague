@@ -1,0 +1,12 @@
+<% if match_map.errors.any? %>
+  <div class="flash error">
+    <h5><%= pluralize_localized(match_map.errors.count, t('error')) %></h5>
+    <ul class="fancy">
+    <% match_map.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% else %>
+  <div class="flash success"><h5><%= t('matches.results_updated') %></h5></div>  
+<% end %>
