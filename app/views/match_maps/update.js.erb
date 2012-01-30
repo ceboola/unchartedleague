@@ -1,1 +1,4 @@
-$('#<%= params['results_updated_token'] %>').html("<%= escape_javascript(render 'update_results', :match_map => @match_map) %>");
+<% unless @match_map.errors.any? %>
+  $('#<%= params[:match_map][:match_entries_token] %>').html("<%= escape_javascript(render('matches/match_entries', :match_map => @match_map, :team => @team)) %>");
+<% end %>
+$('#<%= params[:match_map][:results_updated_token] %>').html("<%= escape_javascript(render('update_results', :match_map => @match_map)) %>");

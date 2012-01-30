@@ -25,10 +25,14 @@
           <h3><%= match_map.map.name %></h3>
         </td>
         <td class="text-center">
-          <%= render 'match_entries', :match_map => match_map, :team => @match.team1 %>
+          <div id="match_entries_<%= match_map.id %>_<%= @match.team1.id %>">
+            <%= render 'match_entries', :match_map => match_map, :team => @match.team1 %>   
+          </div>
         </td>
         <td class="text-center">
-          <%= render 'match_entries', :match_map => match_map, :team => @match.team2 %>
+          <div id="match_entries_<%= match_map.id %>_<%= @match.team2.id %>">
+            <%= render 'match_entries', :match_map => match_map, :team => @match.team2 %>
+          </div
         </td>
       </tr>
       <tr>        

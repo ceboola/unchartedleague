@@ -92,7 +92,7 @@ pl:
     assists: "Asysty"
     add_photo: "Dodaj fotkę"
     results_updated: "Wyniki zaktualizowane!"
-    update_all_results: "Zaktualizuj wszystkie wpisane wyniki"
+    update_all_results: "Zaktualizuj wszystkie wyniki"
       
   players:
     page_title: "Zawodnicy"
@@ -307,7 +307,7 @@ pl:
       create: 'Dodaj %{model}'
       update: 'Aktualizuj %{model}'
       submit: 'Zapisz %{model}'
-
+    
   errors:
     format: "Pole %{attribute} %{message}."
 
@@ -331,7 +331,7 @@ pl:
       less_than_or_equal_to: "musi być mniejsze lub równe %{count}"
       odd: "musi być nieparzyste"
       even: "musi być parzyste"
-    
+          
   activerecord:
     errors:
       template:
@@ -347,9 +347,9 @@ pl:
 
       full_messages:
         format: "%{attribute}%{message}"
-                  
+    
     models:
-      match_map: "wynik na mapie"
+      match_map: "wyniki na mapie"
       
     attributes:
       team:
@@ -378,10 +378,12 @@ pl:
         competition: "Rozgrywki"
         scheduled_at: "Termin meczu"
         
-      match_map:        
+      match_map:
+        one: "Wynik na mapie"
+        other: "Wyniki na mapie"
         match_entries:
-          one: "Wynik na mapie"
-          other: "Wyniki na mapie" 
+          one: "Wynik Zawodnika"
+          other: "Wyniki Zawodników" 
           kills:
             one: "Fragi"
             other: "Fragi"
