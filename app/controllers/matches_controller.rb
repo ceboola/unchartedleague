@@ -9,7 +9,7 @@ class MatchesController < ApplicationController
     elsif not current_user.nil? and params[:show_judged].present? and params[:show_judged] == 'true'
       @matches = Match.where("judge_id = ?", current_user.id).order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])        
     else
-      @matches = Match.order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])    
+      @matches = Match.order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])    
     end
     
     @competition = Competition.find(1)
@@ -32,10 +32,10 @@ class MatchesController < ApplicationController
     if @edit_mode
       for match_map in @match.match_maps do
         for team in @match.teams        
-          max = team.users.size
+          max = team.all_users.size
           max = @match.competition.max_players_per_team if max > @match.competition.max_players_per_team
           existing = match_map.match_entries.select { |x| x.team == team }.collect { |x| x.user.id }
-          team.users.select { |x| not existing.include? x.id }.slice(0...(max - existing.size)).each do |x| 
+          team.all_users.select { |x| not existing.include? x.id }.slice(0...(max - existing.size)).each do |x| 
             match_map.match_entries.build(:team_id => team.id, :match_id => @match.id, :user_id => x.id)
           end
         end

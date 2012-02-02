@@ -85,6 +85,7 @@ class Offer < ActiveRecord::Base
       tp = team.team_participations.build
       tp.user = user
       tp.role = TeamParticipation::ROLES.index('first_team')
+      tp.active = true
       if tp.save
         self.accepted = true
         self.open = false

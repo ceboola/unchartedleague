@@ -1,4 +1,5 @@
 class TeamParticipation < ActiveRecord::Base 
+  default_scope where("active = ?", true)
   ROLES = %w(captain first_team reserve)
   
   belongs_to :user

@@ -16,7 +16,7 @@
         <%= me.hidden_field :team_id %>
         <%= me.hidden_field :match_id %>
         <tr>          
-          <td><%= me.select(:user_id, team.users.collect {|x| [x, x.id]}, { :include_blank => t('remove')} ) %></td>
+          <td><%= me.select(:user_id, team.all_users.collect {|x| [x, x.id]}, { :include_blank => t('remove')} ) %></td>
           <td><%= me.text_field :kills, :size => 1 %></td>
           <td><%= me.text_field :deaths, :size => 1 %></td>  
           <td><%= me.text_field :assists, :size => 1 %></td> 

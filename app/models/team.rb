@@ -80,4 +80,8 @@ class Team < ActiveRecord::Base
   def member_count    
     Team.joins(:team_participations).where('teams.id = ?', id).count    
   end
+  
+  def all_users
+    User.joins(:team_participations).where('team_participations.team_id = ?', id).order("active desc, role asc")
+  end
 end

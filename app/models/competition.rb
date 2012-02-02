@@ -17,7 +17,7 @@ class Competition < ActiveRecord::Base
   end
   
   def is_user_signed_up? (user)
-    user_teams = Team.joins(:team_participations, :competition_entries).where("team_participations.user_id = ?", user.id)
+    user_teams = Team.joins(:team_participations, :competition_entries).where("team_participations.user_id = ? and team_participations.active = ?", user.id, true)
     return !user_teams.empty?
   end
   

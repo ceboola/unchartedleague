@@ -9,7 +9,7 @@ class TeamParticipationsController < ApplicationController
           for entry in team.competition_entries
             can_leave &= entry.competition.can_user_leave_team? team
           end
-          if can_leave and tp.destroy
+          if can_leave and tp.update_attributes(:active => false)
             if tp.user == current_user
               flash[:success] = t('players.left_team_successfully')
             else
