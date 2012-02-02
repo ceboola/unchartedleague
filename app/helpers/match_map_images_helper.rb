@@ -1,0 +1,2 @@
+module MatchMapImagesHelper
+end

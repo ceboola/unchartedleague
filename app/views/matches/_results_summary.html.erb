@@ -1,0 +1,4 @@
+<h3><%= t('matches.result') + ": " + @match.detailed_result(current_user) %></h3>
+<%= form_tag "/matches/#{match.id}/commit_results", :method => :post do %>
+  <%= submit_tag t('matches.commit_match_results'), :confirm => t('matches.commit_are_you_sure'), :class => "submit btn-form-single", :name => nil %>
+<% end %>

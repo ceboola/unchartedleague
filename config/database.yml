@@ -19,10 +19,8 @@ test:
   timeout: 5000
 
 production:
-  adapter: mysql
-  host: wall.rootnode.net
-  encoding: utf8
-  database: my3210_plu_pr
-  username: my3210_plu_pr
-  password: bett@home
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
   

@@ -1,54 +1,89 @@
 <h1><%= match_teams(@match) %></h1>
+<% if @match.processed %>
+  <h2><%= t('matches.result') %>: <%= @match.detailed_result %></h2>
+<% end %>
 <% if @match.judge.nil? %>
   <%= info_section t('matches.waiting_to_be_accepted') %>
+<% elsif @edit_mode %>
+  <%= info_section t('matches.edit_mode_intro') %>
 <% end %>
-<ul class="fancy">
+<ul class="fancy">  
   <li><%= t('competitions.page_title') %>: <%= @match.competition %></li>
   <li><%= t('matches.scheduled_at') %>: <%= time_tag(@match.scheduled_at) %></li>
   <li><%= t('matches.judge') %>: <%= (@match.judge.nil? ? t('matches.no_judge') : @match.judge) %></li>
-  <li><%= t('matches.processed') %>: <%= (@match.processed ? t('choice_yes') : t('choice_no')) %></li>
+  <li><%= t('matches.processed') %>: <%= (@match.processed ? t('choice_yes'): t('choice_no')) %></li>
 </ul>
 
+<% edit = @edit_mode ? "_edit" : "" %>
 <table id="minimalist-table-hor-a" summary="<%= t('matches.page_title') %>">
   <thead>
-    <tr>
-      <th scope="col" class="text-center" style="vertical-align: middle;"><%= t('matches.maps') %></th>
-      <th scope="col" class="text-center"><%= @match.team1 %></th>
-      <th scope="col" class="text-center"><%= @match.team2 %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% for match_map in @match.match_maps %>
+    <% if @edit_mode or @match.match_entries.any? %>
       <tr>
-        <td class="text-center" rowspan="2">
-          <div><%= image_tag match_map.map.image_url, :alt => match_map.map.name %></div>
-          <h3><%= match_map.map.name %></h3>
-        </td>
-        <td class="text-center">
-          <div id="match_entries_<%= match_map.id %>_<%= @match.team1.id %>">
-            <%= render 'match_entries', :match_map => match_map, :team => @match.team1 %>   
-          </div>
-        </td>
-        <td class="text-center">
-          <div id="match_entries_<%= match_map.id %>_<%= @match.team2.id %>">
-            <%= render 'match_entries', :match_map => match_map, :team => @match.team2 %>
-          </div
-        </td>
+        <th scope="col" class="text-center" style="vertical-align: top;"><%= t('matches.maps') %></th>
+        <th scope="col" class="text-center"><%= @match.team1 %></th>
+        <th scope="col" class="text-center"><%= @match.team2 %></th>
       </tr>
-      <tr>        
-        <td class="text-center" colspan="2">
-          <%= image_tag asset_path("photo_add.png"), :alt => t('matches.add_photo') %><h5><%= t('matches.add_photo') %></h5>
-        </td>
+    <% else %>
+      <tr>
+        <th scope="col" class="text-center"><%= t('matches.map') %> #1</th>
+        <th scope="col" class="text-center"><%= t('matches.map') %> #2</th>
+        <th scope="col" class="text-center"><%= t('matches.map') %> #3</th>
       </tr>
     <% end %>
+  </thead>
+  <tbody>
+    <% if @edit_mode or @match.processed %>
+      <% for match_map in @match.match_maps %>
+        <% if @edit_mode or match_map.match_entries.any? %>
+          <tr>
+            <td class="text-center" rowspan="2" style="vertical-align: top;">
+              <div><%= image_tag match_map.map.image_url, :alt => match_map.map.name %></div>
+              <h3><%= match_map.map.name %></h3>
+            </td>
+            <td class="text-center">
+              <div id="match_entries_<%= match_map.id %>_<%= @match.team1.id %>">
+                <%= render 'match_entries' + edit, :match_map => match_map, :team => @match.team1 %>   
+              </div>
+            </td>
+            <td class="text-center">
+              <div id="match_entries_<%= match_map.id %>_<%= @match.team2.id %>">
+                <%= render 'match_entries' + edit, :match_map => match_map, :team => @match.team2 %>
+              </div
+            </td>
+          </tr>
+          <tr style="border-bottom: 1px dotted #6678B1;">        
+            <td class="text-center" colspan="2">
+              <%= render 'match_map_picture' + edit, :match_map => match_map %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% else %>
+      <tr>
+        <% for match_map in @match.match_maps %>
+          <td class="text-center" style="vertical-align: top;">
+            <div><%= image_tag match_map.map.image_url, :alt => match_map.map.name %></div>
+            <h3><%= match_map.map.name %></h3>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+    <% if @edit_mode %>
       <tr>
         <td colspan="3" class="text-center">
-          <%= submit_tag t('matches.update_all_results'), :class => "submit btn-form-single", :onClick => 'window.submit_all();' %>
+          <%= form_tag "/matches/#{@match.id}/check_results", :method => :get, :remote => true do %>
+            <%= submit_tag t('matches.check_and_commit_match'), :class => "submit btn-form-single", :name => nil, :onClick => "window.show_waiting_info('#results_summary');" %>
+          <% end %>
         </td>
       </tr>
+      <tr>
+        <td colspan="3" class="text-center" id="results_summary">          
+        </td>
+      </tr>    
+    <% end %>
   </tbody>  
 </table>
 
-<% if user_signed_in? and current_user.id == 1 %>
+<% if user_signed_in? and current_user.id == 1 and (not @match.processed) %>
   <%= render 'forum_match_topic', :match => @match %>
 <% end %>

@@ -1,4 +1,8 @@
-<% unless @match_map.errors.any? %>
-  $('#<%= params[:match_map][:match_entries_token] %>').html("<%= escape_javascript(render('matches/match_entries', :match_map => @match_map, :team => @team)) %>");
+<% if params[:match_map][:results_updated_token].present? %>
+  <% if not @match_map.errors.any? %>
+    $('#<%= params[:match_map][:match_entries_token] %>').html("<%= escape_javascript(render('matches/match_entries_edit', :match_map => @match_map, :team => @team)) %>");
+  <% end %>
+  $('#<%= params[:match_map][:results_updated_token] %>').html("<%= escape_javascript(render('update_results', :match_map => @match_map)) %>");
+<% elsif params[:match_map][:picture_updated_token].present? %>
+  $('#<%= params[:match_map][:picture_updated_token] %>').html("<%= escape_javascript(render('update_results', :match_map => @match_map)) %>");
 <% end %>
-$('#<%= params[:match_map][:results_updated_token] %>').html("<%= escape_javascript(render('update_results', :match_map => @match_map)) %>");

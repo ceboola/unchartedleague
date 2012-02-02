@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120126230225) do
+ActiveRecord::Schema.define(:version => 20120201221826) do
 
   create_table "competition_entries", :force => true do |t|
     t.integer  "competition_id"
@@ -57,6 +57,17 @@ ActiveRecord::Schema.define(:version => 20120126230225) do
   add_index "match_entries", ["match_id"], :name => "index_match_entries_on_match_id"
   add_index "match_entries", ["team_id"], :name => "index_match_entries_on_team_id"
   add_index "match_entries", ["user_id"], :name => "index_match_entries_on_user_id"
+
+  create_table "match_map_images", :force => true do |t|
+    t.integer  "match_map_id"
+    t.string   "url"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "match_map_images", ["match_map_id"], :name => "index_match_map_images_on_match_map_id"
+  add_index "match_map_images", ["user_id"], :name => "index_match_map_images_on_user_id"
 
   create_table "match_maps", :force => true do |t|
     t.integer  "match_id"
@@ -125,8 +136,10 @@ ActiveRecord::Schema.define(:version => 20120126230225) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "psn_name"
+    t.string   "authentication_token"
   end
 
+  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 

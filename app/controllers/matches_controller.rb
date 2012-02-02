@@ -5,11 +5,13 @@ class MatchesController < ApplicationController
   
   def index
     if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
-      user = current_user
+      @matches = Match.filtered(current_user).order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])    
+    elsif not current_user.nil? and params[:show_judged].present? and params[:show_judged] == 'true'
+      @matches = Match.where("judge_id = ?", current_user.id).order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])        
     else
-      user = nil
+      @matches = Match.order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])    
     end
-    @matches = Match.filtered(user).order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])    
+    
     @competition = Competition.find(1)
     if user_signed_in?
       teams = Team.joins(:competitions, :team_participations).where("user_id = ? and role = ? and competitions.id = ?", current_user.id, 0, 1)
@@ -26,16 +28,19 @@ class MatchesController < ApplicationController
   
   def show    
     @match = Match.find(params[:id])
-    for match_map in @match.match_maps do
-      for team in @match.teams        
-        max = team.users.size
-        max = @match.competition.max_players_per_team if max > @match.competition.max_players_per_team
-        existing = match_map.match_entries.select { |x| x.team == team }.collect { |x| x.user.id }
-        team.users.select { |x| not existing.include? x.id }.slice(0...(max - existing.size)).each do |x| 
-          match_map.match_entries.build(:team_id => team.id, :match_id => @match.id, :user_id => x.id)
+    @edit_mode = ((not @match.processed) and user_signed_in? and (current_user == @match.judge))
+    if @edit_mode
+      for match_map in @match.match_maps do
+        for team in @match.teams        
+          max = team.users.size
+          max = @match.competition.max_players_per_team if max > @match.competition.max_players_per_team
+          existing = match_map.match_entries.select { |x| x.team == team }.collect { |x| x.user.id }
+          team.users.select { |x| not existing.include? x.id }.slice(0...(max - existing.size)).each do |x| 
+            match_map.match_entries.build(:team_id => team.id, :match_id => @match.id, :user_id => x.id)
+          end
         end
-      end
-    end    
+      end    
+    end
   end
   
   def create    
@@ -92,6 +97,24 @@ class MatchesController < ApplicationController
     rescue Exception
       flash[:error] = t('matches.cannot_remove_with_error')
       redirect_to matches_path
+    end
+  end
+  
+  def check_results
+    @match = Match.find(params[:id])    
+  end
+  
+  def commit_results    
+    match = Match.find(params[:id])
+    if current_user == match.judge
+      match.processed = true
+      if match.save
+        flash[:success] = t('matches.results_commited_successfully')
+        redirect_to match
+      else
+        flash[:success] = t('matches.results_commit_error')
+        redirect_to matches_path
+      end
     end
   end
 end

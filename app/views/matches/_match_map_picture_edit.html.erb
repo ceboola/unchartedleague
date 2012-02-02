@@ -1,0 +1,46 @@
+<table style="margin-left: auto; margin-right: auto;">
+  <thead>
+    <th colspan="2" scope="col"><%= t('matches.match_photo') %></th>      
+  </thead>  
+  <tbody>
+    <tr>
+      <td class="text-center">
+        <% current_user.reset_authentication_token! if current_user.authentication_token.nil? %>
+        <script type="text/javascript" charset="utf-8">                  
+           $(document).ready(function() {
+             $('#upload_picture_<%= match_map.id %>').uploadify({
+               'uploader' : '<%= asset_path 'uploadify.swf' %>',
+               'buttonText' : '<%= t('matches.add_screen') %>',
+               'completedText' : '<%= t('matches.add_screen_completed') %>',
+               'script' : '<%= match_map_images_path %>',
+               'cancelImg' : '<%= asset_path 'cancel.png' %>',
+               'sizeLimit' : <%= 1.megabyte %>,
+               'fileExt'   : '*.png;*.jpg;*.gif',
+               'auto' : true,              
+               'multi' : false,
+               'removeCompleted': false,
+               'scriptData': {
+                'auth_token': '<%= current_user.authentication_token %>',
+                'match_map[id]': '<%= match_map.id %>'
+               },
+               'onSelect': function (event, queueID, fileObj, response, data) {
+                 $("#showimage_<%= match_map.id %>").empty();
+               },
+               'onComplete': function (event, queueID, fileObj, response, data) {
+                 $("#showimage_<%= match_map.id %>").html('<a href="' + response + '" target="_blank"><img src="' + response + '?' + (new Date().getTime()) + '" width="500" /></a>');
+               }
+             });
+           });
+        </script>
+        <%= file_field_tag :picture, :id => "upload_picture_#{match_map.id}" %> 
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center" id="showimage_<%= match_map.id %>">
+        <% unless match_map.match_map_image.nil? %>
+          <%= link_to (image_tag match_map.match_map_image.url, :alt => match_teams_plain(match_map.match), :width => 500), match_map.match_map_image.url %>
+        <% end %>
+      </td>
+    </tr>    
+  </tbody>
+</table>

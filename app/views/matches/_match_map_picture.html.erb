@@ -1,0 +1,14 @@
+<% unless match_map.match_map_image.nil? %>
+  <table style="margin-left: auto; margin-right: auto;">
+    <thead>
+      <th colspan="2" scope="col"><%= t('matches.match_photo') %></th>      
+    </thead>  
+    <tbody>
+      <tr>
+        <td class="text-center" id="showimage_<%= match_map.id %>">
+          <%= link_to (image_tag match_map.match_map_image.url, :alt => match_teams_plain(match_map.match), :width => 500), match_map.match_map_image.url %>
+        </td>
+      </tr>    
+    </tbody>
+  </table>
+<% end %>

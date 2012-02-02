@@ -5,6 +5,7 @@ class Match < ActiveRecord::Base
   belongs_to :judge, :class_name => "User"
   has_many :match_maps, :dependent => :destroy, :autosave => true
   has_many :maps, :through => :match_maps
+  has_many :match_entries
   
   validates_associated :match_maps
   
@@ -21,10 +22,6 @@ class Match < ActiveRecord::Base
     team2.nil?
   end
   
-  def result
-    "-:-"
-  end
-  
   def generate_match_maps    
     maps = Map.find_all_by_competition_id(competition.id, :select => "id").sort_by { rand }.slice(0...3)
     for map in maps
@@ -34,5 +31,43 @@ class Match < ActiveRecord::Base
   
   def teams
     [team1, team2]
+  end
+  
+  def result
+    if processed
+      team1wins = 0
+      team2wins = 0
+      for match_map in match_maps
+        if match_map.winning_team == team1
+          team1wins += 1
+        elsif match_map.winning_team == team2
+          team2wins += 1
+        end
+      end
+      team1wins.to_s + ":" + team2wins.to_s
+    else
+      "-:-"
+    end
+  end
+  
+  def detailed_result(user = nil)
+    if processed or user == judge
+      team1wins = 0
+      team2wins = 0
+      scores = []
+      for match_map in match_maps
+        if match_map.match_entries.any?
+          if match_map.winning_team == team1
+            team1wins += 1
+          elsif match_map.winning_team == team2
+            team2wins += 1
+          end
+          scores << match_map.team1score.to_s + "-" + match_map.team2score.to_s
+        end
+      end
+      team1wins.to_s + ":" + team2wins.to_s + " (" + scores.join(', ') + ")"
+    else
+      result
+    end
   end
 end

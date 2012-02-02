@@ -50,7 +50,9 @@ class MatchMap < ActiveRecord::Base
   belongs_to :match
   belongs_to :map
   
-  has_many :match_entries, :dependent => :destroy
+  has_many :match_entries, :dependent => :destroy, :order => 'kills desc, deaths asc, assists desc'
+  has_one :match_map_image, :dependent => :destroy
+
   accepts_nested_attributes_for :match_entries, :reject_if => :entry_blank?
   
   after_validation :remove_blank_users
@@ -67,5 +69,25 @@ class MatchMap < ActiveRecord::Base
       x.destroy
       match_entries.delete x
     }
+  end
+  
+  def winning_team
+    score1 = team1score
+    score2 = team2score
+    if score1 > score2
+      match.team1
+    elsif score2 > score1
+      match.team2
+    else
+      nil
+    end
+  end
+  
+  def team1score
+    MatchEntry.where("match_map_id = ? and team_id = ?", id, match.team1.id).sum("kills")
+  end
+  
+  def team2score
+    MatchEntry.where("match_map_id = ? and team_id = ?", id, match.team2.id).sum("kills")
   end
 end

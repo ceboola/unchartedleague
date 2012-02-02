@@ -2,7 +2,9 @@ Unchartedleague::Application.routes.draw do
   root :to => 'home#index'  
   devise_for :users
   get "players/index"
-  
+  match 'matches/:id/check_results' => 'matches#check_results', :via => :get
+  match 'matches/:id/commit_results' => 'matches#commit_results', :via => :post
+      
   resources :teams
   resources :team_participations
   resources :offers
@@ -11,6 +13,7 @@ Unchartedleague::Application.routes.draw do
   resources :matches
   resources :match_maps
   resources :maps
+  resources :match_map_images
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
