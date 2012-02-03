@@ -17,7 +17,7 @@
 <% edit = @edit_mode ? "_edit" : "" %>
 <table id="minimalist-table-hor-a" summary="<%= t('matches.page_title') %>">
   <thead>
-    <% if @edit_mode or @match.match_entries.any? %>
+    <% if @edit_mode or @match.processed %>
       <tr>
         <th scope="col" class="text-center" style="vertical-align: top;"><%= t('matches.maps') %></th>
         <th scope="col" class="text-center"><%= @match.team1 %></th>

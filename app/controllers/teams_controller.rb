@@ -28,7 +28,8 @@ class TeamsController < ApplicationController
     tp = @team.team_participations.build
     tp.user = current_user
     tp.team = @team
-    tp.role = TeamParticipation::ROLES.index('captain')    
+    tp.role = TeamParticipation::ROLES.index('captain')
+    tp.active = true
     if @team.save
       flash[:success] = t('teams.created_successfully')
       redirect_to team_path(@team)
