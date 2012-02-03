@@ -9,7 +9,7 @@ class Competition < ActiveRecord::Base
   
   # match
   def min_players_per_team
-    2
+    4
   end
   
   def max_players_per_team
