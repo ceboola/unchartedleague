@@ -102,6 +102,7 @@ pl:
     commit_are_you_sure: "Dodanie wyników jest nieodwracalne. Czy jesteś pewien?"
     results_commited_successfully: "Wyniki dodane poprawnie!"
     results_commit_error: "Wyniki nie mogły zostać dodane!"
+    played: "Rozegranych meczów"
     
   players:
     page_title: "Zawodnicy"
@@ -160,6 +161,7 @@ pl:
     user_already_signed_up: "Użytkownik %{user} już bierze udział w tych rozgrywkach."
     team_too_small: "Drużyna ma za mało graczy!"
     sign_up_ended: "Termin zapisów do rozgrywek wygasł."
+    no_promotion: "brak awansu"
   
   unauthorized:
     manage:

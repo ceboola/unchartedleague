@@ -4,11 +4,15 @@ class Team < ActiveRecord::Base
   has_many :offers, :dependent => :destroy
   has_many :competitions, :through => :competition_entries
   has_many :competition_entries, :dependent => :destroy
-  
+    
   validates :tag, :presence => true, :length => { :maximum => 4 }, :uniqueness => true
   validates :name, :presence => true, :length => { :maximum => 35 }, :uniqueness => true
   validates :description, :length => { :maximum => 250 }  
  
+  def played_matches_size(competition)
+    Match.where('(team1_id = ? or team2_id = ?) and processed = ? and competition_id = ?', id, id, true, competition.id).count
+  end
+  
   def full_name
     "#{full_tag} #{name}"
   end
