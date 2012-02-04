@@ -28,7 +28,7 @@ class MatchesController < ApplicationController
   
   def show    
     @match = Match.find(params[:id])
-    @edit_mode = ((not @match.processed) and user_signed_in? and (current_user == @match.judge))
+    @edit_mode = (user_signed_in? and ((not @match.processed) and (current_user == @match.judge)) or ((not @match.processed) and (not @match.locked_by_judge) and (@match.team1.has_member? current_user or @match.team2.has_member? current_user)))
     if @edit_mode
       for match_map in @match.match_maps do
         for team in @match.teams        
@@ -46,6 +46,7 @@ class MatchesController < ApplicationController
   def create    
     @match = Match.new(params[:match])
     @match.processed = false
+    @match.locked_by_judge = false
     if @match.save
       flash[:success] = t('matches.proposal_created_successfully')
       redirect_to matches_path
@@ -100,8 +101,10 @@ class MatchesController < ApplicationController
     end
   end
   
-  def check_results
-    @match = Match.find(params[:id])    
+  def check_results    
+    @match = Match.find(params[:id])
+    @match.locked_by_judge = true
+    @match.save!
   end
   
   def commit_results    

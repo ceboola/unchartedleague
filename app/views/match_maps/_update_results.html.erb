@@ -1,12 +1,16 @@
-<% if match_map.errors.any? %>
-  <div class="flash error">
-    <h5><%= pluralize_localized(match_map.errors.count, t('error')) %></h5>
-    <ul class="fancy">
-    <% match_map.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
+<% if @match_map.match.can_be_edited_by? current_user %>
+  <% if match_map.errors.any? %>
+    <div class="flash error">
+      <h5><%= pluralize_localized(match_map.errors.count, t('error')) %></h5>
+      <ul class="fancy">
+      <% match_map.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% else %>
+    <div class="flash success"><h5><%= t('matches.updated') %></h5></div>  
+  <% end %>
 <% else %>
-  <div class="flash success"><h5><%= t('matches.updated') %></h5></div>  
+  <div class="flash error"><h5><%= t('matches.cannot_be_edited') %></h5></div>  
 <% end %>

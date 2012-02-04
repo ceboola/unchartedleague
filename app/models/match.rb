@@ -70,4 +70,8 @@ class Match < ActiveRecord::Base
       result
     end
   end
+  
+  def can_be_edited_by? (user)   
+    ((!processed and judge == user) or (!processed and !locked_by_judge and (team1.has_member? user or team2.has_member? user)))
+  end
 end

@@ -18,7 +18,7 @@
       </tr>
     <% end %>
     <% for team in @teams_remaining do %>    
-      <tr<%= if @teams_remaining.first == team then " style='border-top: 1px dotted black;'" end %>>
+      <tr>
         <td class="text-center"><%= team %></td>
         <td class="text-center"><%= team.played_matches_size(@competition) %> (<%= t('competitions.no_promotion') %>)</td>       
       </tr>

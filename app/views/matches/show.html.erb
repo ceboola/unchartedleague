@@ -5,12 +5,16 @@
 <% if @match.judge.nil? %>
   <%= info_section t('matches.waiting_to_be_accepted') %>
 <% elsif @edit_mode %>
-  <%= info_section t('matches.edit_mode_intro') %>
+  <% if @match.judge == current_user %>
+    <%= info_section t('matches.edit_mode_intro_for_judge') %>
+  <% else %>
+    <%= info_section t('matches.edit_mode_intro') %>
+  <% end %>
 <% end %>
 <ul class="fancy">  
   <li><%= t('competitions.page_title') %>: <%= @match.competition %></li>
   <li><%= t('matches.scheduled_at') %>: <%= time_tag(@match.scheduled_at) %></li>
-  <li><%= t('matches.judge') %>: <%= (@match.judge.nil? ? t('matches.no_judge') : @match.judge) %></li>
+  <li><%= t('matches.judge') %>: <%= (@match.judge.nil? ? t('matches.no_judge') : @match.judge) %></li>  
   <li><%= t('matches.processed') %>: <%= (@match.processed ? t('choice_yes'): t('choice_no')) %></li>
 </ul>
 
@@ -68,7 +72,7 @@
         <% end %>
       </tr>
     <% end %>
-    <% if @edit_mode %>
+    <% if @edit_mode and current_user == @match.judge %>
       <tr>
         <td colspan="3" class="text-center">
           <%= form_tag "/matches/#{@match.id}/check_results", :method => :get, :remote => true do %>
