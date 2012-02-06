@@ -4,7 +4,6 @@ log/*.log
 tmp/
 .sass-cache/
 /nbproject/private/
-*.lock
 *.swp
 public/assets/*.*
 public/assets/**/*

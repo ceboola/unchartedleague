@@ -5,17 +5,7 @@ gem 'jquery-rails', '1.0.19'
 gem 'will_paginate', '3.0.2'
 gem 'devise', '1.4.9'
 gem 'cancan', '1.6.7'
-
-group :production_only do  
-  gem 'mime-types', '1.16'
-  gem 'polyglot', '0.3.2'
-  gem 'tzinfo', '0.3.30'
-  gem 'execjs', '1.2.9'
-  gem 'railties', '3.1.1'
-  gem 'multi_json', '1.0.3'  
-  gem 'therubyracer', '0.9.9'
-  gem 'libv8', '3.3.10.2'  
-end
+gem 'pg'
 
 group :assets do
   gem 'sass-rails', '3.1.5'

@@ -12,7 +12,7 @@ class Team < ActiveRecord::Base
   def played_matches_size(competition)
     Match.where('(team1_id = ? or team2_id = ?) and processed = ? and competition_id = ?', id, id, true, competition.id).count
   end
-  
+    
   def full_name
     "#{full_tag} #{name}"
   end
