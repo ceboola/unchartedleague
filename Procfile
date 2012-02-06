@@ -1,1 +1,1 @@
-web: bundle exec rails server thin -p 18464
+web: bundle exec rails server thin -p $PORT
