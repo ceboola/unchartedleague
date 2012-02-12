@@ -7,6 +7,10 @@ gem 'devise', '1.4.9'
 gem 'cancan', '1.6.7'
 gem 'pg'
 
+group :production do
+  gem 'thin'
+end
+
 group :assets do
   gem 'sass-rails', '3.1.5'
   gem 'coffee-rails', '3.1.1'
