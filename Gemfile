@@ -6,7 +6,6 @@ gem 'will_paginate', '3.0.2'
 gem 'devise', '1.4.9'
 gem 'cancan', '1.6.7'
 gem 'pg'
-gem 'thin'
 
 group :assets do
   gem 'sass-rails', '3.1.5'

@@ -1,7 +1,7 @@
 class CompetitionsController < ApplicationController
   def index
-    @competitions = Competition.all
-    @entries = CompetitionEntry.all    
+    @competitions = [Competition.find(2)]
+    @entries = CompetitionEntry.where('competition_id = ?', 2)
     if user_signed_in? 
       #@signed_up_teams_ids = @entries.collect { |x| x.team.id }
       #@possible_teams = Team.joins(:team_participations).where("team_participations.user_id = ? and team_participations.role = ?", current_user.id, 0)
