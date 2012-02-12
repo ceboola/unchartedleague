@@ -14,14 +14,16 @@
       <td style="width: 50%;">
         <h4>Zasady rozgrywek</h4>
         <ul class="fancy">
-          <li>każdy z każdym gra po maksymalnie jednym meczu,</li>
+          <li>rozgrywki toczą się niezależnie w dwóch 8-drużynowych grupach oraz w 4-drużynowej grupie mistrzowskiej,</li>
+          <li>każdy z każdym gra w grupie po jednym meczu,</li>
           <li>punktów za zwycięstwo do zera: 3,</li>
           <li>punktów za zwycięstwo jedną mapą: 2,</li>
           <li>punktów za porażkę do zera: 0,</li>
           <li>punktów za porażkę jedną mapą: 1.</li>
           <li>punktów za rozegranie meczu w terminie: 1 (punkt przysługuje również drużynom, które wygrały walkowerem),</li>
-          <li>kwalifikują się drużyny, które rozegrają co najmniej 2 mecze,</li>
-          <li>o kolejności w tabeli decydują kolejno: liczba zdobytych punktów, różnica fragów, zdobyte fragi, wynik meczów między zainteresowanymi zespołami, mniejsza liczba zawodników w ciągu sezonu, losowanie.
+          <li>do grupy mistrzowskiej kwalifikują się dwie najlepsze drużyny z każdej grupy; pozostałe 12 drużyn gra jeden mecz o miejsce w całych rozgrywkach,</li>
+          <li>w grupie mistrzowskiej wyniki meczów między drużynami z tej samej grupy są przepisywane,</li>
+          <li>o kolejności w tabelach decydują kolejno: liczba zdobytych punktów, różnica fragów, zdobyte fragi, wynik meczów między zainteresowanymi zespołami, mniejsza liczba zawodników w ciągu sezonu, losowanie.
         </ul>
       </td>
       <td style="width: 50%;">
@@ -71,7 +73,7 @@
     </tr>
     <tr>
       <td colspan="2" class="text-center">        
-        <h4>Zapisane drużyny</h4>
+        <h4>Zakwalifikowane drużyny</h4>
         <% if not @entries.nil? and @entries.any? %>
           <table id="minimalist-table-hor-a" class="center" summary="<%= t('teams.page_title') %>">
             <thead>

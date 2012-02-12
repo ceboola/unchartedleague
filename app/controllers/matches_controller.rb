@@ -5,16 +5,26 @@ class MatchesController < ApplicationController
   
   def index
     if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
-      @matches = Match.filtered(current_user).order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])    
+      @matches3 = Match.filtered(current_user).where("competition_id = ?", 3).order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])    
     elsif not current_user.nil? and params[:show_judged].present? and params[:show_judged] == 'true'
-      @matches = Match.where("judge_id = ?", current_user.id).order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])        
+      @matches3 = Match.where("judge_id = ? and competition_id = ?", current_user.id, 3).order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])        
     else
-      @matches = Match.order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])    
+      @matches3 = Match.where("competition_id = ?", 3).order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])    
     end
     
-    @competition = Competition.find(1)
+    if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
+      @matches4 = Match.filtered(current_user).where("competition_id = ?", 4).order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])    
+    elsif not current_user.nil? and params[:show_judged].present? and params[:show_judged] == 'true'
+      @matches4 = Match.where("judge_id = ? and competition_id = ?", current_user.id, 4).order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])        
+    else
+      @matches4 = Match.where("competition_id = ?", 4).order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])    
+    end
+    
+    @matches = @matches3 + @matches4
+    
+    @competition = Competition.find(2)
     if user_signed_in?
-      teams = Team.joins(:competitions, :team_participations).where("user_id = ? and role = ? and competitions.id = ?", current_user.id, 0, 1)
+      teams = Team.joins(:competitions, :team_participations).where("user_id = ? and role = ? and competitions.id = ?", current_user.id, 0, 2)
       if teams.empty?
         @managed_team = nil
       else

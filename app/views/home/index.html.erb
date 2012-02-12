@@ -1,32 +1,26 @@
-<h1>Drużyny zakwalifkowane do Ekstraklasy</h1>
-<p>Rozgrywki kwalifikacyjne kończą się 6. lutego. Ostatni mecz musi być zatwierdzony w systemie najpóźniej o 23:59. Przypominamy, że do Ekstraklasy awansują wszystkie drużyny, które rozegrają co najmniej dwa mecze.</p>
+<h1>Czwarty sezon Polskiej Ligi Uncharted wystartował!</h1>
+<p>Rozgrywki zostały podzielone na 2 etapy. W pierwszym etapie drużyny walczą w dwóch niezależnych grupach 8-drużynowych: Grupie Marco i Grupie Polo. 
+  Po 7. kolejkach po 2 najlepsze drużyny z każdej grupy awansują, aby utworzyć grupę mistrzowską. Pozostałe drużyny grają o ostateczne miejsce w rozgrywkach po jednym meczu - odpowiednie miejsca ze sobą (trzecie z trzecim o 5. miejsce, czwarte z czwartym o 7., itd).
+  Administracja zdecydowała o następującym podziale:</p>
 
-<p>Aktualna lista drużyn i stan ich kwalifikacji:</p>
 <table id="minimalist-table-hor-a" summary="<%= t('teams.page_title') %>">
   <thead>
     <tr>
-      <th scope="col"><%= t('teams.team') %></th>      
-      <th scope="col"><%= t('matches.played') %></th>      
-      <th scope="col"></th>  
+      <th scope="col">Grupa Marco</th>     
+      <th scope="col">Grupa Polo</th>     
     </tr>
   </thead>
   <tbody>
-    <% for team in @teams_qualified do %>    
+    <% for i in 0...8 do %>    
       <tr>
-        <td class="text-center"><%= team %></td>
-        <td class="text-center"><%= team.played_matches_size(@competition) %></td>       
+        <td><%= @marco[i] %></td>                   
+        <td><%= @polo[i] %></td>         
       </tr>
-    <% end %>
-    <% for team in @teams_remaining do %>    
-      <tr>
-        <td class="text-center"><%= team %></td>
-        <td class="text-center"><%= team.played_matches_size(@competition) %> (<%= t('competitions.no_promotion') %>)</td>       
-      </tr>
-    <% end %>
+    <% end %>       
   </tbody>
 </table>
 
+<p>Szczegóły rozgrywek wraz z regulaminem jak zwykle w dziale <%= link_to t('competitions.page_title'), competitions_path %>. Mecze można umawiać wchodząc na stronę meczu swojej drużyny (w dziale <%= link_to t('matches.page_title'), matches_path %>) i proponując przeciwnikom termin lub akceptując termin proponowany przez nich.</p>
+
 <p>Strona wciąż jest i będzie rozbudowywana. Zdajemy sobie sprawę, że nowa strona zawiera błędy i w niektórych miejscach jest nieintuicyjna, dlatego wszelkie problemy tego typu prosimy zgłaszać na forum w specjalnie do tego stworzonym temacie: 
 <a href="http://unchartedleague.com/forum/index.php?topic=1376.0" target="_blank">Problemy i błędy na nowej stronie Ligi</a>.</p>
- 
-<%= debug ENV %>
