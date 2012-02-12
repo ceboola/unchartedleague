@@ -22,23 +22,24 @@ class MatchesController < ApplicationController
     
     @matches = @matches3 + @matches4
     
-    @competition = Competition.find(2)
-    if user_signed_in?
-      teams = Team.joins(:competitions, :team_participations).where("user_id = ? and role = ? and competitions.id = ?", current_user.id, 0, 2)
-      if teams.empty?
-        @managed_team = nil
-      else
-        @managed_team = teams[0]
-        @match = Match.new
-        @match.team1 = @managed_team
-        @match.competition = @competition
-      end
-    end
+    @competition = Competition.find(2)    
   end
   
   def show    
     @match = Match.find(params[:id])
-    @edit_mode = (user_signed_in? and ((not @match.processed) and (current_user == @match.judge)) or ((not @match.processed) and (not @match.locked_by_judge) and (@match.team1.has_member? current_user or @match.team2.has_member? current_user)))
+    
+    if @match.scheduled_at.nil? 
+      if user_signed_in?
+        teams = Team.joins(:competitions, :team_participations).where("user_id = ? and role = ? and competitions.id = ? and (teams.id = ? or teams.id = ?)", current_user.id, 0, 2, @match.team1.id, @match.team2.id)
+        if teams.empty?
+          @managed_team = nil
+        else
+          @managed_team = teams[0]          
+        end
+     end
+    end
+    
+    @edit_mode = (user_signed_in? and (not @match.scheduled_at.nil?) and (((not @match.processed) and (current_user == @match.judge)) or ((not @match.processed) and (not @match.locked_by_judge) and (@match.team1.has_member? current_user or @match.team2.has_member? current_user))))
     if @edit_mode
       for match_map in @match.match_maps do
         for team in @match.teams        

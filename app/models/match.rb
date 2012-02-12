@@ -6,6 +6,7 @@ class Match < ActiveRecord::Base
   has_many :match_maps, :dependent => :destroy, :autosave => true
   has_many :maps, :through => :match_maps
   has_many :match_entries
+  has_many :match_time_proposals, :dependent => :destroy
   
   validates_associated :match_maps
   
@@ -23,7 +24,7 @@ class Match < ActiveRecord::Base
   end
   
   def generate_match_maps    
-    maps = Map.find_all_by_competition_id(competition.id, :select => "id").sort_by { rand }.slice(0...3)
+    maps = Map.select("id").sort_by { rand }.slice(0...3)
     for map in maps
       match_maps.build(:map_id => map.id)
     end

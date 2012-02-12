@@ -41,10 +41,10 @@
       <tbody>
         <% for match in @matches3 do %>
           <tr>
-            <td width="380"><%= match_teams(match) %></td>
+            <td><%= match_teams(match) %></td>
             <td><%= match.result %></td>
             <td><%= (!match.scheduled_at.nil? ? time_tag(match.scheduled_at) : "?") %></td>    
-            <td width="90"><%= link_to match.competition.name, competitions_path %></td>               
+            <td><%= link_to match.competition.name, competitions_path %></td>               
             <td>
               <% if not @managed_team.nil? and match.open_spot? %>
                 <% if match.team1 != @managed_team %>
@@ -89,10 +89,10 @@
       <tbody>
         <% for match in @matches4 do %>
           <tr>
-            <td width="380"><%= match_teams(match) %></td>
+            <td><%= match_teams(match) %></td>
             <td><%= match.result %></td>
             <td><%= (!match.scheduled_at.nil? ? time_tag(match.scheduled_at) : "?") %></td>          
-            <td width="90"><%= link_to match.competition.name, competitions_path %></td>              
+            <td><%= link_to match.competition.name, competitions_path %></td>              
             <td>
               <% if not @managed_team.nil? and match.open_spot? %>
                 <% if match.team1 != @managed_team %>
