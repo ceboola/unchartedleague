@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h2>Cześć,</h2>
+    <p>
+      Kapitanowie ustalili termin meczu <%= "#{@match.team1} - #{@match.team2}" %> na:<br/>
+      <b><%= time_tag(@match.scheduled_at) %></b>.
+    </p>
+    <p>
+      Zostały wylosowane następujące mapy: <b><%= @match.maps.join(', ') %></b>.<br/>
+      Sędzią meczu jest <b><%= @match.judge %></b>.
+    </p>
+    <p>
+      Więcej szczegółów znajdziesz na stronie meczu (<%= match_url(@match) %>). <%= t('matches.edit_mode_explanation') %>
+    </p>
+    <p>Pozdrawiamy,<br/>Administracja serwisu unchartedleague.com</p>
+    <p><small>Ten e-mail został wygenerowany automatycznie, prosimy na niego nie odpowiadać.</small></p>
+  </body>
+</html>

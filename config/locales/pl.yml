@@ -101,6 +101,7 @@ pl:
     check_and_commit_match: "Zobacz podsumowanie, aby zatwierdzić wynik"
     edit_mode_intro_for_judge: "Znajdujesz się w trybie edycji wyników tego meczu. Dla każdej rozegranej mapy dodaj screena i wpisz odpowiednio wyniki. Poszczególne wyniki można dodawać po kolei sprawdzając, czy nie ma błędów (klikając \"Aktualizuj wyniki na mapie\"). Po zakończeniu edycji należy kliknąć \"Zobacz podsumowanie, aby zatwierdzić wynik\", zobaczyć raport i ostatecznie potwierdzić klikająć \"Zatwierdź wynik meczu\". Dopiero po kliknięciu \"Zatwierdź wynik meczu\" rezultat pojawi się na stronie i będzie dostępny dla innych. Dodanie wyników jest nieodwracalne!"
     edit_mode_intro: "Znajdujesz się w trybie edycji wyników tego meczu. Tryb ten jest dostępny dla każdego gracza biorącego udział w meczu dopóki sędzia nie zablokuje możliwości edycji. Dla każdej rozegranej mapy dodaj screena i wpisz odpowiednio wyniki. Poszczególne wyniki można dodawać po kolei sprawdzając, czy nie ma błędów (klikając \"Aktualizuj wyniki na mapie\")."
+    edit_mode_explanation: "Przypominamy także o trybie edycji wyników. Tryb ten jest dostępny dla każdego gracza biorącego udział w meczu dopóki sędzia nie zablokuje możliwości edycji. Dla każdej rozegranej mapy dodaj screena i wpisz odpowiednio wyniki. Poszczególne wyniki można dodawać po kolei sprawdzając, czy nie ma błędów (klikając \"Aktualizuj wyniki na mapie\")."
     commit_match_results: "Zatwierdź wynik meczu"
     commit_are_you_sure: "Dodanie wyników jest nieodwracalne. Czy jesteś pewien?"
     results_commited_successfully: "Wyniki dodane poprawnie!"
@@ -111,6 +112,7 @@ pl:
     proposal_creation_error: "Wystąpił problem podczas proponowania terminu."
     proposed_by: "Proponowane przez"
     propose_your_time: "proponowany termin meczu"
+    proposal_acceptance_explanation: "Akceptacja terminu jest nieodwracalna i wywoła losowanie map oraz spowoduje wysłanie e-maili do wszystkich członków obu drużyn."
     
   players:
     page_title: "Zawodnicy"

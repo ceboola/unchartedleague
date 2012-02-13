@@ -3,6 +3,7 @@ class MatchTimeProposalsController < ApplicationController
     proposal = MatchTimeProposal.new(params['match_time_proposal'])
     proposal.active = true
     if proposal.save
+      UserMailer.new_match_time_proposal(proposal, (proposal.match.team1 == proposal.team ? proposal.match.team2 : proposal.match.team1)).deliver
       flash[:success] = t('matches.proposal_created_successfully')
       redirect_to proposal.match
     else
@@ -16,15 +17,21 @@ class MatchTimeProposalsController < ApplicationController
   end
   
   def update
-    proposal = MatchTimeProposal.find(params[:id])    
-    proposal.match.scheduled_at = proposal.proposal
-    proposal.match.generate_match_maps
-    if proposal.match.save
-      flash[:success] = t('matches.proposal_accepted_successfully')
-      redirect_to proposal.match
+    proposal = MatchTimeProposal.find(params[:id])
+    if proposal.match.scheduled_at.nil?
+      proposal.match.scheduled_at = proposal.proposal
+      proposal.match.generate_match_maps
+      if proposal.match.save
+        UserMailer.match_time_accepted(proposal.match).deliver
+        flash[:success] = t('matches.proposal_accepted_successfully')
+        redirect_to proposal.match
+      else
+        flash[:error] = t('matches.cannot_accept_with_error')
+        redirect_to matches_path
+      end
     else
       flash[:error] = t('matches.cannot_accept_with_error')
-      redirect_to root
+      redirect_to matches_path
     end
   end
   
@@ -36,7 +43,7 @@ class MatchTimeProposalsController < ApplicationController
       redirect_to proposal.match
     else
       flash[:error] = t('matches.cannot_remove_proposal')
-      redirect_to root
+      redirect_to matches_path
     end
   end
 end

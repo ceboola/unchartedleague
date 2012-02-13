@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h2>Cześć <%= @user %>,</h2>
+    <p>
+      Kapitan zespołu przeciwników zaproponował nowy termin meczu <%= "#{@proposal.match.team1} - #{@proposal.match.team2}" %>:<br/>
+      <%= time_tag(@proposal.proposal) %>.
+    </p>
+    <p>
+      Jeśli ten termin odpowiada Twojej drużynie, wejdź na stronę meczu (<%= match_url(@proposal.match) %>) i zaakceptuj termin. 
+      <%= t('matches.proposal_acceptance_explanation') %>
+    </p>
+    <p>Pozdrawiamy,<br/>Administracja serwisu unchartedleague.com</p>
+    <p><small>Ten e-mail został wygenerowany automatycznie, prosimy na niego nie odpowiadać.</small></p>
+  </body>
+</html>
