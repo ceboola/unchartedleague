@@ -10,8 +10,7 @@ class CreateMatchEntries < ActiveRecord::Migration
       t.integer :assists
 
       t.timestamps
-    end
-    add_index :match_entries, :match_map_id
+    end    
     add_index :match_entries, :user_id
     add_index :match_entries, :team_id
   end
