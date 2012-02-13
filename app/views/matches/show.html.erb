@@ -5,7 +5,15 @@
 <% if @match.judge.nil? %>
   <%= info_section t('matches.waiting_to_be_accepted') %>
 <% elsif @match.scheduled_at.nil? %>
-  <%= info_section t('matches.waiting_to_be_scheduled') %>
+  <% if @managed_team.nil? %>
+    <% if @match.judge == current_user %>
+      <%= info_section t('matches.waiting_to_be_scheduled_judge') %>
+    <% else %>
+      <%= info_section t('matches.waiting_to_be_scheduled') %>  
+    <% end %>
+  <% else %>
+    <%= info_section t('matches.waiting_to_be_scheduled_captain') %>
+  <% end %>
 <% elsif @edit_mode %>
   <% if @match.judge == current_user %>
     <%= info_section t('matches.edit_mode_intro_for_judge') %>

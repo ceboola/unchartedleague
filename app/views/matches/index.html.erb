@@ -1,11 +1,5 @@
 <h1><%= t('matches.page_title') %></h1>
 
-<% unless @managed_team.nil? %>
-  <%= info_section "#{t('matches.manager_intro')} #{link_to @managed_team.full_name, @managed_team}." %>
-<%  else %>
-  <%= info_section t('matches.intro') %>
-<% end %>
-
 <% unless @matches.nil? %>
   <% if user_signed_in? %>
     <div id="filter_buttons">
