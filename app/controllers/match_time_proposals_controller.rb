@@ -38,7 +38,7 @@ class MatchTimeProposalsController < ApplicationController
   def destroy
     proposal = MatchTimeProposal.find(params[:id])
     proposal.active = false
-    if proposal.team.can_be_managed_by? current_user and proposal.save
+    if proposal.team.can_be_managed_by? current_user and proposal.save(:validate => false)
       flash[:success] = t('matches.proposal_removed_successfully')
       redirect_to proposal.match
     else
