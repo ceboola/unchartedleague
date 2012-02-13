@@ -107,7 +107,7 @@ pl:
     results_commit_error: "Wyniki nie mogły zostać dodane!"
     played: "Rozegranych meczów"
     cannot_be_edited: "Ten mecz nie może być już edytowany!"
-    no_date_proposals: "Brak propozycji. Dodaj pierwszą!"
+    no_date_proposals: "Brak propozycji."
     proposal_creation_error: "Wystąpił problem podczas proponowania terminu."
     proposed_by: "Proponowane przez"
     propose_your_time: "proponowany termin meczu"

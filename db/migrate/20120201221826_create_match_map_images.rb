@@ -7,7 +7,5 @@ class CreateMatchMapImages < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :match_map_images, :match_map_id
-    add_index :match_map_images, :user_id
   end
 end
