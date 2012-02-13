@@ -86,7 +86,7 @@ pl:
     processed: "Zakończony"
     no_judge: "Nie przydzielono"
     waiting_to_be_accepted: "Mecz musi zostać zaakceptowany przez administrację. Gdy tak się stanie, zostanie przydzielony sędzia i wylosowane mapy."
-    waiting_to_be_scheduled: "Termin meczu nie został jeszcze ustalony. Termin mogą ustalać jedynie kapitanowie drużyn biorących udziału w meczu."
+    waiting_to_be_scheduled: "Termin meczu nie został jeszcze ustalony. Termin mogą ustalać jedynie kapitanowie drużyn biorących udziału w meczu. Akceptacja terminu spowoduje wylosowanie i wyświetlenie map na mecz."
     map: "Mapa"
     maps: "Mapy"
     results: "Wyniki"

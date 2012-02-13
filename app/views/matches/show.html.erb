@@ -21,7 +21,7 @@
 </ul>
 
 <% if @match.scheduled_at.nil? %>
-  <% unless @managed_team.nil? %>
+  <% if !@managed_team.nil? or current_user == @match.judge %>
     <% if @match.match_time_proposals.any? %>
       <table id="minimalist-table-hor-a" summary="<%= t('matches.page_title') %>">
         <thead>
@@ -37,14 +37,16 @@
               <td style="vertical-align: middle;"><%= time_tag(p.proposal) %></td>
               <td style="vertical-align: middle;"><%= p.team %></td>
               <td>               
-                <% if p.team != @managed_team %>
+                <% if !@managed_team.nil? and p.team != @managed_team %>
                   <%= form_tag match_time_proposal_path(p), :method => :put do %>                    
                     <%= submit_tag t('matches.accept'), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
                   <% end %>            
-                <% else %>
+                <% elsif p.team == @managed_team %>
                   <%= form_tag match_time_proposal_path(p), :method => :delete do %>                    
                     <%= submit_tag t('matches.remove_proposal'), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
                   <% end %>            
+                <% else %>                
+                  <%= t('none') %>
                 <% end %>                
               </td>     
             </tr>
@@ -55,17 +57,19 @@
       <%= t('matches.no_date_proposals') %>
     <% end %>
     
-    <div id="stylized-form">
-      <%= form_tag :controller => :match_time_proposals, :action => 'create' do %>
-        <%= hidden_field_tag "match_time_proposal[match_id]", @match.id %>
-        <%= hidden_field_tag "match_time_proposal[team_id]", @managed_team.id %>      
-        <div class="wrapper-block">
-          <label><%= t('activerecord.attributes.match.scheduled_at') %>:<span class="small-label"><%= t('matches.propose_your_time') %></span></label>
-          <%= datetime_select("match_time_proposal", "proposal", :start_year => 2012, :end_year => 2012) %>
-        </div>    
-        <input type="submit" value="<%= t('matches.propose') %>" class="submit btn-form" />
-      <% end %>
-    </div>
+    <% unless @managed_team.nil? %>
+      <div id="stylized-form">
+        <%= form_tag :controller => :match_time_proposals, :action => 'create' do %>
+          <%= hidden_field_tag "match_time_proposal[match_id]", @match.id %>
+          <%= hidden_field_tag "match_time_proposal[team_id]", @managed_team.id %>      
+          <div class="wrapper-block">
+            <label><%= t('activerecord.attributes.match.scheduled_at') %>:<span class="small-label"><%= t('matches.propose_your_time') %></span></label>
+            <%= datetime_select("match_time_proposal", "proposal", :start_year => 2012, :end_year => 2012) %>
+          </div>    
+          <input type="submit" value="<%= t('matches.propose') %>" class="submit btn-form" />
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 <% else %>  
   <% edit = @edit_mode ? "_edit" : "" %>

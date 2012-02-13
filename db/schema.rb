@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120212165652) do
+ActiveRecord::Schema.define(:version => 20120213182246) do
 
   create_table "competition_entries", :force => true do |t|
     t.integer   "competition_id"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20120212165652) do
     t.datetime "proposal"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "active"
   end
 
   add_index "match_time_proposals", ["match_id"], :name => "index_match_time_proposals_on_match_id"
