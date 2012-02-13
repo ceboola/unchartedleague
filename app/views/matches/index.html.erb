@@ -23,7 +23,7 @@
       <input type="radio" name="show_filter" id="judgedMatchesToggleButton" 
              onClick="goTo('<%=  url_for :action => 'index', :show_judged => 'true' %>')" 
              <%= if current_page?(:show_judged => 'true', :show_my => params[:show_my], :page => params[:page]) then 'checked' else '' end %> />
-    </div>
+    </div><br />
   <% end %>
 
   <h2>Grupa Marco - 1. kolejka</h2>
