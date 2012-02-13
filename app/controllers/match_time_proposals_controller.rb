@@ -1,7 +1,7 @@
 class MatchTimeProposalsController < ApplicationController
   def create
     proposal = MatchTimeProposal.new(params['match_time_proposal'])
-    #proposal.active = true
+    proposal.active = true
     if proposal.save
       flash[:success] = t('matches.proposal_created_successfully')
       redirect_to proposal.match
@@ -30,7 +30,7 @@ class MatchTimeProposalsController < ApplicationController
   
   def destroy
     proposal = MatchTimeProposal.find(params[:id])
-    #proposal.active = false
+    proposal.active = false
     if proposal.team.can_be_managed_by? current_user and proposal.save
       flash[:success] = t('matches.proposal_removed_successfully')
       redirect_to proposal.match
