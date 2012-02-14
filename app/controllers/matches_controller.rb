@@ -5,17 +5,17 @@ class MatchesController < ApplicationController
   
   def index
     if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
-      @matches3 = Match.filtered(current_user).where("competition_id = ?", 3).order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])    
+      @matches3 = Match.filtered(current_user).where("competition_id = ?", 3).order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])    
     elsif not current_user.nil? and params[:show_judged].present? and params[:show_judged] == 'true'
-      @matches3 = Match.where("judge_id = ? and competition_id = ?", current_user.id, 3).order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])        
+      @matches3 = Match.where("judge_id = ? and competition_id = ?", current_user.id, 3).order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])        
     else
       @matches3 = Match.where("competition_id = ?", 3).order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])    
     end
     
     if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
-      @matches4 = Match.filtered(current_user).where("competition_id = ?", 4).order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])    
+      @matches4 = Match.filtered(current_user).where("competition_id = ?", 4).order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])    
     elsif not current_user.nil? and params[:show_judged].present? and params[:show_judged] == 'true'
-      @matches4 = Match.where("judge_id = ? and competition_id = ?", current_user.id, 4).order("scheduled_at asc").paginate(:per_page => 20, :page => params[:page])        
+      @matches4 = Match.where("judge_id = ? and competition_id = ?", current_user.id, 4).order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])        
     else
       @matches4 = Match.where("competition_id = ?", 4).order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])    
     end
