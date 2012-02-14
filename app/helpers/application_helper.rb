@@ -14,7 +14,17 @@ module ApplicationHelper
       else
         return "#{count} błędów"
       end
-    end    
+    end   
+    
+    if unit == "propozycja" 
+      if count == 1
+        return "1 propozycja"
+      elsif (count % 10 == 2 or count % 10 == 3 or count % 10 == 4) and (count <= 10 or count > 19)
+        return "#{count} propozycje"
+      else
+        return "#{count} propozycji"
+      end
+    end 
     pluralize(count, unit)
   end
   

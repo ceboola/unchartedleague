@@ -10,7 +10,7 @@
       <b><%= time_tag(@match.scheduled_at) %></b>.
     </p>
     <p>
-      Zostały wylosowane następujące mapy: <b><%= @match.maps.join(', ') %></b>.<br/>
+      Zostały wylosowane następujące mapy: <b><%= @match.match_maps.collect { |x| x.map.name }.join(', ') %></b>.<br/>
       Sędzią meczu jest <b><%= @match.judge %></b>.
     </p>
     <p>
