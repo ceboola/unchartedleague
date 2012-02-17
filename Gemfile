@@ -6,6 +6,7 @@ gem 'will_paginate', '3.0.2'
 gem 'devise', '1.4.9'
 gem 'cancan', '1.6.7'
 gem 'pg'
+gem 'aws-s3'
 
 group :production do
   gem 'thin'
