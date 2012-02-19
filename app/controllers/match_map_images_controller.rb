@@ -7,7 +7,7 @@ class MatchMapImagesController < ApplicationController
     match_map = MatchMap.find(params[:match_map][:id])
     if params[:Filedata].present?
       if match_map.match.can_be_edited_by? current_user
-        url = "http://s3.amazonaws.com/useruploaded/match_map_images/" + upload_to_s3(params[:Filedata], match_map.id.to_s)
+        url = "http://static.unchartedleague.com/match_map_images/" + upload_to_s3(params[:Filedata], match_map.id.to_s)
         match_map.build_match_map_image(:user_id => current_user.id, :url => url)
         match_map.save
         render :text => url
@@ -37,7 +37,7 @@ class MatchMapImagesController < ApplicationController
     AWS::S3::S3Object.store(
       File.join('match_map_images', fullname),
       uploaded_io,
-      'useruploaded',
+      'static.unchartedleague.com',
       :access => :public_read
     )
 
