@@ -1,120 +1,35 @@
 <h1><%= t('matches.page_title') %></h1>
 
-<% unless @matches.nil? %>
-  <% if user_signed_in? %>
-    <div id="filter_buttons">
-      <label for="allMatchesToggleButton"><%= t('matches.all') %></label>
-      <input type="radio" name="show_filter" id="allMatchesToggleButton" 
-             onClick="goTo('<%=  url_for :action => 'index', :show_my => nil %>')"
-             <%= unless current_page?(:show_my => 'true', :show_judged => params[:show_judged], :page => params[:page]) then 'checked' else '' end %> />
+<% if user_signed_in? %>
+  <div id="filter_buttons">
+    <label for="allMatchesToggleButton"><%= t('matches.all') %></label>
+    <input type="radio" name="show_filter" id="allMatchesToggleButton" 
+           onClick="goTo('<%=  url_for :action => 'index', :show_my => nil %>')"
+           <%= unless current_page?(:show_my => 'true', :show_judged => params[:show_judged], :page => params[:page]) then 'checked' else '' end %> />
 
-      <label for="myMatchesToggleButton"><%= t('matches.my') %></label>
-      <input type="radio" name="show_filter" id="myMatchesToggleButton" 
-             onClick="goTo('<%=  url_for :action => 'index', :show_my => 'true' %>')" 
-             <%= if current_page?(:show_my => 'true', :show_judged => params[:show_judged], :page => params[:page]) then 'checked' else '' end %> />
-      
-      <label for="judgedMatchesToggleButton"><%= t('matches.judged') %></label>
-      <input type="radio" name="show_filter" id="judgedMatchesToggleButton" 
-             onClick="goTo('<%=  url_for :action => 'index', :show_judged => 'true' %>')" 
-             <%= if current_page?(:show_judged => 'true', :show_my => params[:show_my], :page => params[:page]) then 'checked' else '' end %> />
-    </div><br />
-  <% end %>
+    <label for="myMatchesToggleButton"><%= t('matches.my') %></label>
+    <input type="radio" name="show_filter" id="myMatchesToggleButton" 
+           onClick="goTo('<%=  url_for :action => 'index', :show_my => 'true' %>')" 
+           <%= if current_page?(:show_my => 'true', :show_judged => params[:show_judged], :page => params[:page]) then 'checked' else '' end %> />
 
-  <h2>Grupa Marco - 1. kolejka</h2>
-  <h3>Termin: 19.02.2012 24:00</h3>
-  <% if @matches3.any? %>
-    <table id="minimalist-table-hor-a" summary="<%= t('matches.page_title') %>">
-      <thead>
-        <tr>
-          <th scope="col"><%= t('matches.match') %></th>
-          <th scope="col"><%= t('matches.result') %></th>
-          <th scope="col"><%= t('matches.scheduled_at') %></th>
-          <th scope="col"><%= t('competitions.page_title') %></th>
-          <th scope="col"><%= t('more') %></th>         
-        </tr>
-      </thead>
-      <tbody>
-        <% for match in @matches3 do %>
-          <tr>
-            <td><%= match_teams(match) %></td>
-            <td><%= match.result %></td>
-            <td><%= (!match.scheduled_at.nil? ? time_tag(match.scheduled_at) : pluralize_localized(match.match_time_proposals.size, "propozycja")) %></td>    
-            <td><%= link_to match.competition.name, competitions_path %></td>               
-            <td>
-              <% if not @managed_team.nil? and match.open_spot? %>
-                <% if match.team1 != @managed_team %>
-                  <%= form_tag match_path(match), :method => :put do %>                
-                    <%= hidden_field_tag 'team2_id', @managed_team.id %>                
-                    <%= submit_tag t('matches.accept'), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
-                  <% end %>            
-                <% else %>
-                  <%= form_tag match_path(match), :method => :delete do %>                    
-                    <%= submit_tag t('matches.remove_proposal'), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
-                  <% end %>            
-                <% end %>
-              <% elsif not match.open_spot? %>
-                <%= form_tag match_path(match), :method => :get do %>                    
-                  <%= submit_tag t('matches.more'), :class => 'submit button', :name => nil %>    
-                <% end %>  
-              <% else %>
-                <%= t('none') %>
-              <% end %>
-            </td>     
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <%= will_paginate @matches3 %>
+    <label for="judgedMatchesToggleButton"><%= t('matches.judged') %></label>
+    <input type="radio" name="show_filter" id="judgedMatchesToggleButton" 
+           onClick="goTo('<%=  url_for :action => 'index', :show_judged => 'true' %>')" 
+           <%= if current_page?(:show_judged => 'true', :show_my => params[:show_my], :page => params[:page]) then 'checked' else '' end %> />
+  </div><br />
+<% end %>
+  
+<% if !@matches.nil? %>
+  <% if @matches.any? %>      
+    <%= render 'matches', :matches => @matches, :managed_team => @managed_team %>
   <% else %>  
     <p style='margin-top: 7px;'><%= t('matches.none') %></p>
+  <% end %> 
+<% elsif !@rounds.nil? %>
+  <% for round in @rounds %>
+    <h2>Ekstraklasa - <%= round.competition.name %> - <%= round.number %>. <%= t('matches.round_robin_round') %></h2>
+    <h3><%= t('matches.deadline') %>: <%= time_tag(round.ends) %></h3>
+    <%= render 'matches', :matches => round.matches.order('scheduled_at asc'), :managed_team => @managed_team %>
   <% end %>
-    
-  <h2>Grupa Polo - 1. kolejka</h2>
-  <h3>Termin: 19.02.2012 24:00</h3>
-  <% if @matches4.any? %>
-    <table id="minimalist-table-hor-a" summary="<%= t('matches.page_title') %>">
-      <thead>
-        <tr>
-          <th scope="col"><%= t('matches.match') %></th>
-          <th scope="col"><%= t('matches.result') %></th>
-          <th scope="col"><%= t('matches.scheduled_at') %></th>
-          <th scope="col"><%= t('competitions.page_title') %></th>
-          <th scope="col"><%= t('more') %></th>         
-        </tr>
-      </thead> 
-      <tbody>
-        <% for match in @matches4 do %>
-          <tr>
-            <td><%= match_teams(match) %></td>
-            <td><%= match.result %></td>
-            <td><%= (!match.scheduled_at.nil? ? time_tag(match.scheduled_at) : pluralize_localized(match.match_time_proposals.size, "propozycja")) %></td>    
-            <td><%= link_to match.competition.name, competitions_path %></td>              
-            <td>
-              <% if not @managed_team.nil? and match.open_spot? %>
-                <% if match.team1 != @managed_team %>
-                  <%= form_tag match_path(match), :method => :put do %>                
-                    <%= hidden_field_tag 'team2_id', @managed_team.id %>                
-                    <%= submit_tag t('matches.accept'), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
-                  <% end %>            
-                <% else %>
-                  <%= form_tag match_path(match), :method => :delete do %>                    
-                    <%= submit_tag t('matches.remove_proposal'), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
-                  <% end %>            
-                <% end %>
-              <% elsif not match.open_spot? %>
-                <%= form_tag match_path(match), :method => :get do %>                    
-                  <%= submit_tag t('matches.more'), :class => 'submit button', :name => nil %>    
-                <% end %>  
-              <% else %>
-                <%= t('none') %>
-              <% end %>
-            </td>     
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <%= will_paginate @matches4 %>
-  <% else %>  
-    <p style='margin-top: 7px;'><%= t('matches.none') %></p>
-  <% end %>
+  <%= will_paginate @rounds  %>
 <% end %>

@@ -3,6 +3,7 @@ class Match < ActiveRecord::Base
   belongs_to :team1, :class_name => "Team"
   belongs_to :team2, :class_name => "Team"
   belongs_to :judge, :class_name => "User"
+  belongs_to :round
   has_many :match_maps, :dependent => :destroy, :autosave => true
   has_many :maps, :through => :match_maps
   has_many :match_entries

@@ -45,11 +45,12 @@ class TeamsController < ApplicationController
     begin
       @team = Team.find(params[:id])
       if @team.can_be_managed_by? current_user
-        if @team.destroy
+        if @team.competition_entries.empty? and @team.destroy
           flash[:success] = t('teams.removed_successfully')
           redirect_to teams_path
         else      
-          render :action => 'show'    
+          flash[:error] = t('teams.cannot_be_deleted')
+          redirect_to :action => 'show'    
         end
       else
         flash[:error] = t('teams.cannot_manage')

@@ -50,6 +50,7 @@ pl:
     invite_mode_intro: "Jesteś w trybie zapraszenia do drużyny"
     invite_mode_explanation: "Jeśli chcesz zaprosić graczy do swoich drużyn, kliknij \"Zaproś do drużyny\" na stronie głównej swojej drużyny."
     see_teams: "Zobacz drużyny"
+    cannot_be_deleted: "Drużyny nie da się usunąć!"
   
   matches:    
     page_title: "Mecze"    
@@ -115,6 +116,8 @@ pl:
     proposed_by: "Proponowane przez"
     propose_your_time: "proponowany termin meczu"
     proposal_acceptance_explanation: "Akceptacja terminu jest nieodwracalna i wywoła losowanie map oraz spowoduje wysłanie e-maili do wszystkich członków obu drużyn."
+    deadline: "Termin"
+    round_robin_round: "Kolejka"
     
   players:
     page_title: "Zawodnicy"

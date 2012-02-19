@@ -1,6 +1,7 @@
 class Competition < ActiveRecord::Base
   has_many :teams, :through => :competition_entries
   has_many :competition_entries, :dependent => :destroy
+  has_many :rounds
   
   # team
   def min_players

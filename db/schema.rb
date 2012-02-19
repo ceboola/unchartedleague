@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120213182246) do
+ActiveRecord::Schema.define(:version => 20120219112849) do
 
   create_table "competition_entries", :force => true do |t|
     t.integer   "competition_id"
@@ -77,27 +77,28 @@ ActiveRecord::Schema.define(:version => 20120213182246) do
   add_index "match_maps", ["match_id"], :name => "index_match_maps_on_match_id"
 
   create_table "match_time_proposals", :force => true do |t|
-    t.integer  "match_id"
-    t.integer  "team_id"
-    t.datetime "proposal"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "active"
+    t.integer   "match_id"
+    t.integer   "team_id"
+    t.timestamp "proposal"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.boolean   "active"
   end
 
   add_index "match_time_proposals", ["match_id"], :name => "index_match_time_proposals_on_match_id"
   add_index "match_time_proposals", ["team_id"], :name => "index_match_time_proposals_on_team_id"
 
   create_table "matches", :force => true do |t|
-    t.integer   "competition_id"
-    t.integer   "team1_id"
-    t.integer   "team2_id"
-    t.timestamp "scheduled_at"
-    t.integer   "judge_id"
-    t.boolean   "processed"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.boolean   "locked_by_judge", :null => false
+    t.integer  "competition_id"
+    t.integer  "team1_id"
+    t.integer  "team2_id"
+    t.datetime "scheduled_at"
+    t.integer  "judge_id"
+    t.boolean  "processed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "locked_by_judge", :null => false
+    t.integer  "round_id"
   end
 
   add_index "matches", ["competition_id"], :name => "index_matches_on_competition_id"
@@ -115,6 +116,17 @@ ActiveRecord::Schema.define(:version => 20120213182246) do
 
   add_index "offers", ["team_id"], :name => "index_offers_on_team_id"
   add_index "offers", ["user_id"], :name => "index_offers_on_user_id"
+
+  create_table "rounds", :force => true do |t|
+    t.integer   "competition_id"
+    t.integer   "number"
+    t.timestamp "starts"
+    t.timestamp "ends"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+  end
+
+  add_index "rounds", ["competition_id"], :name => "index_rounds_on_competition_id"
 
   create_table "team_kdr", :id => false, :force => true do |t|
     t.integer "id",      :default => 0, :null => false

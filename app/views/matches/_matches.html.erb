@@ -1,0 +1,41 @@
+<table id="minimalist-table-hor-a" summary="<%= t('matches.page_title') %>">
+  <thead>
+    <tr>
+      <th scope="col"><%= t('matches.match') %></th>
+      <th scope="col"><%= t('matches.result') %></th>
+      <th scope="col"><%= t('matches.scheduled_at') %></th>
+      <th scope="col"><%= t('competitions.page_title') %></th>
+      <th scope="col"><%= t('more') %></th>         
+    </tr>
+  </thead>
+  <tbody>      
+    <% for match in matches do %>  
+      <tr>
+        <td><%= match_teams(match) %></td>
+        <td><%= match.result %></td>
+        <td><%= (!match.scheduled_at.nil? ? time_tag(match.scheduled_at) : pluralize_localized(match.match_time_proposals.size, "propozycja")) %></td>    
+        <td><%= link_to match.competition.name, competitions_path %></td>               
+        <td>
+          <% if not managed_team.nil? and match.open_spot? %>
+            <% if match.team1 != managed_team %>
+              <%= form_tag match_path(match), :method => :put do %>                
+                <%= hidden_field_tag 'team2_id', managed_team.id %>                
+                <%= submit_tag t('matches.accept'), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
+              <% end %>            
+            <% else %>
+              <%= form_tag match_path(match), :method => :delete do %>                    
+                <%= submit_tag t('matches.remove_proposal'), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
+              <% end %>            
+            <% end %>
+          <% elsif not match.open_spot? %>
+            <%= form_tag match_path(match), :method => :get do %>                    
+              <%= submit_tag t('matches.more'), :class => 'submit button', :name => nil %>    
+            <% end %>  
+          <% else %>
+            <%= t('none') %>
+          <% end %>
+        </td>     
+      </tr>
+    <% end %>
+  </tbody>
+</table>
