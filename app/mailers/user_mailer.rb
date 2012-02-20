@@ -21,6 +21,6 @@ class UserMailer < ActionMailer::Base
     users = @match.team1.members + @match.team2.members
     users << @match.judge
     recipients = users.collect(&:email)
-    mail(:to => "hq@unchartedleague.com", :bcc => recipients, :subject => "Termin meczu #{@match.team1.full_tag}-#{@match.team2.full_tag} został ustalony!")    
+    mail(:to => "hq@unchartedleague.com", :bcc => recipients, :subject => "Nowy mecz #{@match.team1.full_tag}-#{@match.team2.full_tag} został rozpisany!")    
   end
 end
