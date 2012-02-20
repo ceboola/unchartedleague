@@ -39,6 +39,16 @@ class TeamStats
         else
           @losses += 1
         end
+      else
+        if m.team2 == team
+          @points += 3
+          @wins += 1
+        elsif team1wins > 0
+          @points += 1        
+          @losses += 1
+        else
+          @losses += 1
+        end
       end
       
       if m.team1 == team
