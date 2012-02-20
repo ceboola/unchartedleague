@@ -11,7 +11,9 @@ class MatchesController < ApplicationController
     elsif not current_user.nil? and params[:show_judged].present? and params[:show_judged] == 'true'
       @matches = Match.where("judge_id = ? and competition_id in (?)", current_user.id, active_competitions).order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])        
     else
-      @rounds = Round.where("competition_id in (?)", active_competitions).order("ends desc").paginate(:per_page => 2, :page => params[:page]) # FIXME
+      page = 2
+      page = params[:page] if params[:page].present?
+      @rounds = Round.where("competition_id in (?)", active_competitions).order("ends asc").paginate(:per_page => 2, :page => page) # FIXME
     end
   end
   
