@@ -1,4 +1,7 @@
 <h1><%= t('teams.new') %></h1>
+
+<%= info_section t('teams.creating_new_team_and_entering_competitions_info') %>
+
 <% if @team.errors.any? %>
   <div class="flash error">
     <h2><%= pluralize_localized(@team.errors.count, t('error')) %> <%= t('in_your_form') %></h2>

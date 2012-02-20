@@ -26,11 +26,25 @@ pl:
   
   home: 
     page_title: "Główna"
+    
+  stats:
+    page_title: "Tabele"
+    matches: "Mecze"
+    maps: "Mapy"
+    points: "Punkty"
+    wins: "Zwycięstwa"
+    losses: "Przegrane"
+    frags_for: "Fragi"
+    frags_against: "Śmierci"
+    frags_diff: "Różnica"
+    assists: "Asysty"
+    place: "Miejsce"
   
   teams:    
     page_title: "Drużyny"
     team: "Drużyna"
     new: "Nowa drużyna"
+    create_new_team: "Załóż nową drużynę"
     add: "Dodaj drużynę"
     remove: "Usuń drużynę"
     created_successfully: "Drużyna stworzona!"
@@ -51,6 +65,7 @@ pl:
     invite_mode_explanation: "Jeśli chcesz zaprosić graczy do swoich drużyn, kliknij \"Zaproś do drużyny\" na stronie głównej swojej drużyny."
     see_teams: "Zobacz drużyny"
     cannot_be_deleted: "Drużyny nie da się usunąć!"
+    creating_new_team_and_entering_competitions_info: "Stworzenie nowej drużyny nie wystarczy, aby brać udział w rozgrywkach! Rozgrywki mają różne terminy rozpoczęcia i nie zawsze jest możliwość natychmiastowego przyłączenia. Po stworzeniu drużyny, zapoznaj się z aktualnymi rozgrywkami. Jeśli nie będzie dostępnych żadnych rozgrywek, stwórz drużynę, zapraszaj graczy i czekaj na e-maila z informacją o nowych terminach."
   
   matches:    
     page_title: "Mecze"    

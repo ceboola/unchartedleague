@@ -9,8 +9,21 @@
 //= require jquery-ui
 //= require swfobject
 //= require jquery.uploadify
+//= require jquery.dataTables
 //= require_tree .
 
 var goTo = function(url) {
     window.location.href = url;
 }
+
+//$(document).ready(function() {
+//    $('.ranking-table').dataTable( {
+//        "bPaginate": false,
+//        "bLengthChange": false,
+//        "bFilter": false,
+//        "bSort": false,
+//        "bInfo": false,
+//        "bAutoWidth": true,
+//        "aaSorting": [ [0,'asc'], [1,'asc'] ]
+//    } );
+//} );
