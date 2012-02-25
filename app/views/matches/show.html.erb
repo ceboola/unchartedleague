@@ -126,7 +126,8 @@
         <% end %>
       <% else %>
         <tr>          
-          <% for i in 0...3 # FIXME %>            
+          <% for i in 0...3 # FIXME %>        
+            <% match_map = @match.match_maps[i] %>
             <td class="text-center" style="vertical-align: top;">
               <div><%= image_tag match_map.map.image_url, :alt => match_map.map.name %></div>
               <h3><%= match_map.map.name %></h3>
