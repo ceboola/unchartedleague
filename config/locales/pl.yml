@@ -31,14 +31,15 @@ pl:
     page_title: "Tabele"
     matches: "Mecze"
     maps: "Mapy"
-    points: "Punkty"
-    wins: "Zwycięstwa"
+    points: "Pkt"
+    wins: "Wygrane"
     losses: "Przegrane"
     frags_for: "Fragi"
     frags_against: "Śmierci"
     frags_diff: "Różnica"
     assists: "Asysty"
-    place: "Miejsce"
+    place: "Lp"
+    promotion: "Awans"
   
   teams:    
     page_title: "Drużyny"

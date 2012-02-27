@@ -12,6 +12,7 @@ class TeamsController < ApplicationController
     begin
       @team = Team.find(params[:id])
       @team_participations = TeamParticipation.where("team_id = ?", @team.id).order("role asc")
+      @matches = Match.where('(team1_id = ? or team2_id = ?) and processed = ?', @team.id, @team.id, true).order('scheduled_at desc')
     rescue ActiveRecord::RecordNotFound
       flash[:error] = t('teams.doesnt_exist')
       redirect_to teams_path
