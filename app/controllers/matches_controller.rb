@@ -4,16 +4,14 @@ class MatchesController < ApplicationController
   end
   
   def index
-    active_competitions = [2, 3, 4]
+    active_competitions = [2, 3, 4] # FIXME
     
     if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
       @matches = Match.filtered(current_user).where("competition_id in (?)", active_competitions).order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])    
     elsif not current_user.nil? and params[:show_judged].present? and params[:show_judged] == 'true'
       @matches = Match.where("judge_id = ? and competition_id in (?)", current_user.id, active_competitions).order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])        
     else
-      page = 2
-      page = params[:page] if params[:page].present?
-      @rounds = Round.where("competition_id in (?)", active_competitions).order("ends asc").paginate(:per_page => 2, :page => page) # FIXME
+      @rounds = Round.where("competition_id in (?)", active_competitions).order("number desc, competition_id asc")
     end
   end
   
