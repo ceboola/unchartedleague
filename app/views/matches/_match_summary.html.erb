@@ -1,4 +1,43 @@
 <table class="match_summary">
-  <tr class="date_row"><td colspan='3'><%= time_tag match.scheduled_at %></td></tr>
-  <tr class="result_row"><td class="team_name"><%= match.team1.name %></td><td class="result"><%= link_to match.result, match %></td><td class="team_name"><%= match.team2.name %></td></tr>
+  <tr class="info_row">
+    <td colspan='3'>
+      <h2><%= time_tag match.scheduled_at %></h2>
+      <span class="details">
+        <%= "#{match.round.competition.name} - #{match.round.number}. #{t('matches.round_robin_round')}" %>
+      </span>
+    </td>
+  </tr>
+  <tr class="result_row">
+    <td class="team_name"><%= match.team1.name %></td>
+    <td class="result"><%= link_to match.result, match %></td>
+    <td class="team_name"><%= match.team2.name %></td>
+  </tr>
+  <% for match_map in match.match_maps %>
+    <% if match_map.match_entries.any? %>
+      <tr class="details_row">
+        <td class="map_score <%= if match_map.winning_team == match.team2 or match_map.winning_team.nil? then "lighter" else "" end %>">
+          <%= match.team_score_on_map(match.team1, match_map.map) %>
+        </td>
+        <td class="map_name"><%= match_map.map %></td>
+        <td class="map_score <%= if match_map.winning_team == match.team1 or match_map.winning_team.nil? then "lighter" else "" end %>">
+          <%= match.team_score_on_map(match.team2, match_map.map) %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+  <tr class="best_players_row">
+    <% stats = PlayerStats.best_match_players(match) %>
+    <td>
+      <h2><%= t('stats.most_kills') %></h2>
+      <span><%= "#{User.find(stats[:kills][0])} (#{stats[:kills][1]})" %></span>
+    </td>
+    <td>
+      <h2><%= t('stats.most_assists') %></h2>
+      <span><%= "#{User.find(stats[:assists][0])} (#{stats[:assists][1]})" %></span>
+    </td>
+    <td>
+      <h2><%= t('stats.least_deaths') %></h2>
+      <span><%= "#{User.find(stats[:deaths][0])} (#{stats[:deaths][1]})" %></span>
+    </td>
+  </tr>
 </table>

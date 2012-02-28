@@ -40,6 +40,9 @@ pl:
     assists: "Asysty"
     place: "Lp"
     promotion: "Awans"
+    most_kills: "najwięcej fragów"
+    most_assists: "najwięcej asyst"
+    least_deaths: "najmniej śmierci"
   
   teams:    
     page_title: "Drużyny"

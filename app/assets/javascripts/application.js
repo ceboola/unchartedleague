@@ -21,7 +21,8 @@ var goTo = function(url) {
 $(function(){
   $('#slider').bxSlider({
     auto: true,
-    pager: true
+    pager: true,
+    autoHover: true
   });
 });
 

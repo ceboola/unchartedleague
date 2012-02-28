@@ -1,12 +1,65 @@
-table .match_summary {
-  height: 300px;
+$grey: #909090;
+$highlighted: #003399;
+
+table.match_summary {
   width: 728px;
-  tr {
-    .date_row td {
-      width: 100%;
-      text-align: center;
+  tr.info_row td {   
+    text-align: center;
+    vertical-align: middle;
+    height: 70px;
+
+    h2 {
+        font-size: 1.5em;
+        color: $grey;            
+    }
+
+    .details {
+        font-size: 1.1em;
+    }
+  }
+  
+  tr.result_row {    
+    height: 3.0em;
+    vertical-align: middle;
+    text-align: center;
+    td.team_name {        
+        width: 40%;
+        font-size: 1.6em;
+    }
+    td.result {      
+        font-size: 1.8em;
+    }
+  }
+
+  tr.details_row {
+    td.map_name {
+        font-size: 1.2em;
+        color: $highlighted;
+    }
+
+    td.map_score, td.lighter {      
+      font-size: 1.2em;             
+    }
+
+    td.lighter {
+      color: $grey;
+    }    
+  }
+
+  tr.best_players_row {
+    border-top: 1px dotted $grey;
+
+    td {
+      padding-top: 10px; 
+      h2 {
+        font-size: 1.6em;
+        color: $highlighted;
+      }
+  
+      span {
+        font-size: 1.4em;
+      }
     }
   }
 }
-
 

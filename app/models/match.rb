@@ -51,6 +51,28 @@ class Match < ActiveRecord::Base
       "-:-"
     end
   end
+
+  def maps_won_by_team (team)
+    wins = 0
+    for match_map in match_maps
+      if match_map.winning_team == team
+        wins += 1
+      end
+    end    
+  end
+
+  def team_score_on_map (team, map)
+    for match_map in match_maps
+      if match_map.map == map
+        if team == team1
+          return match_map.team1score
+        elsif team == team2
+          return match_map.team2score
+        end
+      end
+    end
+    "-"
+  end
   
   def detailed_result(user = nil)
     if processed or user == judge
