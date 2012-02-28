@@ -1,0 +1,4 @@
+<table class="match_summary">
+  <tr class="date_row"><td colspan='3'><%= time_tag match.scheduled_at %></td></tr>
+  <tr class="result_row"><td class="team_name"><%= match.team1.name %></td><td class="result"><%= link_to match.result, match %></td><td class="team_name"><%= match.team2.name %></td></tr>
+</table>

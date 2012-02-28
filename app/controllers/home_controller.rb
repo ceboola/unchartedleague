@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   def index    
-    @marco = Team.joins(:competition_entries).where('competition_entries.competition_id = ?', 3).order('name asc').select('teams.id, tag, name')    
-    @polo = Team.joins(:competition_entries).where('competition_entries.competition_id = ?', 4).order('name asc').select('teams.id, tag, name')    
+    @matches = Match.where('processed = ?', true).order('scheduled_at desc').limit(5)
   end
 end

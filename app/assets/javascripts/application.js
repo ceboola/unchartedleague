@@ -10,11 +10,20 @@
 //= require swfobject
 //= require jquery.uploadify
 //= require jquery.dataTables
+//= require jquery.easing
+//= require jquery.bxSlider
 //= require_tree .
 
 var goTo = function(url) {
     window.location.href = url;
 }
+
+$(function(){
+  $('#slider').bxSlider({
+    auto: true,
+    pager: true
+  });
+});
 
 //$(document).ready(function() {
 //    $('.ranking-table').dataTable( {
