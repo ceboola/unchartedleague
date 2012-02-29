@@ -25,19 +25,23 @@
       </tr>
     <% end %>
   <% end %>
-  <tr class="best_players_row">
-    <% stats = PlayerStats.best_match_players(match) %>
-    <td>
-      <h2><%= t('stats.most_kills') %></h2>
-      <span><%= "#{User.find(stats[:kills][0])} (#{stats[:kills][1]})" %></span>
-    </td>
-    <td>
-      <h2><%= t('stats.most_assists') %></h2>
-      <span><%= "#{User.find(stats[:assists][0])} (#{stats[:assists][1]})" %></span>
-    </td>
-    <td>
-      <h2><%= t('stats.least_deaths') %></h2>
-      <span><%= "#{User.find(stats[:deaths][0])} (#{stats[:deaths][1]})" %></span>
-    </td>
-  </tr>
 </table>
+<div class="best_players round">
+  <% stats = PlayerStats.best_match_players(match) %>
+  <table>
+    <tr>
+      <td>
+        <h2><%= t('stats.most_kills') %></h2>
+        <span><%= "#{User.find(stats[:kills][0])} (#{stats[:kills][1]})" %></span>    
+      </td>
+      <td>
+        <h2><%= t('stats.most_assists') %></h2>
+        <span><%= "#{User.find(stats[:assists][0])} (#{stats[:assists][1]})" %></span>
+      </td>
+      <td>
+        <h2><%= t('stats.least_deaths') %></h2>
+        <span><%= "#{User.find(stats[:deaths][0])} (#{stats[:deaths][1]})" %></span>
+      </td>
+    </tr>
+  </table>
+</div>

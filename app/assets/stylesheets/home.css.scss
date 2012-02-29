@@ -1,3 +1,52 @@
-// Place all the styles related to the Home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+table.walls {
+  margin-top: 30px;
+  width: 100%;
+
+  li a { border: 0; display: block; overflow: hidden; font-weight: normal; text-decoration: none; padding: 10px; }
+  
+  td {
+    width: 50%;    
+    text-align: center;
+    li {
+      margin-left: 10px;
+      margin-right: 10px;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      border-radius: 5px;
+      small {
+        margin-left: 15px;
+      }
+    }
+  }
+
+  li a:hover {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  td.news {
+    li {
+      background-color: #DADADA;
+    }
+
+    li a:hover { background-color: #DFDFDF; }
+  }
+
+  td.comments {
+    li {
+      background-color: #F8FAB4;
+    }
+
+    li a:hover { background-color: #FDFFC4; }
+  }
+
+  td.activities {
+    li {
+      background-color: #C2E4FC;
+    }
+
+    li a:hover { background-color: #DBF1F9; }
+  }
+}
+

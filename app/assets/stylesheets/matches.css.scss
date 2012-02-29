@@ -9,12 +9,12 @@ table.match_summary {
     height: 70px;
 
     h2 {
-        font-size: 1.5em;
-        color: $grey;            
+      font-size: 1.5em;                    
     }
 
     .details {
-        font-size: 1.1em;
+      font-size: 1.1em;
+      color: $grey;
     }
   }
   
@@ -23,18 +23,19 @@ table.match_summary {
     vertical-align: middle;
     text-align: center;
     td.team_name {        
-        width: 40%;
-        font-size: 1.6em;
+      width: 36%;
+      font-size: 1.6em;
     }
+ 
     td.result {      
-        font-size: 1.8em;
+      font-size: 1.8em;
     }
   }
 
   tr.details_row {
     td.map_name {
-        font-size: 1.2em;
-        color: $highlighted;
+      font-size: 1.2em;
+      color: $highlighted;
     }
 
     td.map_score, td.lighter {      
@@ -60,6 +61,29 @@ table.match_summary {
         font-size: 1.4em;
       }
     }
+  }
+}
+
+div.best_players {
+  width: 100%;
+  background-color: #CFCFCF;
+  margin-top: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  table {
+    td {
+      width: 242px;      
+    }
+  }
+
+  h2 {
+    font-size: 1.6em;
+    color: $highlighted;
+  }
+  
+  span {
+    font-size: 1.4em;
   }
 }
 
