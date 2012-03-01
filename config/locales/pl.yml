@@ -435,6 +435,14 @@ pl:
           deaths: "Śmierci"
           assists: "Asysty"
         
+  views:
+    pagination:
+      first: ""
+      previous: "&#8592; Poprzednie"
+      truncate: "&hellip;"
+      next: "Następne &#8594;"
+      last: ""
+
   will_paginate:
     previous_label: "&#8592; Poprzednie"
     next_label: "Następne &#8594;"

@@ -9,6 +9,8 @@ class Team < ActiveRecord::Base
   validates :name, :presence => true, :length => { :maximum => 35 }, :uniqueness => true
   validates :description, :length => { :maximum => 250 }  
  
+  paginates_per 20
+
   def played_matches_size(competition)
     Match.where('(team1_id = ? or team2_id = ?) and processed = ? and competition_id = ?', id, id, true, competition.id).count
   end

@@ -1,4 +1,6 @@
 Unchartedleague::Application.routes.draw do  
+  opinio_model
+
   root :to => 'home#index'  
   devise_for :users
   get "players/index"
@@ -11,7 +13,9 @@ Unchartedleague::Application.routes.draw do
   resources :offers
   resources :competitions
   resources :competition_entries
-  resources :matches
+  resources :matches do
+    opinio
+  end
   resources :match_maps
   resources :maps
   resources :match_map_images

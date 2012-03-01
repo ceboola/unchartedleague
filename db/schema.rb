@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120219112849) do
+ActiveRecord::Schema.define(:version => 20120229174442) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "owner_id",         :null => false
+    t.integer  "commentable_id",   :null => false
+    t.string   "commentable_type", :null => false
+    t.text     "body",             :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "competition_entries", :force => true do |t|
     t.integer   "competition_id"
@@ -89,16 +98,16 @@ ActiveRecord::Schema.define(:version => 20120219112849) do
   add_index "match_time_proposals", ["team_id"], :name => "index_match_time_proposals_on_team_id"
 
   create_table "matches", :force => true do |t|
-    t.integer  "competition_id"
-    t.integer  "team1_id"
-    t.integer  "team2_id"
-    t.datetime "scheduled_at"
-    t.integer  "judge_id"
-    t.boolean  "processed"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "locked_by_judge", :null => false
-    t.integer  "round_id"
+    t.integer   "competition_id"
+    t.integer   "team1_id"
+    t.integer   "team2_id"
+    t.timestamp "scheduled_at"
+    t.integer   "judge_id"
+    t.boolean   "processed"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.boolean   "locked_by_judge", :null => false
+    t.integer   "round_id"
   end
 
   add_index "matches", ["competition_id"], :name => "index_matches_on_competition_id"

@@ -9,6 +9,8 @@ class Match < ActiveRecord::Base
   has_many :match_entries
   has_many :match_time_proposals, :dependent => :destroy
   
+  opinio_subjectum
+
   validates_associated :match_maps
   
   def self.filtered(user)
