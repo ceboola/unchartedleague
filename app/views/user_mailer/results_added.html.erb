@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h2>Cześć,</h2>
+    <p>
+      Wyniki meczu <%= "#{@match.team1} - #{@match.team2}" %> zostały dodane przez użytkownika <%= @user %>. 
+      Jesteś sędzią tego meczu i powinieneś jak najszybciej je zweryfikować i zatwierdzić (<%= match_url(@match) %>).
+    </p>
+    <p>Pozdrawiamy,<br/>Administracja serwisu unchartedleague.com</p>
+    <p><small>Ten e-mail został wygenerowany automatycznie, prosimy na niego nie odpowiadać.</small></p>
+  </body>
+</html>

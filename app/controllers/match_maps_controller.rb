@@ -4,7 +4,9 @@ class MatchMapsController < ApplicationController
     
     if @match_map.match.can_be_edited_by? current_user
       if params[:match_map][:results_updated_token].present?
+        notify = @match_map.match.match_entries.empty?
         @match_map.update_attributes(params[:match_map].except(:results_updated_token, :match_entries_token, :team_id, :picture_updated_token))
+        UserMailer.results_added(@match_map.match, current_user).deliver if notify
 
         if params[:match_map].has_key? :team_id
           @team = Team.find(params[:match_map][:team_id])
