@@ -1,4 +1,6 @@
 class RoundsController < ApplicationController  
+  load_and_authorize_resource
+
   def create    
     @round = Round.new(params[:round])
     if @round.save
