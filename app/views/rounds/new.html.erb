@@ -1,0 +1,28 @@
+<%= form_for @round do |f| %>
+  <%= f.label :competition_id %>
+  <%= f.select :competition_id, Competition.all.collect { |x| [x.name, x.id] } %><br/>
+  <%= f.label :starts %>
+  <%= datetime_select("round", "starts", :start_year => 2012, :end_year => 2012) %><br/>
+  <%= f.label :ends %>
+  <%= datetime_select("round", "ends", :start_year => 2012, :end_year => 2012) %><br />
+  <%= f.label :number %>
+  <%= f.text_field :number %><br/>
+  Mecze:
+  <ul>
+    <%= f.fields_for :matches do |m| %>
+      <%= m.hidden_field :locked_by_judge %>
+      <%= m.hidden_field :processed %>
+      <%= m.select(:team1_id, @teams.collect { |x| [x, x.id] }) %>
+      <%= m.select(:team2_id, @teams.collect { |x| [x, x.id] }) %>
+      <%= m.select(:judge_id, @judges.collect { |x| [x, x.id] }) %>
+      <%= m.select(:competition_id, Competition.all.collect { |x| [x.name, x.id] }) %>
+    <% end %>
+  </ul>
+  <%= f.submit "OK" %>
+<% end %>
+
+<ul>
+  <% for log in @logs %>
+    <li><%= log %></li>
+  <% end %>
+</ul>
