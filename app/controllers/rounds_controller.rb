@@ -4,7 +4,10 @@ class RoundsController < ApplicationController
   def create    
     @round = Round.new(params[:round])
     if @round.save
-      flash[:success] = "OK"
+      for m in @round.matches
+        UserMailer.new_match_added(m).deliver
+      end
+      flash[:success] = "OK"      
       redirect_to matches_path
     else
       flash[:error] = "NOOOO!!!"
