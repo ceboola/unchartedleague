@@ -16,17 +16,27 @@ class TeamStats
       team1wins = 0
       team2wins = 0
       team1frags = 0
-      team2frags = 0      
-      for match_map in m.match_maps
-        if match_map.match_entries.any?
-          @maps += 1
-          if match_map.winning_team == m.team1
-            team1wins += 1
-          elsif match_map.winning_team == m.team2
-            team2wins += 1
+      team2frags = 0
+      if m.forfeiting_team.nil?
+        for match_map in m.match_maps
+          if match_map.match_entries.any?
+            @maps += 1
+            if match_map.winning_team == m.team1
+              team1wins += 1
+            elsif match_map.winning_team == m.team2
+              team2wins += 1
+            end
+            team1frags += match_map.team1score
+            team2frags += match_map.team2score
           end
-          team1frags += match_map.team1score
-          team2frags += match_map.team2score
+        end
+      else
+        if m.forfeiting_team == m.team1
+          team2wins = 2
+          team2frags = 50
+        else
+          team1wins = 2
+          team2frags = 50
         end
       end
       if team1wins > team2wins

@@ -26,6 +26,9 @@
   <li><%= t('matches.scheduled_at') %>: <%= (!@match.scheduled_at.nil? ? time_tag(@match.scheduled_at) : "?") %></li>
   <li><%= t('matches.judge') %>: <%= (@match.judge.nil? ? t('matches.no_judge') : @match.judge) %></li>  
   <li><%= t('matches.processed') %>: <%= (@match.processed ? t('choice_yes'): t('choice_no')) %></li>
+  <% unless @match.forfeiting_team.nil? %>
+    <li><%= "#{t('matches.forfeited_by')} #{@match.forfeiting_team.name}" %></li>
+  <% end %>
 </ul>
 
 <% if @match.scheduled_at.nil? %>
@@ -79,7 +82,7 @@
       </div>
     <% end %>
   <% end %>
-<% else %>  
+<% elsif @match.forfeiting_team.nil? %>  
   <% edit = @edit_mode ? "_edit" : "" %>
   <table id="minimalist-table-hor-a" summary="<%= t('matches.page_title') %>">
     <thead>

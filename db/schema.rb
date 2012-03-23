@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120219112849) do
+ActiveRecord::Schema.define(:version => 20120320203320) do
+
+  create_table "comments", :force => true do |t|
+    t.integer   "owner_id",         :null => false
+    t.integer   "commentable_id",   :null => false
+    t.string    "commentable_type", :null => false
+    t.text      "body",             :null => false
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+  end
 
   create_table "competition_entries", :force => true do |t|
     t.integer   "competition_id"
@@ -97,11 +106,10 @@ ActiveRecord::Schema.define(:version => 20120219112849) do
     t.boolean  "processed"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "locked_by_judge", :null => false
+    t.boolean  "locked_by_judge"
     t.integer  "round_id"
+    t.integer  "forfeiting_team_id"
   end
-
-  add_index "matches", ["competition_id"], :name => "index_matches_on_competition_id"
 
   create_table "offers", :force => true do |t|
     t.integer   "user_id"

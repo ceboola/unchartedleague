@@ -137,6 +137,7 @@ pl:
     proposal_acceptance_explanation: "Akceptacja terminu jest nieodwracalna i wywoła losowanie map oraz spowoduje wysłanie e-maili do wszystkich członków obu drużyn."
     deadline: "Termin"
     round_robin_round: "Kolejka"
+    forfeited_by: "Walkower drużyny"
     
   players:
     page_title: "Zawodnicy"

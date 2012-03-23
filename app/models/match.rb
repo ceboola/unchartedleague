@@ -3,6 +3,7 @@ class Match < ActiveRecord::Base
   belongs_to :team1, :class_name => "Team"
   belongs_to :team2, :class_name => "Team"
   belongs_to :judge, :class_name => "User"
+  belongs_to :forfeiting_team, :class_name => "Team"
   belongs_to :round
   has_many :match_maps, :dependent => :destroy, :autosave => true
   has_many :maps, :through => :match_maps
@@ -39,11 +40,19 @@ class Match < ActiveRecord::Base
     if processed
       team1wins = 0
       team2wins = 0
-      for match_map in match_maps
-        if match_map.winning_team == team1
-          team1wins += 1
-        elsif match_map.winning_team == team2
-          team2wins += 1
+      if forfeiting_team.nil?
+        for match_map in match_maps
+          if match_map.winning_team == team1
+            team1wins += 1
+          elsif match_map.winning_team == team2
+            team2wins += 1
+          end
+        end
+      else
+        if forfeiting_team == team1
+          team2wins = 2
+        elsif forfeiting_team == team2
+          team1wins = 2
         end
       end
       team1wins.to_s + ":" + team2wins.to_s
@@ -54,44 +63,66 @@ class Match < ActiveRecord::Base
 
   def maps_won_by_team (team)
     wins = 0
-    for match_map in match_maps
-      if match_map.winning_team == team
-        wins += 1
+    if forfeiting_team.nil?
+      for match_map in match_maps
+        if match_map.winning_team == team
+          wins += 1
+        end
+      end    
+    else
+      if forfeiting_team != team
+        wins = 2
       end
-    end    
+    end
   end
 
   def team_score_on_map (team, map)
-    for match_map in match_maps
-      if match_map.map == map
-        if team == team1
-          return match_map.team1score
-        elsif team == team2
-          return match_map.team2score
+    if forfeiting_team.nil?
+      for match_map in match_maps
+        if match_map.map == map
+          if team == team1
+            return match_map.team1score
+          elsif team == team2
+            return match_map.team2score
+          end
         end
+      end
+    else
+      if forfeiting_team == team
+        0
+      else
+        25
       end
     end
     "-"
   end
   
   def detailed_result(user = nil)
-    if processed or user == judge
-      team1wins = 0
-      team2wins = 0
-      scores = []
-      for match_map in match_maps
-        if match_map.match_entries.any?
-          if match_map.winning_team == team1
-            team1wins += 1
-          elsif match_map.winning_team == team2
-            team2wins += 1
+    if forfeiting_team.nil?
+      if processed or user == judge
+        team1wins = 0
+        team2wins = 0
+        scores = []
+        for match_map in match_maps
+          if match_map.match_entries.any?
+            if match_map.winning_team == team1
+              team1wins += 1
+            elsif match_map.winning_team == team2
+              team2wins += 1
+            end
+            scores << match_map.team1score.to_s + "-" + match_map.team2score.to_s
           end
-          scores << match_map.team1score.to_s + "-" + match_map.team2score.to_s
         end
+        team1wins.to_s + ":" + team2wins.to_s + " (" + scores.join(', ') + ")"
+      else
+        result
       end
-      team1wins.to_s + ":" + team2wins.to_s + " (" + scores.join(', ') + ")"
     else
-      result
+      if forfeiting_team == team1
+        "0:2 (0:25, 0:25)"
+      else
+        "2:0 (25:0, 25:0)"
+      end
     end
   end
   
