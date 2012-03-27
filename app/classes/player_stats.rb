@@ -25,7 +25,7 @@ class PlayerStats
 
   def skill
     if (@deaths > 0 or @kills > 0) and @competition_activity >= 50.0
-      100 * ((@kills + 0.8 * @assists) / (@kills + 0.8 * @assists + @deaths))
+      100 * ((@kills + 0.65 * @assists) / (@kills + 0.65 * @assists + @deaths))
     else
       0
     end
