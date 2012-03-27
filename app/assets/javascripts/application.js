@@ -26,14 +26,32 @@ $(function(){
   });
 });
 
-//$(document).ready(function() {
-//    $('.ranking-table').dataTable( {
-//        "bPaginate": false,
-//        "bLengthChange": false,
-//        "bFilter": false,
-//        "bSort": false,
-//        "bInfo": false,
-//        "bAutoWidth": true,
-//        "aaSorting": [ [0,'asc'], [1,'asc'] ]
-//    } );
-//} );
+$(document).ready(function() {
+    $('.ranking-table-active').dataTable( {
+      "oLanguage":{ 
+        "sProcessing":   "Proszę czekać...",
+        "sLengthMenu":   "Pokaż _MENU_ pozycji",
+        "sZeroRecords":  "Nie znaleziono żadnych pasujących wpisów",
+        "sInfo":         "Pozycje od _START_ do _END_ ze _TOTAL_",
+        "sInfoEmpty":    "Pozycji 0 z 0 dostępnych",
+        "sInfoFiltered": "(filtrowanie spośród _MAX_ dostępnych pozycji)",
+        "sInfoPostFix":  "",
+        "sSearch":       "Szukaj:",
+        "sUrl":          "",
+        "oPaginate": {
+          "sFirst":    "Pierwsza",
+          "sPrevious": "Poprzednia",
+          "sNext":     "Następna",
+          "sLast":     "Ostatnia"
+        }
+      },
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bSort": true,
+        "bInfo": false,
+        "bAutoWidth": true,
+        "aaSorting": [ [0,'asc'] ]
+              
+    } );
+} );

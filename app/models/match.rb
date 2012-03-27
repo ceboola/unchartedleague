@@ -35,6 +35,10 @@ class Match < ActiveRecord::Base
   def teams
     [team1, team2]
   end
+
+  def has_valid_scores?
+    return (processed and forfeiting_team.nil?)
+  end
   
   def result
     if processed

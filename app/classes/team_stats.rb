@@ -31,7 +31,7 @@ class TeamStats
           end
         end
       else
-        @maps = 2
+        @maps += 2
         if m.forfeiting_team == m.team1
           team2wins = 2
           team2frags = 50
