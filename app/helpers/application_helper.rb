@@ -31,4 +31,14 @@ module ApplicationHelper
   def one_line(sb)
     sb.gsub(/\n/, '').html_safe
   end
+
+  def link_to_add_match_fields(name, f, teams, judges, competitions)
+    new_match = Match.new(:locked_by_judge => false, :processed => false)
+    fields = f.fields_for(:matches, new_match, :child_index => "new_match") do |builder|
+      render("match_fields", :f => builder, :teams => teams, :judges => judges, :competitions => competitions)
+    end
+    link_to_function(name, "add_fields(this, \"match\", \"#{escape_javascript(fields)}\")")
+  end
+
+
 end
