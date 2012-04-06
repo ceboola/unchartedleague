@@ -4,7 +4,7 @@ class MatchesController < ApplicationController
   end
   
   def index
-    active_competitions = [2, 3, 4] # FIXME
+    active_competitions = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] # FIXME
     
     if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
       @matches = Match.filtered(current_user).where("competition_id in (?)", active_competitions).order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])    
