@@ -1,0 +1,5 @@
+<ul>
+  <% for c in @competitions %>
+    <li><%= c.name %> <%= link_to "edit", edit_competition_path(c) %> <%= link_to "remove", competition_path(c), :method => :delete %></li>
+  <% end %>
+</ul>

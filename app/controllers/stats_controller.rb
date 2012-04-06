@@ -1,11 +1,16 @@
 class StatsController < ApplicationController
   def ranking
-    @competitions = [Competition.find(3), Competition.find(4)]
-    @stats = []
+    @stats = {}
+    @competitions = [Competition.find(5), Competition.find(3), Competition.find(4)]    
     for competition in @competitions
+      if competition.id == 5
+        additional_matches = [Match.find(66), Match.find(121)]
+      else
+        additional_matches = []
+      end
       stats = []
       for team in competition.teams
-        stats << TeamStats.new(team, competition)
+        stats << TeamStats.new(team, competition, additional_matches)
       end
       @stats[competition.id] = stats.sort_by { |x| [-x.points, -x.frags_diff, -x.frags_for] }
     end

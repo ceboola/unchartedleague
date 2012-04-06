@@ -39,11 +39,9 @@ class RoundsController < ApplicationController
             team2 = opp
             break
           end
-          if team2.nil?
-            team2 = t
+          unless team2.nil?
+            @round.matches.build(:team1_id => t.id, :team2_id => team2.id, :locked_by_judge => false, :processed => false, :competition_id => c.id)
           end
-
-          @round.matches.build(:team1_id => t.id, :team2_id => team2.id, :locked_by_judge => false, :processed => false, :competition_id => c.id)
           used_teams << t
           used_teams << team2
         end

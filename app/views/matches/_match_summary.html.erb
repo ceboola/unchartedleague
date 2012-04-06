@@ -3,7 +3,7 @@
     <td colspan='3'>
       <h2><%= time_tag match.scheduled_at %></h2>
       <span class="details">
-        <%= "#{match.round.competition.name} - #{match.round.number}. #{t('matches.round_robin_round')}" %>
+        <%= "#{match.round.competition.name} (#{match.competition.name}) - #{match.round.number}. #{t('matches.round_robin_round')}" %>
       </span>
     </td>
   </tr>

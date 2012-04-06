@@ -1,7 +1,11 @@
 class Competition < ActiveRecord::Base
   has_many :teams, :through => :competition_entries
   has_many :competition_entries, :dependent => :destroy
-  has_many :rounds  
+  has_many :rounds
+
+  validates :name, :presence => true, :uniqueness => true
+  
+  accepts_nested_attributes_for :competition_entries, :allow_destroy => true
   
   # team
   def min_players

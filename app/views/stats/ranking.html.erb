@@ -15,7 +15,9 @@
         <th class="text-center" scope="col"><%= t('stats.frags_for').capitalize %></th>
         <th class="text-center" scope="col"><%= t('stats.frags_against').capitalize %></th>
         <th class="text-center" scope="col"><%= t('stats.frags_diff').capitalize %></th>
-        <th class="text-center" scope="col"><%= t('stats.promotion').capitalize %></th>
+        <% if competition.id < 5 %>
+          <th class="text-center" scope="col"><%= t('stats.promotion').capitalize %></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -33,7 +35,9 @@
           <td class="text-center"><%= stats.frags_for %></td>
           <td class="text-center"><%= stats.frags_against %></td>
           <td class="text-center"><%= stats.frags_diff %></td>
-          <td class="text-center"><%= if i <= 2 then "grupa mistrzowska" else "mecz o #{i*2-1}. miejsce" end %></td>
+          <% if competition.id < 5 %>
+            <td class="text-center"><%= if i <= 2 then "grupa mistrzowska" else "mecz o #{i*2-1}. miejsce" end %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

@@ -1,9 +1,12 @@
 class TeamStats
   attr_accessor :team, :matches, :maps, :wins, :losses, :points, :frags_diff, :frags_for, :frags_against, :assists
   
-  def initialize(team, competition)
+  def initialize(team, competition, additional_matches = nil)
     @team = team
-    matches = Match.where('(team1_id = ? or team2_id = ?) and competition_id = ? and processed = ?', team.id, team.id, competition.id, true)
+    matches =  Match.where('(team1_id = ? or team2_id = ?) and competition_id = ? and processed = ?', team.id, team.id, competition.id, true)
+    unless additional_matches.nil?
+      matches += additional_matches.reject { |x| x.team1 != team and x.team2 != team }
+    end
     @matches = matches.size    
     @maps = 0
     @wins = 0
