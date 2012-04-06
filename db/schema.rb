@@ -11,6 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+
 ActiveRecord::Schema.define(:version => 20120320203320) do
 
   create_table "comments", :force => true do |t|
@@ -98,6 +99,7 @@ ActiveRecord::Schema.define(:version => 20120320203320) do
   add_index "match_time_proposals", ["team_id"], :name => "index_match_time_proposals_on_team_id"
 
   create_table "matches", :force => true do |t|
+<<<<<<< HEAD
     t.integer  "competition_id"
     t.integer  "team1_id"
     t.integer  "team2_id"

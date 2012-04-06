@@ -158,3 +158,5 @@
     <%= render 'forum_match_topic', :match => @match %>
   <% end %>
 <% end %>
+
+<%= comments_for @match, :page => params[:page] %>

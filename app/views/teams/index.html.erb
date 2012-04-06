@@ -54,7 +54,7 @@
       <% end %>
     </tbody>
   </table>
-  <%= will_paginate @teams %>
+  <%= paginate @teams, :page => params[:page] %>
 <% else %>  
   <p style='margin-top: 7px;'><%= t('teams.none') %></p>
 <% end %>

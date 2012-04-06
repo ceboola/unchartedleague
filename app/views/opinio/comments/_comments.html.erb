@@ -1,0 +1,17 @@
+<div class="comments_section">  
+  <h2 id="comments">
+    <%= comments.size %> odpowiedzi {<a title="Leave a comment" class="more" href="#respond">+</a>}
+  </h2>
+  <ol id="singlecomments" class="commentlist">
+    <% unless comments.empty? %>
+    <div>
+      <%= paginate comments %>
+    </div>
+    <%= render :partial => 'opinio/comments/comment', :collection => comments %>    
+    <div>
+      <%= paginate comments %>
+    </div>
+  <% else %>
+    <li id="no_comments"><%= t 'opinio.no_comments_found', :default => "No comments found" %></li>
+  <% end %>
+</div>

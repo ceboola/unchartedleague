@@ -1,0 +1,209 @@
+.comments_section {
+
+
+h2#comments {
+    border: medium none;
+    font-size: 1.5em;
+    margin-top: 32px;
+}
+
+#commentform textarea {
+    height: 250px;
+    margin: 5px 0 10px;
+    width: 97%;
+}
+
+.commentlist li {
+    list-style: none outside none;
+    margin-top: 25px;
+    overflow: hidden;
+    padding: 20px;
+}
+.commentlist li.depth-2, .commentlist li.depth-3 {
+    border-left: 1px solid #B5CAD0;
+    border-top: medium none;
+    margin: 30px 0 30px 35px;
+    padding: 0 0 0 15px;
+}
+.commentlist li.bypostauthor {
+    background: url("lighter.png") repeat scroll 0 0 transparent !important;
+    border: 3px solid #B5CAD0;
+    padding: 16px 20px 20px;
+}
+li.thread-even {
+    background: url("lighter.png") repeat scroll 0 0 transparent !important;
+    border-bottom: 1px solid #B5CAD0;
+    border-top: 1px solid #B5CAD0;
+}
+.commentlist code {
+    background: none repeat scroll 0 0 #FFFFFF;
+    font-size: 1.1em;
+    padding: 3px;
+}
+.gravatar {
+    float: left;
+    line-height: 140%;
+    text-align: center;
+    width: 68px;
+}
+img.avatar {
+    margin: 0 0 7px;
+    padding: 4px;
+}
+.commentmetadata {
+    float: right;
+    padding-bottom: 10px;
+    width: 83%;
+}
+.commentlist li.depth-2 .commentmetadata {
+    width: 81%;
+}
+.commentlist li.depth-3 .commentmetadata {
+    width: 78%;
+}
+
+.message {
+    background: none repeat scroll 0 0 #F7FCFC;
+    border-bottom: 1px solid #BAC5C8;
+    border-right: 1px solid #BAC5C8;
+    margin: 25px 0;
+    padding: 18px 25px;
+}
+.commentlist li {
+    list-style: none outside none;
+    margin-top: 25px;
+    overflow: hidden;
+    padding: 20px;
+}
+.commentlist li.depth-2, .commentlist li.depth-3 {
+    border-left: 1px solid #B5CAD0;
+    border-top: medium none;
+    margin: 30px 0 30px 35px;
+    padding: 0 0 0 15px;
+}
+.commentlist li.bypostauthor {
+    background: url("../images/lighter.png") repeat scroll 0 0 transparent !important;
+    border: 3px solid #B5CAD0;
+    padding: 16px 20px 20px;
+}
+li.thread-even {
+    background: url("../images/lighter.png") repeat scroll 0 0 transparent !important;
+    border-bottom: 1px solid #B5CAD0;
+    border-top: 1px solid #B5CAD0;
+}
+.commentlist code {
+    background: none repeat scroll 0 0 #FFFFFF;
+    font-size: 1.1em;
+    padding: 3px;
+}
+.gravatar {
+    float: left;
+    line-height: 140%;
+    text-align: center;
+    width: 68px;
+}
+img.avatar {
+    margin: 0 0 7px;
+    padding: 4px;
+}
+.commentmetadata {
+    float: right;
+    padding-bottom: 10px;
+    width: 83%;
+}
+.commentlist li.depth-2 .commentmetadata {
+    width: 81%;
+}
+.commentlist li.depth-3 .commentmetadata {
+    width: 78%;
+}
+#trackbacklist li, #tweetbacklist li {
+    line-height: 160%;
+    list-style: square outside none;
+    margin: 10px 0 10px 35px;
+}
+#trackbacklist cite, #tweetbacklist cite {
+    font-style: normal;
+}
+cite.fn {
+    display: block;
+    font-size: 1.4em;
+    font-weight: bold;
+    letter-spacing: -0.06em;
+    margin-bottom: -8px;
+}
+.says {
+    display: none;
+}
+.comment-date a, .comment-date a:visited {
+    border: medium none !important;
+    font-size: 0.85em;
+    font-style: italic;
+    line-height: 130%;
+}
+.comment-author {
+    overflow: hidden;
+}
+
+#s, a, a:visited {
+    -moz-transition: all 0.3s ease 0s;
+    text-decoration: none;
+}
+
+a, a:visited {
+    -moz-transition: all 0.3s ease 0s;
+    border-bottom: 1px dotted #1C1F20;
+    color: #1C1F20;
+    text-decoration: none;
+}
+
+.commentlist li {
+    list-style: none outside none;
+}
+li {
+    list-style: none outside none;
+}
+
+li.thread-even {
+    background: url("lighter.png") repeat scroll 0 0 transparent !important;
+    border-bottom: 1px solid #B5CAD0;
+    border-top: 1px solid #B5CAD0;
+}
+
+.commentlist li {
+    list-style: none outside none;
+    margin-top: 25px;
+    overflow: hidden;
+    padding: 20px;
+}
+
+li {
+    list-style: none outside none;
+}
+
+* {
+    margin: 0;
+    outline: medium none;
+    padding: 0;
+}
+
+p {
+    line-height: 170%;
+    margin: 15px 0;
+}
+
+img {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: -moz-use-text-color #BAC5C8 #BAC5C8 -moz-use-text-color;
+    border-style: none solid solid none;
+    border-width: medium 1px 1px medium;
+    padding: 5px;
+}
+
+
+}
