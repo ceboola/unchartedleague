@@ -6,7 +6,7 @@ class TeamStats
     matches =  Match.where('(team1_id = ? or team2_id = ?) and competition_id = ? and processed = ?', team.id, team.id, competition.id, true)
     unless additional_matches.nil?
       matches += additional_matches.reject { |x| x.team1 != team and x.team2 != team }
-    end
+    end 
     @matches = matches.size    
     @maps = 0
     @wins = 0
