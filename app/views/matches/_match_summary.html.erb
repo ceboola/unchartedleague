@@ -26,6 +26,7 @@
     <% end %>
   <% end %>
 </table>
+<% unless match.forfeiting_team.nil? %>
 <div class="best_players round">
   <% stats = PlayerStats.best_match_players(match) %>
   <table>
@@ -45,3 +46,4 @@
     </tr>
   </table>
 </div>
+<% end %>
