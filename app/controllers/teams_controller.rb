@@ -5,7 +5,7 @@ class TeamsController < ApplicationController
     else
       user = nil
     end
-    @teams = Team.user_teams(user).order("lower(name) asc")    
+    @teams = Team.user_teams(user).order("lower(name) asc").page params[:page]   
   end
 
   def show
