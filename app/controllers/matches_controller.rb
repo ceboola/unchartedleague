@@ -3,7 +3,7 @@ class MatchesController < ApplicationController
     redirect_to root_url, :alert => exception.message
   end
   
-  def index
+  def index_current_NOTUSED #TODO: add format support for competition (open/scheduled)
     active_competitions = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] # FIXME
     
     if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
@@ -12,6 +12,27 @@ class MatchesController < ApplicationController
       @matches = Match.where("judge_id = ? and competition_id in (?)", current_user.id, active_competitions).order("scheduled_at desc").paginate(:per_page => 20, :page => params[:page])        
     else
       @rounds = Round.where("competition_id in (?)", active_competitions).order("number desc, competition_id asc")
+    end
+  end
+  
+  def index
+    if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
+      user = current_user
+    else
+      user = nil
+    end    
+    @competition = Competition.find(12) # FIXME
+    @matches = Match.where('competition_id = ?', @competition.id).filtered(user).order("scheduled_at asc")  
+    if user_signed_in?
+      teams = Team.joins(:competitions, :team_participations).where("user_id = ? and role = ? and competitions.id = ?", current_user.id, 0, @competition.id)
+      if teams.empty?
+        @managed_team = nil
+      else
+        @managed_team = teams[0]
+        @match = Match.new
+        @match.team1 = @managed_team
+        @match.competition = @competition
+      end
     end
   end
   
@@ -49,36 +70,32 @@ class MatchesController < ApplicationController
     @match.processed = false
     @match.locked_by_judge = false
     if @match.save
-      flash[:success] = t('matches.proposal_created_successfully')
+      flash[:success] = t('matches.proposal_created_successfully_without_opponent')
       redirect_to matches_path
     else       
       render :action => 'index'
     end  
   end
   
-  def update
-    #begin
-      @match = Match.find(params[:id])
-      @team2 = Team.find(params[:team2_id])
-      if @match.open_spot? and @team2.can_be_managed_by? current_user
-        @match.team2 = @team2
-        # @match.judge = User.find(1)
-        @match.generate_match_maps
-        if @match.save
-          flash[:success] = t('matches.proposal_accepted_successfully')
-          redirect_to match_path @match
-        else      
-          flash[:error] = t('matches.cannot_accept_with_error') 
-          redirect_to matches_path  
-        end
-      else
-        flash[:error] = t('matches.cannot_accept')
-        redirect_to matches_path
+  def update # merge with MatchTimeProposal?
+    @match = Match.find(params[:id])
+    @team2 = Team.find(params[:team2_id])
+    if @match.open_spot? and @team2.can_be_managed_by? current_user
+      @match.team2 = @team2
+      @match.judge = User.find(1) # FIXME
+      @match.generate_match_maps
+      if @match.save
+        UserMailer.match_time_accepted(@match).deliver
+        flash[:success] = t('matches.proposal_accepted_successfully')
+        redirect_to match_path @match
+      else      
+        flash[:error] = t('matches.cannot_accept_with_error') 
+        redirect_to matches_path  
       end
-    #rescue Exception
-      #flash[:error] = t('matches.cannot_accept_with_error')
-      #redirect_to matches_path
-    #end
+    else
+      flash[:error] = t('matches.cannot_accept')
+      redirect_to matches_path
+    end
   end
   
   def destroy

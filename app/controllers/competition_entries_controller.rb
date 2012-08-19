@@ -1,6 +1,6 @@
 class CompetitionEntriesController < ApplicationController
   def create    
-    if false and params[:competition_id] and params[:team_id]
+    if params[:competition_id] and params[:team_id]
       begin
         competition = Competition.find(params[:competition_id])
         team = Team.find(params[:team_id])

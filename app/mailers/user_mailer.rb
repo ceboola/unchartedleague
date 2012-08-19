@@ -29,4 +29,9 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail(:to => @match.judge.email, :bcc => "hq@unchartedleague.com",:subject => "Wyniki meczu  #{@match.team1.full_tag}-#{@match.team2.full_tag} zostały dodane")
   end
+  
+  def offer_sent(offer)
+    @offer = offer
+    mail(:to => @offer.receiver_email, :bcc => "hq@unchartedleague.com", :subject => "#{offer.subject}")
+  end
 end

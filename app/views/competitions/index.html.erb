@@ -1,116 +1,18 @@
 <h1><%= t('competitions.page_title') %></h1>
 
-<% for competition in @competitions do %>
-  <h2><%= competition.name %></h2>
-  <p><%= competition.description %></p>
-  
-  <table style="width: 100%; padding: 10px;">
-    <tr>
-      <td colspan="2" class="text-center">
-        <img src="<%= competition.logo_url %>" alt="<%= competition.name %>" />        
-      </td>
-    </tr>
-    <tr>
-      <td style="width: 50%;">
-        <h4>Zasady rozgrywek</h4>
-        <ul class="fancy">
-          <li>rozgrywki toczą się niezależnie w dwóch 8-drużynowych grupach oraz w 4-drużynowej grupie mistrzowskiej,</li>
-          <li>każdy z każdym gra w grupie po jednym meczu,</li>
-          <li>punktów za zwycięstwo: 3,</li>
-          <li>punktów za porażkę do zera: 0,</li>
-          <li>punktów za porażkę jedną mapą: 1.</li>          
-          <li>do grupy mistrzowskiej kwalifikują się dwie najlepsze drużyny z każdej grupy; pozostałe 12 drużyn gra jeden mecz o miejsce w całych rozgrywkach (drużyny z trzecich miejsc o 5. miejsce, drużyny z czwartych miejsc o 7., itd),</li>
-          <li>w grupie mistrzowskiej wyniki meczów między drużynami z tej samej grupy są przepisywane, pozostałe 4 mecze rozgrywane są w ciągu jednej kolejki,</li>
-          <li>o kolejności w tabelach decydują kolejno: liczba zdobytych punktów, różnica fragów, zdobyte fragi, wynik meczu między zainteresowanymi zespołami, wcześniejsza data rejestracji zespołu.
-        </ul>
-      </td>
-      <td style="width: 50%;">
-        <h4>Zasady meczów</h4>
-        <ul class="fancy">
-          <li>tryb rozgrywki: Hardcore,</li>
-          <li>limit zabójstw: 100,</li>
-          <li>limit czasu: 20 minut,</li>
-          <li>możliwość dołączenia do drużyny bez zaproszenia: wyłączona,</li>
-          <li>liczba wylosowanych map: 3,</li>
-          <li>minimalna liczba graczy w obu drużynach w czasie meczu: 4,</li>
-          <li>dostępne mapy: Aistrip, Chateau, Yemen, Desert Village, London Underground, Syria, City of Brass, Facility, Molten Ruins, Highrise, Museum;</li>
-          <li>gdy w ciągu pierwszych 60. sekund meczu ktoś zostanie wyrzucony z gry, mapę należy powtórzyć (zasada działa tylko raz na mapę),
-          <li>zwycięża drużyna, która wygra na 2 mapach jako pierwsza,</li>          
-          <li>w przypadku remisu po 3 mapach, wszyscy w lobby biorą udział w głosowaniu na następną mapę,</li>
-          <li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <h4>Ograniczenia, kary, walkowery i powtórki</h4>
-        <ul class="fancy">
-          <li>minimalna liczba graczy w kadrze drużyny w dowolnym momencie: 6,</li>
-          <li>maksymalna liczba graczy w kadrze druzyny w dowolnym momencie: nieograniczona,</li>
-          <li>maksymalna liczba graczy mogących zagrać dla drużyny w ciągu sezonu: 10,</li>
-          <li>mecz rozegrany przez drużynę niezgodną z regulaminem jest rozstrzygany na korzyść przeciwników jako walkower,</li>          
-          <li>mecz nierozegrany w terminie jest rozstrzygany jako walkower na korzyść drużyny, która zaproponowała więcej terminów lub jako walkower obustronny jeśli liczba terminów była taka sama lub nie było terminu w ogóle (walkower dla drużyny = 3 pkt., walkower obustronny = 0 pkt. dla obu drużyn, w obu przypadkach mecz nieodbyty),</li>
-          <li>w ciągu 12h po zakończeniu meczu, kapitanowie drużyn mogą złożyć zażalenie w sprawie lagów w meczu - zażalenie musi być poparte odpowiednimi urywkami kinowymi, a każda akcja musi być nagrana z perspektywy dwóch graczy;</li>         
-          <li>aby zażalenie w sprawie lagów mogło być analizowane przez sędziego, materiał dowodowy musi zawierać: pełny filmik z mapy, co najmniej 5 akcji tego samego gracza z tej samej mapy oraz informacje na temat hosta gry (w sumie 11 nagrań: pełen mecz oraz 5 akcji w postaci 10 urywków);</li>
-          <li>zażalenie może zostać zaakceptowane przez sędziego - jest to równoznaczne z koniecznością zagrania powtórki w terminie 24h od decyzji z wyłączeniem gracza, który lagował (lub graczy, jeśli było ich więcej);</li>
-          <li>jeśli zarządzona przez sędziego powtórka nie odbędzie się w terminie, sędzia przydziela walkowera drużynie, która udowodniła stawienie się na meczu lub przydziela obustronnego walkowera,</li>
-          <li>do meczu powtórzonego nie można składać zażaleń,</li>          
-          <li>zabronione jest wykorzystywanie jakichkolwiek błędów i glitchów w grze,</li>
-          <li>zabronione jest korzystanie z urządzeń i oprogramowania generującego pingi,</li>
-          <li>zabronione jest jeżdżenie do Gdańska lub innych miejscowości, aby grać na czyjejś konsoli pod nieswoim nickiem.</li>          
-        </ul>
-      </td>
-      <td>
-        <h4>Dodatkowe informacje</h4>
-        <ul class="fancy">
-          <li>dzień i godzinę meczu ustalają kapitanowie obu drużyn,</li>
-          <li>każdy zawodnik może mieć tylko jedno aktywne konto PSN w lidze,</li>
-          <li>zawodnik może 1 raz zmienić drużynę w ciągu sezonu,</li>
-          <li>zawodnik po transferze nie może grać przeciw byłej drużynie,</li>
-          <li>w przypadkach kontrowersyjnych i spornych, decydujący głos ma sędzia spotkania (do momentu zatwierdzenia meczu), a następnie administracja rozgrywek,</li>
-          <li>screeny z meczu oraz wyniki powinny być dostarczone administracji najpóźniej 24h po terminie meczu,</li>              
-          <li>za każde najmniejsze naruszenie regulaminu drużyny mogą być karane powtórzeniem meczu, walkowerem lub wykluczeniem z rozgrywek, a zawodnicy zawieszeniem czasowym lub wykluczeniem z rozgrywek;</li>
-          <li>rejestracja w tych rozgrywkach jest jednoznaczna z akceptacją wszystkich zapisów.</li>    
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" class="text-center">        
-        <h4>Zakwalifikowane drużyny</h4>
-        <% if not @entries.nil? and @entries.any? %>
-          <table id="minimalist-table-hor-a" class="center" summary="<%= t('teams.page_title') %>">
-            <thead>
-              <tr>
-                <th scope="col"><%= t('teams.team') %></th>
-                <th scope="col"><%= t('players.roles.captain').capitalize %></th>
-                <th scope="col"><%= t('competitions.team_exists_since') %></th>                
-              </tr>
-            </thead>
-            <tbody>
-              <% for entry in @entries do %>
-                <tr>
-                  <td><%= link_to entry.team, entry.team %></td>
-                  <td><%= entry.team.owner %></td>
-                  <td><%= time_ago_in_words(entry.created_at) %></td> 
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        <% end %>
-      </td>
-    </tr>
-    <% unless @possible_teams.nil? %>
-      <tr>
-        <td colspan="2" class="text-center">        
-          <% for team in @possible_teams %>
-            <%= form_tag competition_entries_path, :action => "create" do %>
-              <%= hidden_field_tag 'competition_id', competition.id %>
-              <%= hidden_field_tag 'team_id', team.id %>
-              <%= submit_tag t('competitions.team_sign_up', :team => team), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
-            <% end %>               
-          <% end %>        
-        </td>
-      </tr>
+<div id="competition_list">
+  <ul>
+    <% for competition in @competitions do %>
+      <li>
+        <p>
+          <em>
+             <%= link_to competition.long_name, competition %> 
+             <span class="dates"><%= time_tag competition.starts, :format => :std %> - <%= time_tag competition.ends, :format => :std %></span> 
+             <span class="status"><%= competition.status %></span>
+          </em>
+          <%= competition.description %>
+        </p>
+      </li>
     <% end %>
-  </table>
-<% end %>
+  </ul>
+</div>

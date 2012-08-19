@@ -1,11 +1,20 @@
 class Competition < ActiveRecord::Base
+  belongs_to :parent_competition, :class_name => "Competition"
   has_many :teams, :through => :competition_entries
   has_many :competition_entries, :dependent => :destroy
   has_many :rounds
 
-  validates :name, :presence => true, :uniqueness => true
+  validates :name, :presence => true
   
   accepts_nested_attributes_for :competition_entries, :allow_destroy => true
+  
+  def root
+    c = self
+    while c.parent_competition != nil
+      c = c.parent_competition
+    end
+    c
+  end
   
   # team
   def min_players
@@ -22,7 +31,7 @@ class Competition < ActiveRecord::Base
   end
   
   def is_user_signed_up? (user)
-    user_teams = Team.joins(:team_participations, :competition_entries).where("team_participations.user_id = ? and team_participations.active = ?", user.id, true)
+    user_teams = Team.joins(:team_participations, :competition_entries).where("team_participations.user_id = ? and team_participations.active = ? and competition_id = ?", user.id, true, id)
     return !user_teams.empty?
   end
   
@@ -36,5 +45,9 @@ class Competition < ActiveRecord::Base
   
   def to_s
     name
+  end
+  
+  def long_name
+    "#{name} (sezon #{season})"
   end
 end

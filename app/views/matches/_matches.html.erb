@@ -14,7 +14,7 @@
         <td><%= match_teams(match) %></td>
         <td><%= match.result %></td>
         <td><%= (!match.scheduled_at.nil? ? time_tag(match.scheduled_at) : pluralize_localized(match.match_time_proposals.size, "propozycja")) %></td>    
-        <td><%= link_to match.competition.name, competitions_path %></td>               
+        <td><%= link_to match.competition.name, competition_path(match.competition.root) %></td>               
         <td>
           <% if not managed_team.nil? and match.open_spot? %>
             <% if match.team1 != managed_team %>

@@ -153,10 +153,6 @@
       <% end %>
     </tbody>  
   </table>
-
-  <% if user_signed_in? and current_user.id == 1 and (not @match.processed) and (not @match.scheduled_at.nil?) %>
-    <%= render 'forum_match_topic', :match => @match %>
-  <% end %>
 <% end %>
 
 <%=

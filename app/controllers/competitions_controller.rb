@@ -2,22 +2,24 @@ class CompetitionsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @competitions = [Competition.find(2)]
-    @entries = CompetitionEntry.where('competition_id = ?', 2)
-    if user_signed_in? 
-      #@signed_up_teams_ids = @entries.collect { |x| x.team.id }
-      #@possible_teams = Team.joins(:team_participations).where("team_participations.user_id = ? and team_participations.role = ?", current_user.id, 0)
-      #@possible_teams = @possible_teams.select { |x| not @signed_up_teams_ids.include? x.id }
+    @competitions = Competition.where("parent_competition_id is ?", nil).order("ends desc")
+  end
+  
+  def show
+    @competition = Competition.find(params[:id])
+    @subcompetitions = Competition.where('parent_competition_id = ?', @competition.id)
+    if user_signed_in? and @competition.signup_ends > DateTime.current
+      @signed_up_teams_ids = @competition.competition_entries.collect { |x| x.team.id }
+      @possible_teams = Team.joins(:team_participations).where("team_participations.user_id = ? and team_participations.role = ?", current_user.id, 0)
+      @possible_teams = @possible_teams.select { |x| not @signed_up_teams_ids.include? x.id }
     end
   end
 
   def new
-    prepare_index
     @competition = Competition.new
   end
 
   def edit
-    prepare_index
     @competition = Competition.find(params[:id])
   end
 
@@ -28,7 +30,6 @@ class CompetitionsController < ApplicationController
       redirect_to edit_competition_path(@competition)
     else
       flash[:error] = "Problem while saving"
-      prepare_index
       render 'new'
     end
   end
@@ -40,8 +41,7 @@ class CompetitionsController < ApplicationController
       redirect_to edit_competition_path(@competition)
     else
       flash[:error] = "Problem while saving changes"
-      prepare_index
-      render 'new'
+      render @competition
     end
   end
 
@@ -52,14 +52,7 @@ class CompetitionsController < ApplicationController
       redirect_to new_competition_path
     else
       flash[:error] = "Problem while destroying"
-      prepare_index
       render 'new'
     end
-  end
-
-  private
-
-  def prepare_index
-    @competitions = Competition.all
   end
 end

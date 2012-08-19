@@ -26,6 +26,7 @@ class OffersController < ApplicationController
       @offer.open = true
       @offer.accepted = false
       if @offer.save
+        UserMailer.offer_sent(@offer).deliver
         flash[:success] = t('offers.sent_successfully')
         redirect_to :action => 'index'
       else       

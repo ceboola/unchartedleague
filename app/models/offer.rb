@@ -22,6 +22,14 @@ class Offer < ActiveRecord::Base
     end
   end
   
+  def receiver_email
+    if originated_from_player
+      team.owner.email
+    else
+      user.email
+    end
+  end
+  
   def subject
     if originated_from_player
       "Prośba o dołączenie do #{team.name}"

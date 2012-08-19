@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20120320203320) do
+ActiveRecord::Schema.define(:version => 20120819205813) do
 
   create_table "comments", :force => true do |t|
     t.integer   "owner_id",         :null => false
@@ -39,6 +38,16 @@ ActiveRecord::Schema.define(:version => 20120320203320) do
     t.string    "logo_url"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.integer   "parent_competition_id"
+    t.timestamp "signup_ends"
+    t.string    "team_stats_type"
+    t.string    "player_stats_type"
+    t.datetime  "starts"
+    t.datetime  "ends"
+    t.text      "regulations"
+    t.integer   "season"
+    t.string    "format"
+    t.string    "status"
   end
 
   create_table "maps", :force => true do |t|
@@ -99,19 +108,20 @@ ActiveRecord::Schema.define(:version => 20120320203320) do
   add_index "match_time_proposals", ["team_id"], :name => "index_match_time_proposals_on_team_id"
 
   create_table "matches", :force => true do |t|
-<<<<<<< HEAD
-    t.integer  "competition_id"
-    t.integer  "team1_id"
-    t.integer  "team2_id"
-    t.datetime "scheduled_at"
-    t.integer  "judge_id"
-    t.boolean  "processed"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "locked_by_judge"
-    t.integer  "round_id"
-    t.integer  "forfeiting_team_id"
+    t.integer   "competition_id"
+    t.integer   "team1_id"
+    t.integer   "team2_id"
+    t.timestamp "scheduled_at"
+    t.integer   "judge_id"
+    t.boolean   "processed"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.boolean   "locked_by_judge",    :null => false
+    t.integer   "round_id"
+    t.integer   "forfeiting_team_id"
   end
+
+  add_index "matches", ["competition_id"], :name => "index_matches_on_competition_id"
 
   create_table "offers", :force => true do |t|
     t.integer   "user_id"

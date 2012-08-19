@@ -1,3 +1,16 @@
-// Place all the styles related to the Competitions controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#competition_list {    
+    padding-left: 50px;
+    ul { list-style: none; font-style:italic; font-size:24px; }
+    ul li { }
+    ul li p { padding:8px; font-style:normal; font-family:Arial; font-size:13px; border-left: 1px solid #999; }
+    ul li p em { display:block; }
+    span.dates {
+        color: #acacac;
+        font-size: 12px;
+    }    
+    span.status {
+        color: #309912;
+        font-size: 12px;
+        font-weight: bold;
+    }    
+}
