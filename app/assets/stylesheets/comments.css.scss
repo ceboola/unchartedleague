@@ -1,6 +1,5 @@
 .comments_section {
 
-
 h2#comments {
     border: medium none;
     font-size: 1.5em;
@@ -62,18 +61,11 @@ img.avatar {
     width: 78%;
 }
 
-.message {
-    background: none repeat scroll 0 0 #F7FCFC;
-    border-bottom: 1px solid #BAC5C8;
-    border-right: 1px solid #BAC5C8;
-    margin: 25px 0;
-    padding: 18px 25px;
-}
 .commentlist li {
     list-style: none outside none;
-    margin-top: 25px;
+    margin-top: 10px;
     overflow: hidden;
-    padding: 20px;
+    padding: 10px;
 }
 .commentlist li.depth-2, .commentlist li.depth-3 {
     border-left: 1px solid #B5CAD0;

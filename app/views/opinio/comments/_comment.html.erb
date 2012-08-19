@@ -3,9 +3,9 @@
 <li id="li-comment-<%= comment.id %>" class="comment <%= (reply ? "depth-2" : "depth-1 thread-" + cycle("even", "odd")) %>">
   <div id="comment-<%= comment.id %>">
     <div class="comment-author vcard">
-      <div class="gravatar"><img width="60" height="60" class="avatar avatar-60 photo" src="http://1.gravatar.com/avatar/f3b4c17a9a4c1689a1c3d4a4b9cbbb0e?s=60&amp;d=http%3A%2F%2Fwww.darrenhoyt.com%2Fimages%2Favatar.png%3Fs%3D60&amp;r=G" alt="">                
+      <div class="gravatar"><img width="60" height="60" class="avatar avatar-60 photo" src="<%= comment.owner.avatar %>" alt="<%= comment.owner %>">                
         <div class="comment-date">
-          <a href="http://www.darrenhoyt.com/2009/09/20/better-button-and-nav-interactions/#comment-5620">
+          <a href="#comment-<%= comment.id %>">
             <%= time_tag comment.created_at %>
           </a>
         </div>
@@ -16,9 +16,9 @@
         <% if Opinio.accept_replies && !reply %>
           <div class="reply">
             {<%= link_to t("opinio.reply", :default => "Reply"), reply_comment_path(comment), :remote => true %>}
-		  	  </div>
+	  </div>
         <% end %>
-  		</div>
+      </div>
     </div>
   </div>
   <% if Opinio.accept_replies && !reply %>

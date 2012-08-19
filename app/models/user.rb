@@ -17,6 +17,11 @@ class User < ActiveRecord::Base
     psn_name
   end
   
+  def avatar    
+    hash = Digest::MD5.hexdigest(email)
+    "http://www.gravatar.com/avatar/#{hash}"
+  end
+  
   def received_offers_count
     Offer.count(:id, :conditions => ['(team_id in (?) and open = ? and originated_from_player = ?) or (user_id in (?) and open = ? and originated_from_player = ?)', user_teams_ids, true, true, id, true, false])
   end

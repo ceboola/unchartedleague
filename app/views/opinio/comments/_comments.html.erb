@@ -1,17 +1,20 @@
 <div class="comments_section">  
   <h2 id="comments">
-    <%= comments.size %> odpowiedzi {<a title="Leave a comment" class="more" href="#respond">+</a>}
+    <%= t 'opinio.comments' %> {<a class="more" href="#new_comment">+</a>}
   </h2>
   <ol id="singlecomments" class="commentlist">
     <% unless comments.empty? %>
-    <div>
-      <%= paginate comments %>
-    </div>
-    <%= render :partial => 'opinio/comments/comment', :collection => comments %>    
-    <div>
-      <%= paginate comments %>
-    </div>
-  <% else %>
-    <li id="no_comments"><%= t 'opinio.no_comments_found', :default => "No comments found" %></li>
-  <% end %>
+      <div style="margin-top: 15px">
+        <%= paginate comments %>
+      </div>
+      <div id="comments_without_pagination">
+        <%= render :partial => 'opinio/comments/comment', :collection => comments %>    
+      </div>
+      <div style="margin-top: 10px">
+        <%= paginate comments %>
+      </div>
+    <% else %>
+      <li id="no_comments"><%= t 'opinio.no_comments_found' %></li>
+    <% end %>
+  </ol>
 </div>
