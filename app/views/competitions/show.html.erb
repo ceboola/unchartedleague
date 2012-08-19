@@ -1,0 +1,58 @@
+<h1><%= @competition.long_name %></h1>
+<ul class="fancy" id="admin_panel">
+  <% if can? :update, @competition %>
+    <li><%= link_to "Edit", edit_competition_path(@competition) %></li>
+  <% end %>
+  <% if can? :create, @competition %>
+    <li><%= link_to "Create new", new_competition_path %></li>
+  <% end %>
+</ul> 
+
+<p><%= @competition.description %> Termin rozgrywek: <%= time_tag @competition.starts %> - <%= time_tag @competition.ends %>.</p>
+
+<% if @subcompetitions.any? %>
+<h2>Grupy i rundy</h2>
+  <ul class="square">
+    <% for sub in @subcompetitions %>
+      <li><%= sub.name %> <%= link_to("Edit", edit_competition_path(sub)) if can? :update, @competition %>
+    <% end %>
+  </ul>
+<% end %>
+
+<center>
+  <h4>Drużyny</h4>
+  <% if @competition.competition_entries.any? %>
+    <table id="minimalist-table-hor-a" class="center" summary="<%= t('teams.page_title') %>">
+      <thead>
+        <tr>
+          <th scope="col"><%= t('teams.team') %></th>
+          <th scope="col"><%= t('players.roles.captain').capitalize %></th>
+          <th scope="col"><%= t('competitions.team_exists_since') %></th>                
+        </tr>
+      </thead>
+      <tbody>
+        <% for entry in @competition.competition_entries do %>
+          <tr>
+            <td><%= link_to entry.team, entry.team %></td>
+            <td><%= entry.team.owner %></td>
+            <td><%= time_ago_in_words(entry.created_at) %></td> 
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+  
+  <% unless @possible_teams.nil? %>    
+    <% for team in @possible_teams %>
+      <%= form_tag competition_entries_path, :action => "create" do %>
+      <%= hidden_field_tag 'competition_id', @competition.id %>
+      <%= hidden_field_tag 'team_id', team.id %>
+      <%= submit_tag t('competitions.team_sign_up', :team => team), :confirm => t('are_you_sure'), :class => 'submit button', :name => nil %>    
+    <% end %>               
+  <% end %>        
+
+  <% end %>
+</center>
+
+<h2>Regulamin</h2>  
+<%= @competition.regulations.html_safe %>
