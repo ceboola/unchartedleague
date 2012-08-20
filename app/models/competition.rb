@@ -40,7 +40,7 @@ class Competition < ActiveRecord::Base
   end
   
   def can_user_leave_team? (team)
-    team.users.size > min_players
+    ends < DateTime.current or team.users.size > min_players
   end
   
   def to_s
