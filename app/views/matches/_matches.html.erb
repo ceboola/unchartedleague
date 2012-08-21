@@ -12,7 +12,12 @@
     <% for match in matches do %>  
       <tr>
         <td><%= match_teams(match) %></td>
-        <td><%= match.result %></td>
+        <td>
+          <%= match.result %> 
+          <% if can? :destroy, match and match.open_spot? %>
+            <span class="admin_panel"><%= link_to 'De', match_path(match), :confirm => 'Pewny?', :method => :delete %></span>
+          <% end %>
+        </td>
         <td><%= (!match.scheduled_at.nil? ? time_tag(match.scheduled_at) : pluralize_localized(match.match_time_proposals.size, "propozycja")) %></td>    
         <td><%= link_to match.competition.name, competition_path(match.competition.root) %></td>               
         <td>
@@ -33,12 +38,7 @@
             <% end %>  
           <% else %>            
             <%= t('none') %>
-          <% end %>
-          <span id="admin_panel">          
-            <% if can? :destroy, match %>
-              <%= link_to 'Destroy', match_path(match), :confirm => 'Pewny?', :method => :delete %>
-            <% end %>
-          </span>
+          <% end %>          
         </td>     
       </tr>
     <% end %>

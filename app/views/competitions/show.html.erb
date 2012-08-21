@@ -1,5 +1,5 @@
 <h1><%= @competition.long_name %></h1>
-<ul class="fancy" id="admin_panel">
+<ul class="fancy admin_panel">
   <% if can? :update, @competition %>
     <li><%= link_to "Edit", edit_competition_path(@competition) %></li>
   <% end %>
