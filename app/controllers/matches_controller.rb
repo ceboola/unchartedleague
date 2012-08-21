@@ -101,7 +101,7 @@ class MatchesController < ApplicationController
   def destroy
     begin
       @match = Match.find(params[:id])
-      if @match.open_spot? and @match.team1.can_be_managed_by? current_user 
+      if @match.open_spot? and (can?(:destroy, @match) or @match.team1.can_be_managed_by? current_user)
         if @match.destroy
           flash[:success] = t('matches.proposal_removed_successfully')
           redirect_to matches_path

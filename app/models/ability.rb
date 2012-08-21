@@ -6,6 +6,7 @@ class Ability
     if user.id == 1
       can :manage, Round
       can :manage, Competition
+      can :manage, Match
     end
     can :read, Competition
   end  

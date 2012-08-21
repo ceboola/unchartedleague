@@ -31,9 +31,14 @@
             <%= form_tag match_path(match), :method => :get do %>                    
               <%= submit_tag t('matches.more'), :class => 'submit button', :name => nil %>    
             <% end %>  
-          <% else %>
+          <% else %>            
             <%= t('none') %>
           <% end %>
+          <span id="admin_panel">          
+            <% if can? :destroy, match %>
+              <%= link_to 'Destroy', match_path(match), :confirm => 'Pewny?', :method => :delete %>
+            <% end %>
+          </span>
         </td>     
       </tr>
     <% end %>
