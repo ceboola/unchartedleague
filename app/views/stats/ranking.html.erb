@@ -26,7 +26,7 @@
         <% i += 1 %>        
         <tr>
           <td class="text-center"><%= i %></td>
-          <td class="text-center"><%= link_to stats.team.name, stats.team %></td>
+          <td class="text-center"><%= link_to name_with_award_image(stats.team), stats.team %></td>
           <td class="text-center"><%= stats.matches %></td>
           <td class="text-center"><%= stats.points %></td>
           <td class="text-center"><%= stats.maps %></td>

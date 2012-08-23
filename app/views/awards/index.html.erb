@@ -1,0 +1,16 @@
+<h2>Awards</h2>
+
+<ul class="fancy">
+  <% for award in @awards %>
+  <li>
+    <%= award.full_name %> (<%= award.importance %>)</br>
+    <%= award.receiver %>
+    <%= image_tag award.inline_icon_url, :class => "award" %>
+    <br/>
+    <div class="admin_panel">
+      <%= link_to "Edit", edit_award_path(award) %> 
+      <%= link_to "Remove", award_path(award), :method => :delete %>
+    </div>
+  </li>
+  <% end %>
+</ul>

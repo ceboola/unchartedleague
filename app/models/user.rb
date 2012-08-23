@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :teams, :through => :team_participations
   has_many :team_participations
   has_many :offers, :dependent => :destroy
+  has_many :awards, :dependent => :destroy
   
   def to_s
     psn_name

@@ -1,6 +1,27 @@
 <h1><%= @team.full_name %></h1>
 <p><%= @team.description %></p>
 
+<% if @team.awards.any? %>
+<center>
+  <table>
+    <tr>      
+      <% for award in @team.awards  %>
+        <td style="text-align: center; width: 160px; padding: 5px;">
+          <%= image_tag award.icon_url, :class => award, :title => award.full_name %>
+        </td>
+      <% end %>      
+    </tr>
+    <tr>      
+      <% for award in @team.awards  %>
+        <td style="text-align: center; width: 160px; padding: 5px;">
+          <h3><%=  award.full_name %></h3>        
+        </td>
+      <% end %>
+    </tr>
+  </table>
+</center><br/>
+<% end %>
+
 <h2><%= t('matches.page_title') %></h2>
 <%= render 'matches/matches', :matches => @matches, :managed_team => nil %>
 

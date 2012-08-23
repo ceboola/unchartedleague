@@ -4,6 +4,7 @@ class Team < ActiveRecord::Base
   has_many :offers, :dependent => :destroy
   has_many :competitions, :through => :competition_entries
   has_many :competition_entries, :dependent => :destroy
+  has_many :awards, :dependent => :destroy
     
   validates :tag, :presence => true, :length => { :maximum => 4 }, :uniqueness => true
   validates :name, :presence => true, :length => { :maximum => 35 }, :uniqueness => true
@@ -72,7 +73,7 @@ class Team < ActiveRecord::Base
   end
   
   def to_s
-    full_name
+    name
   end
   
   def self.user_teams(user)

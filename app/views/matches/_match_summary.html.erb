@@ -3,7 +3,8 @@
     <td colspan='3'>
       <h2><%= if match.scheduled_at.nil? then "walkower" else time_tag match.scheduled_at end %></h2>
       <span class="details">
-        <%= "#{match.round.competition.name} (#{match.competition.name}) - #{match.round.number}. #{t('matches.round_robin_round')}" %>
+        <% #"#{match.round.competition.name} (#{match.competition.name}) - #{match.round.number}. #{t('matches.round_robin_round')}" # FIXME! %>
+        <%= match.competition.long_name %>
       </span>
     </td>
   </tr>

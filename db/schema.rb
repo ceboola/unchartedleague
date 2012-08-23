@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120819205813) do
+ActiveRecord::Schema.define(:version => 20120821211435) do
+
+  create_table "awards", :force => true do |t|
+    t.string   "name"
+    t.integer  "competition_id"
+    t.integer  "importance"
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.string   "icon_url"
+    t.string   "inline_icon_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comments", :force => true do |t|
     t.integer   "owner_id",         :null => false
@@ -42,8 +54,8 @@ ActiveRecord::Schema.define(:version => 20120819205813) do
     t.timestamp "signup_ends"
     t.string    "team_stats_type"
     t.string    "player_stats_type"
-    t.datetime  "starts"
-    t.datetime  "ends"
+    t.timestamp "starts"
+    t.timestamp "ends"
     t.text      "regulations"
     t.integer   "season"
     t.string    "format"

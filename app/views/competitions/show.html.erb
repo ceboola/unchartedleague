@@ -33,7 +33,7 @@
       <tbody>
         <% for entry in @competition.competition_entries do %>
           <tr>
-            <td><%= link_to entry.team, entry.team %></td>
+            <td><%= link_to name_with_award_image(entry.team, entry.team.full_name), entry.team %></td>
             <td><%= entry.team.owner %></td>
             <td><%= time_ago_in_words(entry.created_at) %></td> 
           </tr>

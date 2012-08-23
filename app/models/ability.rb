@@ -7,7 +7,10 @@ class Ability
       can :manage, Round
       can :manage, Competition
       can :manage, Match
+      can :manage, Award
+    else
+      can :read, Competition
+      cannot [:read, :manage], Award
     end
-    can :read, Competition
   end  
 end
