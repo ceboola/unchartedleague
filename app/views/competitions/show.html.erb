@@ -1,12 +1,11 @@
 <h1><%= @competition.long_name %></h1>
-<ul class="fancy admin_panel">
-  <% if can? :update, @competition %>
-    <li><%= link_to "Edit", edit_competition_path(@competition) %></li>
-  <% end %>
-  <% if can? :create, @competition %>
+
+<% if can? :manage, @competition %>
+  <ul class="fancy admin_panel">
+    <li><%= link_to "Edit", edit_competition_path(@competition) %></li>  
     <li><%= link_to "Create new", new_competition_path %></li>
-  <% end %>
-</ul> 
+  </ul> 
+<% end %>
 
 <p><%= @competition.description %> Termin rozgrywek: <%= time_tag @competition.starts %> - <%= time_tag @competition.ends %>.</p>
 

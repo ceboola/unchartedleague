@@ -52,7 +52,7 @@ class MatchesController < ApplicationController
     
     @edit_mode = (user_signed_in? and (not @match.scheduled_at.nil?) and (((not @match.processed) and (current_user == @match.judge)) or ((not @match.processed) and (not @match.locked_by_judge) and (@match.team1.has_member? current_user or @match.team2.has_member? current_user))))
     if @edit_mode
-      for match_map in @match.match_maps do
+      for match_map in @match.match_maps do # FIXME: merge with MatchMapsController
         for team in @match.teams        
           max = team.all_users.size
           max = @match.competition.max_players_per_team if max > @match.competition.max_players_per_team
@@ -77,24 +77,42 @@ class MatchesController < ApplicationController
     end  
   end
   
-  def update # merge with MatchTimeProposal?
-    @match = Match.find(params[:id])
-    @team2 = Team.find(params[:team2_id])
-    if @match.open_spot? and @team2.can_be_managed_by? current_user
-      @match.team2 = @team2
-      @match.judge = User.find(1) # FIXME
-      @match.generate_match_maps
-      if @match.save
-        UserMailer.match_time_accepted(@match).deliver
-        flash[:success] = t('matches.proposal_accepted_successfully')
-        redirect_to match_path @match
-      else      
-        flash[:error] = t('matches.cannot_accept_with_error') 
-        redirect_to matches_path  
+  def update 
+    @match = Match.find(params[:id])    
+    if params[:team2_id].present? # merge with MatchTimeProposal?
+      @team2 = Team.find(params[:team2_id])
+      if @match.open_spot? and @team2.can_be_managed_by? current_user
+        @match.team2 = @team2
+        @match.judge = @match.competition.get_judge
+        @match.generate_match_maps
+        if @match.save
+          UserMailer.match_time_accepted(@match).deliver
+          flash[:success] = t('matches.proposal_accepted_successfully')
+          redirect_to match_path @match
+        else      
+          flash[:error] = t('matches.cannot_accept_with_error') 
+          redirect_to matches_path  
+        end
+      else
+        flash[:error] = t('matches.cannot_accept')
+        redirect_to matches_path
       end
-    else
-      flash[:error] = t('matches.cannot_accept')
-      redirect_to matches_path
+    else # normal update by judge or admin
+      if current_user == @match.judge or can? :manage, @match
+        if params[:match].present?
+          if @match.update_attributes(params[:match])
+            flash[:success] = "Mecz zaktualizowany"            
+          else
+            flash[:error] = "Problem podczas zapisu. Prosimy o kontakt z administratorem."
+          end          
+        elsif params[:remove_all_results]
+          for entry in @match.match_entries
+            entry.destroy
+          end
+          flash[:success] = "Wyniki wyczyszczone."     
+        end
+        redirect_to match_path(@match)
+      end
     end
   end
   

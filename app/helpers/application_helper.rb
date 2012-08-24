@@ -47,4 +47,12 @@ module ApplicationHelper
     end
     link_to_function(name, "add_fields(this, \"competition_entry\", \"#{escape_javascript(fields)}\")")
   end
+  
+  def link_to_add_competition_judge_fields(name, f)
+    new_judge = CompetitionJudge.new
+    fields = f.fields_for(:competition_judges, new_judge, :child_index => "new_competition_judge") do |builder|
+      render("competition_judge_fields", :f => builder)
+    end
+    link_to_function(name, "add_fields(this, \"competition_judge\", \"#{escape_javascript(fields)}\")")
+  end
 end

@@ -407,6 +407,7 @@ pl:
     
     models:
       match_map: "wyniki na mapie"
+      match: "mecz"
       
     attributes:
       team:
@@ -431,6 +432,10 @@ pl:
         role: "Rola"
         
       match:
+        one: "mecz"
+        other: "mecze"
+        not_played_comment: "Mecz nierozegrany. Komentarz"
+        forfeiting_team: "Drużyna przegrywa walkowerem"
         team1: "Drużyna"
         competition: "Rozgrywki"
         scheduled_at: "Termin meczu"

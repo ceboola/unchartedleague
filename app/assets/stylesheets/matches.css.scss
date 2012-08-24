@@ -87,3 +87,12 @@ div.best_players {
   }
 }
 
+#match_entries {
+    select {
+        font-size: 10pt;
+    }
+
+    input.number {
+        width: 25px;
+    }
+}

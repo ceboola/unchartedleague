@@ -4,11 +4,13 @@ class MatchMapsController < ApplicationController
     
     if @match_map.match.can_be_edited_by? current_user
       if params[:match_map][:results_updated_token].present?
-        notify = @match_map.match.match_entries.empty?
+        was_empty = @match_map.match.match_entries.empty?
         @match_map.update_attributes(params[:match_map].except(:results_updated_token, :match_entries_token, :team_id, :picture_updated_token))
-        UserMailer.results_added(@match_map.match, current_user).deliver if notify
+        if was_empty and !@match_map.match_entries.empty?
+          UserMailer.results_added(@match_map.match, current_user).deliver
+        end
 
-        if params[:match_map].has_key? :team_id
+        if params[:match_map].has_key? :team_id # FIXME: merge with MatchesController
           @team = Team.find(params[:match_map][:team_id])
           max = @match_map.match.competition.max_players_per_team
           max = @team.all_users.size if max > @team.all_users.size

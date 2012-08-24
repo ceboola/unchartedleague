@@ -23,13 +23,20 @@
   <p><%= f.label :team_stats_type %> <%= f.text_field :team_stats_type %></p>
   <p><%= f.label :player_stats_type %> <%= f.text_field :player_stats_type %></p>  
   <p><%= f.label :logo_url %> <%= f.text_field :logo_url %></p>
-  <%= f.label :competition_entries %>
+  <h4><%= f.label :competition_entries %></h4>
   <%= f.fields_for :competition_entries do |m| %>
     <%= render 'competitions/competition_entry_fields', :f => m %>
   <% end %>
-  <p><%= link_to_add_competition_entry_fields "add", f %></p>
+  <p><%= link_to_add_competition_entry_fields "add entry", f %></p><br/>
+  
+  <h4><%= f.label :competition_judges %></h4>
+  <%= f.fields_for :competition_judges do |m| %>
+    <%= render 'competitions/competition_judge_fields', :f => m %>
+  <% end %>
+  <p><%= link_to_add_competition_judge_fields "add judge", f %></p></br>
 
-  <p><%= f.label :regulations %> <%= f.text_area :regulations %></p>
+  <h4><%= f.label :regulations %></h4>
+  <p><%= f.text_area :regulations %></p>
   
   <div class="actions">
     <%= f.submit %>

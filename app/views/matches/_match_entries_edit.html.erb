@@ -1,12 +1,12 @@
 <% results_updated_token = "update_results_#{match_map.id}_#{team.id}" %>
 <% match_entries_token = "match_entries_#{match_map.id}_#{team.id}" %>  
 <%= form_for match_map, :remote => true do |f| %>    
-  <table>
+  <table id="match_entries">
     <thead>
       <th scope="col"><%= t('players.player').capitalize %></th>
-      <th scope="col"><%= t('matches.kills').capitalize %></th>
-      <th scope="col"><%= t('matches.deaths').capitalize %></th>
-      <th scope="col"><%= t('matches.assists').capitalize %></th>
+      <th scope="col"><%= t('matches.kills').capitalize[0..1] %>.</th>
+      <th scope="col"><%= t('matches.deaths').capitalize[0..1] %>.</th>
+      <th scope="col"><%= t('matches.assists').capitalize[0..1] %>.</th>
     </thead>  
     <%= f.hidden_field :results_updated_token, :value => results_updated_token %>
     <%= f.hidden_field :match_entries_token, :value => match_entries_token %>
@@ -17,9 +17,9 @@
         <%= me.hidden_field :match_id %>
         <tr>          
           <td><%= me.select(:user_id, team.all_users.collect {|x| [x, x.id]}, { :include_blank => t('remove')} ) %></td>
-          <td><%= me.text_field :kills, :size => 1 %></td>
-          <td><%= me.text_field :deaths, :size => 1 %></td>  
-          <td><%= me.text_field :assists, :size => 1 %></td> 
+          <td><%= me.text_field :kills, :class => "number" %></td>
+          <td><%= me.text_field :deaths, :class => "number" %></td>  
+          <td><%= me.text_field :assists, :class => "number" %></td> 
         </tr>
       <% end %>
     <% end %>

@@ -11,18 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120821211435) do
+ActiveRecord::Schema.define(:version => 20120823225800) do
 
   create_table "awards", :force => true do |t|
-    t.string   "name"
-    t.integer  "competition_id"
-    t.integer  "importance"
-    t.integer  "user_id"
-    t.integer  "team_id"
-    t.string   "icon_url"
-    t.string   "inline_icon_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "name"
+    t.integer   "competition_id"
+    t.integer   "importance"
+    t.integer   "user_id"
+    t.integer   "team_id"
+    t.string    "icon_url"
+    t.string    "inline_icon_url"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "comments", :force => true do |t|
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(:version => 20120821211435) do
 
   add_index "competition_entries", ["competition_id"], :name => "index_competition_entries_on_competition_id"
   add_index "competition_entries", ["team_id"], :name => "index_competition_entries_on_team_id"
+
+  create_table "competition_judges", :force => true do |t|
+    t.integer  "competition_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "competitions", :force => true do |t|
     t.string    "name"
@@ -131,6 +138,7 @@ ActiveRecord::Schema.define(:version => 20120821211435) do
     t.boolean   "locked_by_judge",    :null => false
     t.integer   "round_id"
     t.integer   "forfeiting_team_id"
+    t.string    "not_played_comment"
   end
 
   add_index "matches", ["competition_id"], :name => "index_matches_on_competition_id"

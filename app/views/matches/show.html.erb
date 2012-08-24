@@ -29,8 +29,27 @@
   <% unless @match.forfeiting_team.nil? %>
     <li><%= "#{t('matches.forfeited_by')} #{@match.forfeiting_team.name}" %></li>
   <% end %>
+  <% if @match.not_played? %>
+    <li>Mecz nierozegrany. <%= @match.not_played_comment %></li>
+  <% end %>
 </ul>
 
+<% if current_user == @match.judge or can? :manage, @match %>
+  <div class="admin_panel">
+    <h4>Panel sędziowski</h4>
+    <%= form_for @match do |f| %>      
+      <p><%= f.label :not_played_comment %> <%= f.text_field :not_played_comment %></p>
+      <p><%= f.label :forfeiting_team %> <%= f.select(:forfeiting_team_id, @match.teams.collect {|x| [x.name, x.id]}, { :include_blank => "" } ) %></p>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
+    <% if can? :manage, @match %>      
+      <p><%= link_to "Remove all results", match_path(@match, :remove_all_results => true), :method => :put, :confirm => "Pewny?" %> (admin only)</p>
+    <% end %>
+  </div><br/>
+<% end %>
+  
 <% if @match.scheduled_at.nil? %>
   <% if !@managed_team.nil? or current_user == @match.judge %>
     <% if @match.match_time_proposals.any? %>
@@ -82,7 +101,7 @@
       </div>
     <% end %>
   <% end %>
-<% elsif @match.forfeiting_team.nil? %>  
+<% elsif @match.forfeiting_team.nil? and not @match.not_played? %>  
   <% edit = @edit_mode ? "_edit" : "" %>
   <table id="minimalist-table-hor-a" summary="<%= t('matches.page_title') %>">
     <thead>
@@ -105,7 +124,7 @@
         <% for match_map in @match.match_maps %>
           <% if @edit_mode or match_map.match_entries.any? %>
             <tr>
-              <td class="text-center" rowspan="2" style="vertical-align: top;">
+              <td class="text-center" rowspan="2" style="vertical-align: top;">                
                 <div><%= image_tag match_map.map.image_url, :alt => match_map.map.name %></div>
                 <h3><%= match_map.map.name %></h3>
               </td>

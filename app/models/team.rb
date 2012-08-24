@@ -91,5 +91,4 @@ class Team < ActiveRecord::Base
   def all_users
     User.joins(:team_participations).where('team_participations.team_id = ?', id).order("active desc, role asc")
   end
-
 end

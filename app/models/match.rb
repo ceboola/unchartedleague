@@ -27,6 +27,10 @@ class Match < ActiveRecord::Base
     team2.nil?
   end
   
+  def not_played?
+    !not_played_comment.nil? and not_played_comment != ""
+  end
+  
   def generate_match_maps    
     maps = Map.select("id").sort_by { rand }.slice(0...3)
     for map in maps
@@ -43,27 +47,31 @@ class Match < ActiveRecord::Base
   end
   
   def result
-    if processed
-      team1wins = 0
-      team2wins = 0
-      if forfeiting_team.nil?
-        for match_map in match_maps
-          if match_map.winning_team == team1
-            team1wins += 1
-          elsif match_map.winning_team == team2
-            team2wins += 1
+    unless not_played?
+      if processed
+        team1wins = 0
+        team2wins = 0      
+        if forfeiting_team.nil?
+          for match_map in match_maps
+            if match_map.winning_team == team1
+              team1wins += 1
+            elsif match_map.winning_team == team2
+              team2wins += 1
+            end
+          end
+        else
+          if forfeiting_team == team1
+            team2wins = 2
+          elsif forfeiting_team == team2
+            team1wins = 2
           end
         end
+        team1wins.to_s + ":" + team2wins.to_s      
       else
-        if forfeiting_team == team1
-          team2wins = 2
-        elsif forfeiting_team == team2
-          team1wins = 2
-        end
+        "-:-"
       end
-      team1wins.to_s + ":" + team2wins.to_s
     else
-      "-:-"
+      "brak"
     end
   end
 
