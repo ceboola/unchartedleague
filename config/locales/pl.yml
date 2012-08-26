@@ -439,6 +439,7 @@ pl:
         team1: "Drużyna"
         competition: "Rozgrywki"
         scheduled_at: "Termin meczu"
+        processed: "Zakończony"
         
       match_map:
         one: "Wynik na mapie"

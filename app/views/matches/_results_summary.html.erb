@@ -1,4 +1,12 @@
 <h3><%= t('matches.result') + ": " + @match.detailed_result(current_user) %></h3>
+<p>Liczba graczy aktywnych po tym meczu:
+  <ul>
+    <% @match.teams.each do |team| %>
+      <% players = @competition_players[team] %>
+      <li style="text-decoration: underline; cursor: pointer" onClick="alert('<%= players.to_a.join(', ') %>')"><%= team.name %> = <%= players.size %></li>    
+    <% end %>
+  </ul>
+</p>
 <%= form_tag "/matches/#{match.id}/commit_results", :method => :post do %>
   <%= submit_tag t('matches.commit_match_results'), :confirm => t('matches.commit_are_you_sure'), :class => "submit btn-form-single", :name => nil %>
 <% end %>

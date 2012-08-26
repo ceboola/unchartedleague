@@ -140,7 +140,21 @@ class MatchesController < ApplicationController
   def check_results    
     @match = Match.find(params[:id])
     @match.locked_by_judge = true
-    @match.save!
+    @match.save!   
+    
+    # TODO, move this section to somewhere else
+    @competition_players = {}
+    @competition_players[@match.team1] = Set.new
+    @competition_players[@match.team2] = Set.new
+    for team in @match.teams do      
+      for match in Match.where('(team1_id = ? or team2_id = ?) and competition_id = ?', team.id, team.id, @match.competition_id) do #FIXME (nearly the same as teams_controller        
+        for entry in match.match_entries          
+          if entry.team == team            
+            @competition_players[team].add entry.user
+          end
+        end
+      end
+    end    
   end
   
   def commit_results    

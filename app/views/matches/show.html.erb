@@ -39,13 +39,14 @@
     <h4>Panel sędziowski</h4>
     <%= form_for @match do |f| %>      
       <p><%= f.label :not_played_comment %> <%= f.text_field :not_played_comment %></p>
-      <p><%= f.label :forfeiting_team %> <%= f.select(:forfeiting_team_id, @match.teams.collect {|x| [x.name, x.id]}, { :include_blank => "" } ) %></p>
+      <p><%= f.label :forfeiting_team %> <%= f.select(:forfeiting_team_id, @match.teams.collect {|x| [x.name, x.id]}, { :include_blank => "" } ) %></p>      
+      <p><%= f.check_box :processed %> <%= f.label :processed %> (musi być zakończony, aby wyniki się wliczały)</p>      
       <div class="actions">
         <%= f.submit %>
       </div>
     <% end %>
-    <% if can? :manage, @match %>      
-      <p><%= link_to "Remove all results", match_path(@match, :remove_all_results => true), :method => :put, :confirm => "Pewny?" %> (admin only)</p>
+    <% if can? :manage, @match %>
+      <p style="padding-top: 5px;"><%= link_to "Remove all match entries (#{@match.match_entries.size})", match_path(@match, :remove_all_results => true), :method => :put, :confirm => "Pewny?" %> (admin only)</p>
     <% end %>
   </div><br/>
 <% end %>
