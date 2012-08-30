@@ -43,7 +43,7 @@ class Match < ActiveRecord::Base
   end
 
   def has_valid_scores?
-    return (processed and forfeiting_team.nil?)
+    return (processed and forfeiting_team.nil? and not not_played?)
   end
   
   def result
@@ -111,7 +111,7 @@ class Match < ActiveRecord::Base
     "-"
   end
   
-  def detailed_result(user = nil)
+  def detailed_result(user = nil) # FIXME: combine with result method
     if forfeiting_team.nil?
       if processed or user == judge
         team1wins = 0

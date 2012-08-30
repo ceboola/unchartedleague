@@ -27,7 +27,7 @@
     <% end %>
   <% end %>
 </table>
-<% if match.forfeiting_team.nil? %>
+<% if match.forfeiting_team.nil? and not match.not_played? %>
   <div class="best_players round">
     <% stats = PlayerStats.best_match_players(match) %>
     <table>
@@ -48,5 +48,9 @@
     </table>
   </div>
 <% else %>
-  walkower
+  <% unless match.not_played? %>
+    walkower
+  <% else %>
+    Mecz nierozegrany. <%= match.not_played_comment %>
+  <% end %>
 <% end %>
