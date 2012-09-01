@@ -22,17 +22,26 @@ class MatchesController < ApplicationController
       user = nil
     end    
     @competition = Competition.find(12) # FIXME
-    @matches = Match.where('competition_id = ?', @competition.id).filtered(user).order("scheduled_at asc")  
+    active_competitions = [12] # FIXME
+    if not current_user.nil? and params[:show_judged].present? and params[:show_judged] == 'true'
+      @matches = Match.where("judge_id = ? and competition_id in (?)", current_user.id, active_competitions).order("scheduled_at asc")    
+    else
+      @matches = Match.where('competition_id = ?', @competition.id).filtered(user).order("scheduled_at asc")  
+    end
+    
     if user_signed_in?
       teams = Team.joins(:competitions, :team_participations).where("user_id = ? and role = ? and competitions.id = ?", current_user.id, 0, @competition.id)
-      if teams.empty?
-        @managed_team = nil
-      else
-        @managed_team = teams[0]
-        @match = Match.new
-        @match.team1 = @managed_team
-        @match.competition = @competition
-      end
+      @managed_team = nil
+     
+      for t in teams
+        if @competition.teams.include? t
+          @managed_team = t
+          @match = Match.new
+          @match.team1 = @managed_team
+          @match.competition = @competition
+          break
+        end
+      end      
     end
   end
   

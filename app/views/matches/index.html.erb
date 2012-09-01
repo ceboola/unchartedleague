@@ -38,6 +38,11 @@
       <input type="radio" name="show_filter" id="myMatchesToggleButton" 
              onClick="goTo('<%=  url_for :action => 'index', :show_my => 'true' %>')" 
              <%= if current_page?(:show_my => 'true', :page => params[:page]) then 'checked' else '' end %> />
+      
+      <label for="judgedMatchesToggleButton"><%= t('matches.judged') %></label>
+      <input type="radio" name="show_filter" id="judgedMatchesToggleButton" 
+             onClick="goTo('<%=  url_for :action => 'index', :show_judged => 'true' %>')" 
+             <%= if current_page?(:show_judged => 'true', :show_my => params[:show_my], :page => params[:page]) then 'checked' else '' end %> />
     </div>
   <% end %>  
 
