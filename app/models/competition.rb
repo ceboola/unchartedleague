@@ -53,7 +53,7 @@ class Competition < ActiveRecord::Base
     end
     
     for m in matches
-      unless m.judge.nil?
+      if  m.judge.present? and judged_matches.key? m.judge
         judged_matches[m.judge] += 1
       end
     end
