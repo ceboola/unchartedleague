@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   end
   
   def user_teams_ids
-    Team.user_teams(self).collect { |x| x.id }
+    Team.teams_owned_by_user(self).collect { |x| x.id }
   end  
   
   def self.custom_filter(params)

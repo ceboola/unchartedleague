@@ -14,4 +14,10 @@ Opinio.setup do |config|
   # Here you can change the method called to check who is the current user
   # config.current_user_method = :current_user
 
+  config.interval_between_comments = 30
+  config.destroy_conditions = Proc.new {
+    can? :destroy, Comment
+  }
+
+  config.sort_order = 'ASC'
 end

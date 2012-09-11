@@ -8,6 +8,7 @@ class Ability
       can :manage, Competition
       can :manage, Match
       can :manage, Award
+      can :manage, Comment
     else
       can :read, Competition
       cannot [:read, :manage], Award

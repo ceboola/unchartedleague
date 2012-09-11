@@ -16,7 +16,10 @@
         <% if Opinio.accept_replies && !reply %>
           <div class="reply">
             {<%= link_to t("opinio.reply", :default => "Reply"), reply_comment_path(comment), :remote => true %>}
-	  </div>
+          </div>
+        <% end %>
+        <% if can? :destroy, comment # TODO: use Opinio block %>
+          <span class="admin_panel"><%= link_to t('opinio.actions.delete'), comment_path(comment), :method => :delete %></span>
         <% end %>
       </div>
     </div>

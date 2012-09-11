@@ -83,6 +83,14 @@ class Team < ActiveRecord::Base
       Team.scoped
     end
   end
+
+  def self.teams_owned_by_user(user)
+    unless user.nil?
+      Team.joins(:team_participations).where('team_participations.user_id = ? and team_participations.role = ?', user.id, 0)
+    else
+      Team.scoped
+    end
+  end
   
   def member_count    
     Team.joins(:team_participations).where('teams.id = ?', id).count    

@@ -7,7 +7,7 @@ gem 'cancan', '1.6.7'
 gem 'pg'
 gem 'aws-s3'
 gem 'kaminari'
-gem 'opinio'
+gem 'opinio', '0.5'
 
 group :production do
   gem 'thin'

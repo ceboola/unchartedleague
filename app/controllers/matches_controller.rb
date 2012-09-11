@@ -47,7 +47,7 @@ class MatchesController < ApplicationController
   
   def show    
     @match = Match.find(params[:id])
-    
+
     if @match.scheduled_at.nil? 
       if user_signed_in?
         teams = Team.joins(:competitions, :team_participations).where("user_id = ? and role = ? and competitions.id = ? and (teams.id = ? or teams.id = ?)", current_user.id, 0, 2, @match.team1.id, @match.team2.id)

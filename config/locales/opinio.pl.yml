@@ -8,8 +8,23 @@ pl:
     add_comment: 'Dodaj komentarz'
     comment: 'Komentarz'
     comments: 'Komentarze'
-    comment_sent: 'Komentarz dodany poprawnie.'
+    comment_sent: 'Komentarz został dodany.'
     comment_sending_error: 'Wystąpił problem przy przesyłaniu komentarza.'
     comment_destroyed: 'Komentarz usunięty.'
     comment_interval: 'Musisz odczekać %{time} sekund, aby skomentować ponownie.'
     cannot_be_comment_of_comment: "Nie można komentować odpowiedzi."
+    actions:
+      delete: 'Usuń'
+      reply: 'Odpowiedz'
+      add: 'Dodaj komentarz'
+    messages:
+      no_comments_found: 'Brak komentarzy'
+      must_be_logged_in_to_comment: 'Musisz być zalogowany, aby komentować.'
+      add_comment: 'Dodaj komentarz'
+      comments: 'Komentarze'
+      comment_sent: 'Komentarz został dodany.'
+      comment_sending_error: 'Wystąpił problem przy przesyłaniu komentarza.'
+      comment_destroyed: 'Komentarz usunięty.'
+      comment_interval: 'Musisz odczekać %{time} sekund, aby skomentować ponownie.'
+      cannot_be_comment_of_comment: "Nie można komentować odpowiedzi."
+
