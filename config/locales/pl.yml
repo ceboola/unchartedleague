@@ -148,6 +148,7 @@ pl:
     deadline: "Termin"
     round_robin_round: "Kolejka"
     forfeited_by: "Walkower drużyny"
+    match_should_be_scheduled_within_competition_time: "Mecz nie może zostać zaakceptowany. Mecz powinien zostać rozegrany w ramach terminu rozgrywek."
     
   players:
     page_title: "Zawodnicy"

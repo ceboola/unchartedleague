@@ -76,14 +76,19 @@ class MatchesController < ApplicationController
   
   def create    
     @match = Match.new(params[:match])
-    @match.processed = false
-    @match.locked_by_judge = false
-    if @match.save
-      flash[:success] = t('matches.proposal_created_successfully_without_opponent')
+    if Time.now > @match.competition.ends or @match.scheduled_at > @match.competition.ends or @match.scheduled_at < @match.competition.starts
+      flash[:error] = t('matches.match_should_be_scheduled_within_competition_time')
       redirect_to matches_path
-    else       
-      render :action => 'index'
-    end  
+    else
+      @match.processed = false
+      @match.locked_by_judge = false
+      if @match.save
+        flash[:success] = t('matches.proposal_created_successfully_without_opponent')
+        redirect_to matches_path
+      else       
+        render :action => 'index'
+      end    
+    end
   end
   
   def update 

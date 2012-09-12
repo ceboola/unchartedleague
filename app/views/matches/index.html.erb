@@ -61,7 +61,7 @@
   <% end %>
 <% end %>
     
-<% unless @managed_team.nil? %>
+<% if !@managed_team.nil? and Time.now < @match.competition.ends %>
   <h2><%= t('matches.propose') %></h2>  
   <% if @match.errors.any? %>
     <div class="flash error">
@@ -74,7 +74,7 @@
       </ul>
     </div>
   <% end %>
-
+  
   <div id="stylized-form">
     <%= form_tag :action => 'create' do %>	
       <%= hidden_field_tag "match[team1_id]", @match.team1.id %>
@@ -93,5 +93,5 @@
       </div>    
       <input type="submit" value="<%= t('matches.propose') %>" class="submit btn-form" />
     <% end %>
-  </div>
+  </div>  
 <% end %>
