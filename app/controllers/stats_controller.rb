@@ -1,18 +1,18 @@
 class StatsController < ApplicationController
   def ranking
     @stats = {}
-    @competitions = [Competition.find(5), Competition.find(3), Competition.find(4)]    
+    @competitions = [Competition.find(12)]    
     for competition in @competitions
-      if competition.id == 5
-        additional_matches = [Match.find(66), Match.find(121)]
-      else
-        additional_matches = []
-      end
       stats = []
       for team in competition.teams
-        stats << TeamStats.new(team, competition, additional_matches)
+        stats << TeamStats.new(team, :competition => competition, :additional_matches => competition.stats_config[:additional_matches], :remove_forfeited => competition.stats_config[:remove_forfeited], :priority => competition.stats_config[:seeded_teams][team.id])
       end
-      @stats[competition.id] = stats.sort_by { |x| [-x.points, -x.frags_diff, -x.frags_for] }
+      for rc in competition.stats_config[:reject_conditions]
+        stats = stats.reject { |x| eval(rc) }
+      end
+      @stats[competition.id] = stats.sort_by { |x| eval(competition.stats_config[:sorting_condition]) }
+      @fields = eval(competition.stats_config[:fields])
+      @show_place = competition.stats_config[:show_place]
     end
   end
 

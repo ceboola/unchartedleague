@@ -1,43 +1,37 @@
 <h1><%= t('stats.page_title') %></h1>
 
 <% for competition in @competitions %>
-  <h2>Ekstraklasa (sezon 4) - <%= competition.name %></h2>
+  <h2><%= competition.name %></h2>
   <table id="minimalist-table-hor-a" class="ranking-table" summary="<%= t('stats.page_title') %>">
     <thead>
       <tr>
-        <th class="text-center" scope="col"><%= t('stats.place') %></th>
+        <% if @show_place %>
+          <th class="text-center" scope="col"><%= t('stats.place') %></th>
+        <% end %> 
         <th class="text-center" scope="col"><%= t('teams.team') %></th>
-        <th class="text-center" scope="col"><%= t('stats.matches').capitalize %></th>   
-        <th class="text-center" scope="col"><%= t('stats.points').capitalize %></th>
-        <th class="text-center" scope="col"><%= t('stats.maps').capitalize %></th>        
-        <th class="text-center" scope="col"><%= t('stats.wins').capitalize %></th>
-        <th class="text-center" scope="col"><%= t('stats.losses').capitalize %></th>
-        <th class="text-center" scope="col"><%= t('stats.frags_for').capitalize %></th>
-        <th class="text-center" scope="col"><%= t('stats.frags_against').capitalize %></th>
-        <th class="text-center" scope="col"><%= t('stats.frags_diff').capitalize %></th>
-        <% if competition.id < 5 %>
-          <th class="text-center" scope="col"><%= t('stats.promotion').capitalize %></th>
+        <% for f in @fields %>
+          <th class="text-center" scope="col"><%= t("stats.#{f}") %></th>   
+        <% end %>
+        <% for f in competition.stats_config[:additional_fields].keys %> 
+          <th class="text-center" scope="col"><%= f %></th>   
         <% end %>
       </tr>
     </thead>
     <tbody>
-      <% i = 0 %>
-      <% for stats in @stats[competition.id] do %>
-        <% i += 1 %>        
+      <% pos = 0 %>
+      <% for x in @stats[competition.id] do %>
+        <% pos += 1 %>        
         <tr>
-          <td class="text-center"><%= i %></td>
-          <td class="text-center"><%= link_to name_with_award_image(stats.team), stats.team %></td>
-          <td class="text-center"><%= stats.matches %></td>
-          <td class="text-center"><%= stats.points %></td>
-          <td class="text-center"><%= stats.maps %></td>
-          <td class="text-center"><%= stats.wins %></td>
-          <td class="text-center"><%= stats.losses %></td>
-          <td class="text-center"><%= stats.frags_for %></td>
-          <td class="text-center"><%= stats.frags_against %></td>
-          <td class="text-center"><%= stats.frags_diff %></td>
-          <% if competition.id < 5 %>
-            <td class="text-center"><%= if i <= 2 then "grupa mistrzowska" else "mecz o #{i*2-1}. miejsce" end %></td>
+          <% if @show_place %>
+            <td class="text-center"><%= pos %></td>
           <% end %>
+          <td class="text-center"><%= link_to name_with_award_image(x.team), x.team %></td>
+          <% for f in @fields %>
+            <td class="text-center"><%= x.send f %></td>
+          <% end %>
+          <% for f in competition.stats_config[:additional_fields].values %> 
+            <td class="text-center"><%= eval(f) %></td>
+          <% end %>          
         </tr>
       <% end %>
     </tbody>

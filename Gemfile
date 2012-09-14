@@ -20,7 +20,7 @@ group :assets do
 end
 
 group :development do
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  #gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'mongrel', '>= 1.2.0.pre2' 
   gem 'sqlite3', '1.3.4'
   gem 'sqlite3-ruby', '1.3.3'

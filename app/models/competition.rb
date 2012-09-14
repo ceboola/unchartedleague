@@ -79,4 +79,19 @@ class Competition < ActiveRecord::Base
       "#{name} (sezon #{season})"     
     end
   end
+  
+  def stats_config
+    { 
+      :additional_matches => [],
+      :seeded_teams => eval("{29 => 8, 30 => 7, 31 => 6, 12 => 5, 2 => 4, 22 => 3, 39 => 2, 8 => 1}"),
+      :remove_forfeited => true,
+      :show_place => true,
+      :reject_conditions => ["x.matches < 3"],
+      :sorting_condition => "[-x.priority, -x.per_match(x.points), -x.per_match(x.frags_diff), -x.per_match(x.frags_for)]",
+      :fields => "['matches', 'points', 'wins', 'losses', 'frags_for', 'frags_against']",
+      :additional_fields => {
+        "Uwagi" => 'if x.priority > 0 then "rozstawiona" else "#{x.per_match(x.points)} pkt/mecz" end'
+      }
+    }
+  end
 end

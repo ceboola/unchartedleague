@@ -1,12 +1,30 @@
 class TeamStats
-  attr_accessor :team, :matches, :maps, :wins, :losses, :points, :frags_diff, :frags_for, :frags_against, :assists
+  attr_accessor :team, :matches, :maps, :wins, :losses, :points, :frags_diff, :frags_for, :frags_against, :assists, :priority
   
-  def initialize(team, competition, additional_matches = nil)
+  # initializes TeamStats object for given Team object
+  #
+  # +options+ hash should be passed to customize statistics:  #
+  # [competition] Competition object will be used to filter team stats to just this competition (default is nil)   
+  # [remove_forfeited] true, if stats from forfeited matches should be omitted, false otherwise (default is false) 
+  # [additional_matches] array of Match objects which should be additionally counted in the statistics (default is empty)
+  # [priority] team priority value which can be used by ranking processor; priority != 0 means that the team is seeded (default is 0)
+  def initialize(team, options = {})  
     @team = team
-    matches =  Match.where('(team1_id = ? or team2_id = ?) and competition_id = ? and processed = ?', team.id, team.id, competition.id, true)
-    unless additional_matches.nil?
-      matches += additional_matches.reject { |x| x.team1 != team and x.team2 != team }
-    end 
+    competition = options[:competition]
+    remove_forfeited = options[:remove_forfeited] || false    
+    additional_matches = options[:additional_matches] || []
+    @priority = options[:priority] || 0
+
+    matches_scoped =  Match.where('(team1_id = ? or team2_id = ?) and processed = ?', team.id, team.id, true).scoped
+    if !competition.nil?
+      matches_scoped = matches_scoped.where('competition_id = ?', competition.id).scoped
+    end
+    if remove_forfeited
+      matches_scoped = matches_scoped.where('forfeiting_team_id is ?', nil)
+    end
+
+    matches = matches_scoped.all + additional_matches.reject { |x| x.team1 != team and x.team2 != team }     
+    
     @matches = matches.size    
     @maps = 0
     @wins = 0
@@ -75,5 +93,12 @@ class TeamStats
     end
     @frags_diff = @frags_for - @frags_against
     # @assists = Match.joins(:match_maps).joins(:match_entries).where('team_id = ? and competition_id = ? and processed = ?', team.id, competition.id, true).sum('assists')
+  end
+
+  def per_match(attr)
+    if @matches > 0
+      return (attr / @matches.to_f).round(2)
+    end
+    return 0
   end
 end
