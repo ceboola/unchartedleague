@@ -96,8 +96,8 @@ class Competition < ActiveRecord::Base
       :fields => "['matches', 'points', 'maps', 'wins', 'losses', 'frags_for', 'frags_against', 'frags_diff']",
       :additional_fields => {}
     }
-    if team_stats_type.present?
-      result.merge!(eval(team_stats_type))
+    if team_stats_config.present?
+      result.merge!(eval(team_stats_config))
     end
     return result
   end

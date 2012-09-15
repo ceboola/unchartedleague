@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823225800) do
+ActiveRecord::Schema.define(:version => 20120915132555) do
 
   create_table "awards", :force => true do |t|
     t.string    "name"
@@ -45,28 +45,26 @@ ActiveRecord::Schema.define(:version => 20120823225800) do
   add_index "competition_entries", ["team_id"], :name => "index_competition_entries_on_team_id"
 
   create_table "competition_judges", :force => true do |t|
-    t.integer  "competition_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "competition_id"
+    t.integer   "user_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "competitions", :force => true do |t|
-    t.string    "name"
-    t.text      "description"
-    t.string    "logo_url"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.integer   "parent_competition_id"
-    t.timestamp "signup_ends"
-    t.string    "team_stats_type"
-    t.string    "player_stats_type"
-    t.timestamp "starts"
-    t.timestamp "ends"
-    t.text      "regulations"
-    t.integer   "season"
-    t.string    "format"
-    t.string    "status"
+    t.string   "name"
+    t.text     "description"
+    t.string   "logo_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "parent_competition_id"
+    t.datetime "signup_ends"
+    t.text     "team_stats_config",     :limit => 255
+    t.datetime "starts"
+    t.datetime "ends"
+    t.text     "regulations"
+    t.integer  "season"
+    t.string   "status"
   end
 
   create_table "maps", :force => true do |t|
