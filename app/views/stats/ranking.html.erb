@@ -1,15 +1,25 @@
-<h1><%= t('stats.page_title') %></h1>
+<h1><%= t('stats.page_title') %>
+<% if @stats.size > 1 %>  
+- <%= @competition.long_name %>
+<% end %>
+</h1>
 
-<% for competition in @competitions %>
-  <h2><%= competition.name %></h2>
+<% for competition in @stats.keys %>
+  <h2>
+    <% if @stats.size > 1 %> 
+      <%= competition.name %>
+    <% else %>
+      <%= competition.long_name %>
+    <% end %>
+  </h2>
   <table id="minimalist-table-hor-a" class="ranking-table" summary="<%= t('stats.page_title') %>">
     <thead>
       <tr>
-        <% if @show_place %>
+        <% if @show_place[competition] %>
           <th class="text-center" scope="col"><%= t('stats.place') %></th>
         <% end %> 
         <th class="text-center" scope="col"><%= t('teams.team') %></th>
-        <% for f in @fields %>
+        <% for f in @fields[competition] %>
           <th class="text-center" scope="col"><%= t("stats.#{f}") %></th>   
         <% end %>
         <% for f in competition.stats_config[:additional_fields].keys %> 
@@ -18,21 +28,21 @@
       </tr>
     </thead>
     <tbody>
-      <% pos = 0 %>
-      <% for x in @stats[competition.id] do %>
-        <% pos += 1 %>        
+      <% pos = @starting_place[competition] %>
+      <% for x in @stats[competition] do %>        
         <tr>
-          <% if @show_place %>
+          <% if @show_place[competition] %>
             <td class="text-center"><%= pos %></td>
           <% end %>
           <td class="text-center"><%= link_to name_with_award_image(x.team), x.team %></td>
-          <% for f in @fields %>
+          <% for f in @fields[competition] %>
             <td class="text-center"><%= x.send f %></td>
           <% end %>
           <% for f in competition.stats_config[:additional_fields].values %> 
             <td class="text-center"><%= eval(f) %></td>
           <% end %>          
         </tr>
+        <% pos += 1 %>
       <% end %>
     </tbody>
   </table><br/>

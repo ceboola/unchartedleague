@@ -1,18 +1,30 @@
 class StatsController < ApplicationController
   def ranking
     @stats = {}
-    @competitions = [Competition.find(12)]    
-    for competition in @competitions
+    @fields = {}
+    @show_place = {}
+    @starting_place = {}
+    @competition = Competition.find(params[:competition_id])
+    for competition in @competition.all_competitions
       stats = []
       for team in competition.teams
-        stats << TeamStats.new(team, :competition => competition, :additional_matches => competition.stats_config[:additional_matches], :remove_forfeited => competition.stats_config[:remove_forfeited], :priority => competition.stats_config[:seeded_teams][team.id])
+        priority = nil
+        if competition.stats_config[:seeded_teams].has_key? team.id
+          priority = competition.stats_config[:seeded_teams][team.id]
+        end
+        stats << TeamStats.new(team, :competition => competition, :additional_matches_ids => competition.stats_config[:additional_matches_ids], :remove_forfeited => competition.stats_config[:remove_forfeited], :priority => priority)
       end
+      
       for rc in competition.stats_config[:reject_conditions]
         stats = stats.reject { |x| eval(rc) }
       end
-      @stats[competition.id] = stats.sort_by { |x| eval(competition.stats_config[:sorting_condition]) }
-      @fields = eval(competition.stats_config[:fields])
-      @show_place = competition.stats_config[:show_place]
+      
+      unless stats.empty?
+        @stats[competition] = stats.sort_by { |x| eval(competition.stats_config[:sorting_condition]) }
+        @fields[competition] = eval(competition.stats_config[:fields])
+        @show_place[competition] = competition.stats_config[:show_place]
+        @starting_place[competition] = competition.stats_config[:starting_place]
+      end
     end
   end
 

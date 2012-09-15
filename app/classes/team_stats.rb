@@ -3,7 +3,7 @@ class TeamStats
   
   # initializes TeamStats object for given Team object
   #
-  # +options+ hash should be passed to customize statistics:  #
+  # +options+ hash should be passed to customize statistics: 
   # [competition] Competition object will be used to filter team stats to just this competition (default is nil)   
   # [remove_forfeited] true, if stats from forfeited matches should be omitted, false otherwise (default is false) 
   # [additional_matches] array of Match objects which should be additionally counted in the statistics (default is empty)
@@ -12,7 +12,7 @@ class TeamStats
     @team = team
     competition = options[:competition]
     remove_forfeited = options[:remove_forfeited] || false    
-    additional_matches = options[:additional_matches] || []
+    additional_matches_ids = options[:additional_matches_ids] || []
     @priority = options[:priority] || 0
 
     matches_scoped =  Match.where('(team1_id = ? or team2_id = ?) and processed = ?', team.id, team.id, true).scoped
@@ -23,7 +23,7 @@ class TeamStats
       matches_scoped = matches_scoped.where('forfeiting_team_id is ?', nil)
     end
 
-    matches = matches_scoped.all + additional_matches.reject { |x| x.team1 != team and x.team2 != team }     
+    matches = matches_scoped.all + additional_matches_ids.collect { |x| Match.find(x) }.reject { |x| x.team1 != team and x.team2 != team }     
     
     @matches = matches.size    
     @maps = 0

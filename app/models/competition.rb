@@ -19,18 +19,22 @@ class Competition < ActiveRecord::Base
     c
   end
   
+  def all_competitions
+    Competition.where('parent_competition_id = ? or id = ?', id, id)
+  end
+  
   # team
   def min_players
-    6
+    6 # FIXME WTF? 
   end
   
   # match
   def min_players_per_team
-    4
+    4 # WTF>!>?!
   end
   
   def max_players_per_team
-    5
+    5 # you gotta be kiddin me :/
   end
   
   def is_user_signed_up? (user)
@@ -76,22 +80,25 @@ class Competition < ActiveRecord::Base
     if parent_competition != nil
       "#{name} - #{parent_competition.long_name}"
     else
-      "#{name} (sezon #{season})"     
+      "#{name} (sezon #{season})" # FIXME: it should not be hardcoded, damn!
     end
   end
   
   def stats_config
-    { 
-      :additional_matches => [],
-      :seeded_teams => eval("{29 => 8, 30 => 7, 31 => 6, 12 => 5, 2 => 4, 22 => 3, 39 => 2, 8 => 1}"),
-      :remove_forfeited => true,
+    result = { 
+      :additional_matches_ids => [],
+      :seeded_teams => {},
+      :remove_forfeited => false,
       :show_place => true,
-      :reject_conditions => ["x.matches < 3"],
-      :sorting_condition => "[-x.priority, -x.per_match(x.points), -x.per_match(x.frags_diff), -x.per_match(x.frags_for)]",
-      :fields => "['matches', 'points', 'wins', 'losses', 'frags_for', 'frags_against']",
-      :additional_fields => {
-        "Uwagi" => 'if x.priority > 0 then "rozstawiona" else "#{x.per_match(x.points)} pkt/mecz" end'
-      }
+      :starting_place => 1,
+      :reject_conditions => ["x.matches == 0"],
+      :sorting_condition => "[-x.points, -x.frags_diff, -x.frags_for]",
+      :fields => "['matches', 'points', 'maps', 'wins', 'losses', 'frags_for', 'frags_against', 'frags_diff']",
+      :additional_fields => {}
     }
+    if team_stats_type.present?
+      result.merge!(eval(team_stats_type))
+    end
+    return result
   end
 end

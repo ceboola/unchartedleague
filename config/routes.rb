@@ -6,8 +6,8 @@ Unchartedleague::Application.routes.draw do
   get "players/index"
   match 'matches/:id/check_results' => 'matches#check_results', :via => :get
   match 'matches/:id/commit_results' => 'matches#commit_results', :via => :post
-  match 'stats/:id/ranking' => 'stats#ranking', :via => :get, :as => :stats_ranking
-  match 'stats/:id/players' => 'stats#players', :via => :get, :as => :stats_players
+  match 'stats/:competition_id/ranking' => 'stats#ranking', :via => :get, :as => :stats_ranking
+  match 'stats/:competition_id/players' => 'stats#players', :via => :get, :as => :stats_players
 
   resources :teams
   resources :team_participations
