@@ -37,7 +37,10 @@
 <% if current_user == @match.judge or can? :manage, @match %>
   <div class="admin_panel">
     <h4>Panel sędziowski</h4>
-    <%= form_for @match do |f| %>      
+    <%= form_for @match do |f| %>
+      <% if can? :manage, @match %>
+        <p><%= f.label :judge %> <%= f.select(:judge_id, @match.competition.competition_judges.collect {|x| [x.user, x.user.id]}) %> (admin only)</p>
+      <% end %>
       <p><%= f.label :not_played_comment %> <%= f.text_field :not_played_comment %></p>
       <p><%= f.label :forfeiting_team %> <%= f.select(:forfeiting_team_id, @match.teams.collect {|x| [x.name, x.id]}, { :include_blank => "" } ) %></p>      
       <p><%= f.check_box :processed %> <%= f.label :processed %> (musi być zakończony, aby wyniki się wliczały)</p>      

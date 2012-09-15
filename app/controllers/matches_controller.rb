@@ -23,7 +23,9 @@ class MatchesController < ApplicationController
     end    
     @competition = Competition.find(12) # FIXME
     active_competitions = [12] # FIXME
-    if not current_user.nil? and params[:show_judged].present? and params[:show_judged] == 'true'
+    if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
+      @matches = Match.filtered(current_user).where("competition_id in (?)", active_competitions).order("scheduled_at asc")   
+    elsif not current_user.nil? and params[:show_judged].present? and params[:show_judged] == 'true'
       @matches = Match.where("judge_id = ? and competition_id in (?)", current_user.id, active_competitions).order("scheduled_at asc")    
     else
       @matches = Match.where('competition_id = ?', @competition.id).filtered(user).order("scheduled_at asc")  

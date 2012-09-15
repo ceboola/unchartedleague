@@ -16,7 +16,7 @@ class Match < ActiveRecord::Base
   
   def self.filtered(user)
     unless user.nil?      
-      ids = user.user_teams_ids
+      ids = Team.user_teams(user).collect { |x| x.id }
       Match.where('team1_id in (?) or team2_id in (?)', ids, ids)
     else
       Match.scoped
