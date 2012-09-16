@@ -13,7 +13,12 @@ class TeamStats
     competition = options[:competition]
     remove_forfeited = options[:remove_forfeited] || false    
     additional_matches_ids = options[:additional_matches_ids] || []
+    additional_matches_ids = options[:additional_matches_ids] || []
     @priority = options[:priority] || 0
+    @points = 0
+    if options[:starting_points].has_key? team.id
+      @points = options[:starting_points][team.id]
+    end
 
     matches_scoped =  Match.where('(team1_id = ? or team2_id = ?) and processed = ?', team.id, team.id, true).scoped
     if !competition.nil?
@@ -28,8 +33,7 @@ class TeamStats
     @matches = matches.size    
     @maps = 0
     @wins = 0
-    @losses = 0
-    @points = 0
+    @losses = 0    
     @frags_for = 0
     @frags_against = 0
     @assists = 0

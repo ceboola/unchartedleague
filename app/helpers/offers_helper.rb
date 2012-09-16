@@ -1,7 +1,7 @@
 module OffersHelper
   def offers_count(user)
-    if user and user.received_offers_count > 0
-      " (#{user.received_offers_count})"
+    if user and Offer.received_offers_count(user) > 0
+      " (#{Offer.received_offers_count(user)})"
     else
       ""
     end

@@ -91,6 +91,7 @@ class Competition < ActiveRecord::Base
       :remove_forfeited => false,
       :show_place => true,
       :starting_place => 1,
+      :starting_points => {},
       :reject_conditions => ["x.matches == 0"],
       :sorting_condition => "[-x.points, -x.frags_diff, -x.frags_for]",
       :fields => "['matches', 'points', 'maps', 'wins', 'losses', 'frags_for', 'frags_against', 'frags_diff']",

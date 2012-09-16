@@ -2,12 +2,12 @@ class OffersController < ApplicationController
   before_filter :authenticate_user!
 
   def index        
-    @sent = Offer.where('(user_id in (?) and open = ? and originated_from_player = ?) or (team_id in (?) and open = ? and originated_from_player = ?)', current_user.id, true, true, current_user.user_teams_ids, true, false)    
-    @received = Offer.where('(team_id in (?) and open = ? and originated_from_player = ?) or (user_id in (?) and open = ? and originated_from_player = ?)', current_user.user_teams_ids, true, true, current_user.id, true, false)
+    @sent = Offer.sent_offers current_user
+    @received = Offer.received_offers current_user
   end
   
   def new    
-    if current_user.can_create_offers?
+    if Offer.can_create_offers? (current_user)
       if params[:user_id] and params[:team_id] and params[:originated_from_player]
         @offer = Offer.new(params.slice(:user_id, :team_id, :originated_from_player))      
       else

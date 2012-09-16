@@ -12,7 +12,7 @@ class StatsController < ApplicationController
         if competition.stats_config[:seeded_teams].has_key? team.id
           priority = competition.stats_config[:seeded_teams][team.id]
         end
-        stats << TeamStats.new(team, :competition => competition, :additional_matches_ids => competition.stats_config[:additional_matches_ids], :remove_forfeited => competition.stats_config[:remove_forfeited], :priority => priority)
+        stats << TeamStats.new(team, :competition => competition, :starting_points => competition.stats_config[:starting_points], :additional_matches_ids => competition.stats_config[:additional_matches_ids], :remove_forfeited => competition.stats_config[:remove_forfeited], :priority => priority)
       end
       
       for rc in competition.stats_config[:reject_conditions]

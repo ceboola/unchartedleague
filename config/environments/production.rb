@@ -59,7 +59,7 @@ Unchartedleague::Application.configure do
   config.active_support.deprecation = :notify
   
   # Configuration of devise
-  config.action_mailer.default_url_options = { :host => 'u3.unchartedleague.com' }
+  config.action_mailer.default_url_options = { :host => 'pl.unchartedleague.com' }
   
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

@@ -23,18 +23,6 @@ class User < ActiveRecord::Base
     "http://www.gravatar.com/avatar/#{hash}"
   end
   
-  def received_offers_count
-    Offer.count(:id, :conditions => ['(team_id in (?) and open = ? and originated_from_player = ?) or (user_id in (?) and open = ? and originated_from_player = ?)', Team.owned_by_user(self).collect {|x| x.id}, true, true, id, true, false])
-  end
-  
-  def sent_offers_count
-    Offer.count(:id, :conditions => ['(user_id in (?) and open = ? and originated_from_player = ?) or (team_id in (?) and open = ? and originated_from_player = ?)', id, true, true, Team.owned_by_user(self).collect {|x| x.id}, true, false])
-  end
-  
-  def can_create_offers?
-    sent_offers_count < 10
-  end
-  
   def self.custom_filter(params)
     if params[:show_without_team].present? and params[:show_without_team] == 'true'    
       includes(:team_participations).where('team_participations.team_id is null')

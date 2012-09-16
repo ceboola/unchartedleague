@@ -97,4 +97,24 @@ class Offer < ActiveRecord::Base
     
     return false
   end
+  
+  def self.received_offers_count(user) # FIXME
+    Offer.count(:id, :conditions => ['(team_id in (?) and open = ? and originated_from_player = ?) or (user_id in (?) and open = ? and originated_from_player = ?)', Team.owned_by_user(user).collect {|x| x.id}, true, true, user.id, true, false])
+  end
+  
+  def self.sent_offers_count(user) # FIXME
+    Offer.count(:id, :conditions => ['(user_id in (?) and open = ? and originated_from_player = ?) or (team_id in (?) and open = ? and originated_from_player = ?)', user.id, true, true, Team.owned_by_user(user).collect {|x| x.id}, true, false])
+  end
+  
+  def self.sent_offers(user) # FIXME
+    where('(user_id in (?) and open = ? and originated_from_player = ?) or (team_id in (?) and open = ? and originated_from_player = ?)', user.id, true, true, Team.owned_by_user(user).collect {|x| x.id}, true, false)
+  end
+  
+  def self.received_offers(user) # FIXME
+    where('(team_id in (?) and open = ? and originated_from_player = ?) or (user_id in (?) and open = ? and originated_from_player = ?)', Team.owned_by_user(user).collect {|x| x.id}, true, true, user.id, true, false)
+  end
+  
+  def self.can_create_offers? (user)
+    sent_offers_count(user) < 10
+  end
 end
