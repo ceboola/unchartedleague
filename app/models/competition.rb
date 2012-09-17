@@ -20,7 +20,7 @@ class Competition < ActiveRecord::Base
   end
   
   def all_competitions
-    Competition.where('parent_competition_id = ? or id = ?', id, id)
+    Competition.where('parent_competition_id = ? or id = ?', id, id).order("id asc")
   end
   
   # team

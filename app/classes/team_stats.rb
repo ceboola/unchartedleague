@@ -13,7 +13,6 @@ class TeamStats
     competition = options[:competition]
     remove_forfeited = options[:remove_forfeited] || false    
     additional_matches_ids = options[:additional_matches_ids] || []
-    additional_matches_ids = options[:additional_matches_ids] || []
     @priority = options[:priority] || 0
     @points = 0
     if options[:starting_points].has_key? team.id
