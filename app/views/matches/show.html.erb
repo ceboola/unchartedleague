@@ -134,12 +134,12 @@
               </td>
               <td class="text-center">
                 <div id="match_entries_<%= match_map.id %>_<%= @match.team1.id %>">
-                  <%= render 'match_entries' + edit, :match_map => match_map, :team => @match.team1 %>   
+                  <%= render 'match_entries' + edit, :match_map => match_map, :team => @match.team1, :team_in_game => ["Bohaterowie", "Czarne charaktery"][(@match.team1.id + @match.team2.id + match_map.id)%2] %>   
                 </div>
               </td>
               <td class="text-center">
                 <div id="match_entries_<%= match_map.id %>_<%= @match.team2.id %>">
-                  <%= render 'match_entries' + edit, :match_map => match_map, :team => @match.team2 %>
+                  <%= render 'match_entries' + edit, :match_map => match_map, :team => @match.team2, :team_in_game => ["Bohaterowie", "Czarne charaktery"][(@match.team1.id + @match.team2.id + match_map.id + 1)%2] %>
                 </div
               </td>
             </tr>
