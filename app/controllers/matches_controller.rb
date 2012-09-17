@@ -3,7 +3,7 @@ class MatchesController < ApplicationController
     redirect_to root_url, :alert => exception.message
   end
   
-  def index_current_NOTUSED #TODO: add format support for competition (open/scheduled)
+  def index_current_NOTUSED
     active_competitions = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] # FIXME
     
     if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
@@ -15,20 +15,16 @@ class MatchesController < ApplicationController
     end
   end
   
-  def index
-    if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
-      user = current_user
-    else
-      user = nil
-    end    
-    @competition = Competition.find(12) # FIXME
-    active_competitions = [12] # FIXME
-    if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
-      @matches = Match.filtered(current_user).where("competition_id in (?)", active_competitions).order("scheduled_at asc")   
-    elsif not current_user.nil? and params[:show_judged].present? and params[:show_judged] == 'true'
+  def index 
+    @competition = Competition.find(13) # FIXME (also hardcoded in query in show!!!!
+    active_competitions = @competition.all_competitions
+    if user_signed_in? and params[:show_my].present? and params[:show_my] == 'true'
+      @matches = Match.user_matches(current_user).where("competition_id in (?)", active_competitions).order("scheduled_at asc") # pagination?
+    elsif user_signed_in? and params[:show_judged].present? and params[:show_judged] == 'true'
       @matches = Match.where("judge_id = ? and competition_id in (?)", current_user.id, active_competitions).order("scheduled_at asc")    
     else
-      @matches = Match.where('competition_id = ?', @competition.id).filtered(user).order("scheduled_at asc")  
+      @matches = Match.where('competition_id in (?) and round_id is ?', active_competitions, nil).order("scheduled_at asc")
+      @rounds = Round.where("competition_id in (?)", active_competitions).order("number desc, competition_id asc")
     end
     
     if user_signed_in?
@@ -52,7 +48,7 @@ class MatchesController < ApplicationController
 
     if @match.scheduled_at.nil? 
       if user_signed_in?
-        teams = Team.joins(:competitions, :team_participations).where("user_id = ? and role = ? and competitions.id = ? and (teams.id = ? or teams.id = ?)", current_user.id, 0, 2, @match.team1.id, @match.team2.id)
+        teams = Team.joins(:competitions, :team_participations).where("user_id = ? and role = ? and competitions.id = ? and (teams.id = ? or teams.id = ?)", current_user.id, 0, 13, @match.team1.id, @match.team2.id) # FIXME: hardcoded competition!!!!
         if teams.empty?
           @managed_team = nil
         else

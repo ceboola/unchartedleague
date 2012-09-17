@@ -1,25 +1,6 @@
 <h1><%= t('matches.page_title') %></h1>
 <h2><%= @competition.long_name %></h2>
 
-<% if false # FIXME, TODO: add format support for competition (open/scheduled) %>
-  <div id="filter_buttons">
-    <label for="allMatchesToggleButton"><%= t('matches.all') %></label>
-    <input type="radio" name="show_filter" id="allMatchesToggleButton" 
-           onClick="goTo('<%=  url_for :action => 'index', :show_my => nil %>')"
-           <%= unless current_page?(:show_my => 'true', :show_judged => params[:show_judged], :page => params[:page]) then 'checked' else '' end %> />
-
-    <label for="myMatchesToggleButton"><%= t('matches.my') %></label>
-    <input type="radio" name="show_filter" id="myMatchesToggleButton" 
-           onClick="goTo('<%=  url_for :action => 'index', :show_my => 'true' %>')" 
-           <%= if current_page?(:show_my => 'true', :show_judged => params[:show_judged], :page => params[:page]) then 'checked' else '' end %> />
-
-    <label for="judgedMatchesToggleButton"><%= t('matches.judged') %></label>
-    <input type="radio" name="show_filter" id="judgedMatchesToggleButton" 
-           onClick="goTo('<%=  url_for :action => 'index', :show_judged => 'true' %>')" 
-           <%= if current_page?(:show_judged => 'true', :show_my => params[:show_my], :page => params[:page]) then 'checked' else '' end %> />
-  </div><br />
-<% end %>
-
 <% unless @managed_team.nil? %>
   <%= info_section "#{t('matches.manager_intro')} #{link_to @managed_team.full_name, @managed_team}." %>
 <%  else %>
@@ -44,14 +25,16 @@
              onClick="goTo('<%=  url_for :action => 'index', :show_judged => 'true' %>')" 
              <%= if current_page?(:show_judged => 'true', :show_my => params[:show_my], :page => params[:page]) then 'checked' else '' end %> />
     </div>
-  <% end %>  
+  <% end %><br/>
 
   <% if @matches.any? %>      
     <%= render 'matches', :matches => @matches, :managed_team => @managed_team %>
-  <% else %>  
+  <% elsif !@rounds.present? %>  
     <p style='margin-top: 7px;'><%= t('matches.none') %></p>
   <% end %> 
-<% elsif !@rounds.nil? %>
+<% end %>
+    
+<% if @rounds.present? %>
   <% for round in @rounds %>
     <h2><%= round.competition.name %> - <%= round.number %>. <%= t('matches.round_robin_round') %></h2>
     <% if Time.now < round.ends %>
@@ -61,7 +44,7 @@
   <% end %>
 <% end %>
     
-<% if !@managed_team.nil? and Time.now < @match.competition.ends %>
+<% if false #if !@managed_team.nil? and Time.now < @match.competition.ends # FIXME! %>
   <h2><%= t('matches.propose') %></h2>  
   <% if @match.errors.any? %>
     <div class="flash error">

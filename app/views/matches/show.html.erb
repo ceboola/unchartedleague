@@ -54,8 +54,8 @@
   </div><br/>
 <% end %>
   
-<% if @match.scheduled_at.nil? %>
-  <% if !@managed_team.nil? or current_user == @match.judge %>
+<% if @match.scheduled_at.nil? %>  
+  <% if !@managed_team.nil? or current_user == @match.judge %>  
     <% if @match.match_time_proposals.any? %>
       <table id="minimalist-table-hor-a" summary="<%= t('matches.page_title') %>">
         <thead>

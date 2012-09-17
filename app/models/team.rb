@@ -78,7 +78,17 @@ class Team < ActiveRecord::Base
   
   def self.user_teams(user)
     unless user.nil?
-      Team.joins(:team_participations).where('team_participations.user_id = ?', user.id)
+      Team.joins(:team_participations).where('team_participations.user_id = ? and team_participations.active = ?', user.id, true)
+    else
+      Team.scoped
+    end
+  end
+  
+  def self.all_user_teams(user)
+    unless user.nil?
+      TeamParticipation.unscoped do
+        Team.joins(:team_participations).where('team_participations.user_id = ?', user.id)
+      end
     else
       Team.scoped
     end

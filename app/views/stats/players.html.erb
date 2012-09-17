@@ -25,7 +25,7 @@
       <% i += 1 %>        
       <tr>
         <td class="text-center"><%= i %></td>
-        <td class="text-center"><%= "#{stats.team.full_tag} #{stats.user}" %></td>
+        <td class="text-center"><%= "#{stats.teams.collect { |x| x.full_tag }.join(" ")} #{stats.user}" %></td>
         <td class="text-center"><%= stats.matches.size %></td>
         <td class="text-center"><%= stats.maps %></td>         
         <td class="text-center"><%= if stats.skill > 0 then stats.skill.round(1) else "-" end %></td>

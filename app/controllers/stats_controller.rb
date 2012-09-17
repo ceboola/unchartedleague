@@ -29,31 +29,17 @@ class StatsController < ApplicationController
   end
 
   def players
+    competition = Competition.find(params[:competition_id])
     @stats = {}
-    team_matches = {}
-    for r in Competition.find(2).rounds
-      for m in r.matches
-        if m.has_valid_scores?
-          for me in m.match_entries
-            unless @stats.has_key? me.user.id
-              @stats[me.user.id] = PlayerStats.new(me.user, me.team)
-              unless team_matches.has_key? me.team
-                team_matches[me.team] = Set.new
-              end
-            end
-            @stats[me.user.id].kills += me.kills
-            @stats[me.user.id].deaths += me.deaths
-            @stats[me.user.id].assists += me.assists
-            @stats[me.user.id].maps += 1
-            @stats[me.user.id].matches << m           
-            team_matches[me.team] << m
+    
+    for c in competition.all_competitions
+      for m in c.matches
+        for me in m.match_entries
+          if !@stats.has_key? me.user.id
+            @stats[me.user.id] = PlayerStats.new(me.user, :competition => competition)
           end
         end
-      end     
-    end
-
-    for stat in @stats.values
-      stat.competition_activity = (100.0 * stat.matches.size / team_matches[stat.team].size)
+      end
     end
 
     @stats = @stats.values.sort_by { |x| [-x.skill, -x.kdr, -x.diff, -x.kills, -x.assists, x.deaths, -x.maps] }

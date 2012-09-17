@@ -1,14 +1,38 @@
 class PlayerStats 
-  attr_accessor :user, :kills, :assists, :deaths, :maps, :team, :matches, :competition_activity
+  attr_accessor :user, :kills, :assists, :deaths, :maps, :teams, :matches, :competition_activity
 
-  def initialize(user, team)
+  def initialize(user, options = {})
     @user = user
+    competition = options[:competition]
+    @teams = Team.all_user_teams(user)
+    teams_ids = @teams.collect { |x| x.id }
+        
+    matches_scoped =  Match.where('(team1_id in (?) or team2_id in (?)) and processed = ?', teams_ids, teams_ids, true).scoped
+    if !competition.nil?
+      matches_scoped = matches_scoped.where('competition_id = ?', competition.id).scoped
+    end
+    
+    team_matches = matches_scoped.all
+    
     @kills = 0
     @assists = 0
     @deaths = 0
-    @maps = 0
-    @team = team
+    @maps = 0    
     @matches = Set.new
+    
+    for m in team_matches
+      if m.has_valid_scores?
+        for me in m.match_entries          
+          @kills += me.kills
+          @deaths += me.deaths
+          @assists += me.assists
+          @maps += 1
+          @matches << m          
+        end
+      end
+    end
+    
+    @competition_activity = (100.0 * @matches.size / team_matches.size)
   end
 
   def diff
@@ -55,7 +79,7 @@ class PlayerStats
     end
   end
   
-  def self.best_match_players(match)
+  def self.best_match_players(match) # FIXME
     result = {}
     result[:kills] = MatchEntry.unscoped.where('match_id = ?', match.id).group('user_id').order('sum(kills) desc').sum('kills').first
     result[:assists] = MatchEntry.unscoped.where('match_id = ?', match.id).group('user_id').order('sum(assists) desc').sum('assists').first

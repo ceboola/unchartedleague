@@ -14,15 +14,6 @@ class Match < ActiveRecord::Base
 
   validates_associated :match_maps
   
-  def self.filtered(user)
-    unless user.nil?      
-      ids = Team.user_teams(user).collect { |x| x.id }
-      Match.where('team1_id in (?) or team2_id in (?)', ids, ids)
-    else
-      Match.scoped
-    end
-  end
-  
   def open_spot?
     team2.nil?
   end
@@ -142,5 +133,10 @@ class Match < ActiveRecord::Base
   
   def can_be_edited_by? (user)   
     ((!processed and judge == user) or (!processed and !locked_by_judge and (team1.has_member? user or team2.has_member? user)))
+  end
+  
+  def self.user_matches(user)
+    ids = Team.user_teams(user).collect { |x| x.id }
+    Match.where('team1_id in (?) or team2_id in (?)', ids, ids)        
   end
 end

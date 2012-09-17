@@ -16,13 +16,12 @@ class RoundsController < ApplicationController
   end
   
   def new
-    judge_ids = Match.select('DISTINCT judge_id').collect {|x| x.judge_id}
-    @judges = User.find(judge_ids)
+    @judges = CompetitionJudge.where("competition_id = ?", 13).collect { |x| x.user }
     @teams = Team.all
 
     @round = Round.new
     used_teams = []
-    for c in Competition.find([3,4]) do
+    for c in Competition.find([14,15]) do
       for t in c.teams
         unless used_teams.include? t
           played_with = [t] + used_teams

@@ -1,11 +1,11 @@
 class TeamsController < ApplicationController  
   def index
     if not current_user.nil? and params[:show_my].present? and params[:show_my] == 'true'
-      user = current_user
+      @teams = Team.user_teams(current_user).scoped
     else
-      user = nil
+      @teams = Team.all
     end
-    @teams = Team.user_teams(user).order("lower(name) asc").page params[:page]   
+    @teams = @teams.order("lower(name) asc").page params[:page]   
   end
 
   def show
