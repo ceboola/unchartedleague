@@ -1,4 +1,5 @@
 <h1><%= match_teams(@match) %></h1>
+<%= @edit_mode %>
 <% if @match.processed %>
   <h2><%= t('matches.result') %>: <%= @match.detailed_result %></h2>
 <% end %>

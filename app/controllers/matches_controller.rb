@@ -57,7 +57,15 @@ class MatchesController < ApplicationController
      end
     end
     
-    @edit_mode = (user_signed_in? and (not @match.scheduled_at.nil?) and (((not @match.processed) and (current_user == @match.judge)) or ((not @match.processed) and (not @match.locked_by_judge) and (@match.team1.has_member? current_user or @match.team2.has_member? current_user))))
+    @edit_mode = false    
+    if user_signed_in? and @match.scheduled_at.present? and !@match.processed      
+      @edit_mode = (current_user == @match.judge)
+      if !@edit_mode
+        @edit_mode = !@match.locked_by_judge
+        @edit_mode &= (@match.team1.has_member? current_user or @match.team2.has_member? current_user)
+      end
+    end
+    
     if @edit_mode
       for match_map in @match.match_maps do # FIXME: merge with MatchMapsController
         for team in @match.teams        
