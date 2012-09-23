@@ -90,4 +90,12 @@ class MatchMap < ActiveRecord::Base
   def team2score
     MatchEntry.where("match_map_id = ? and team_id = ?", id, match.team2.id).sum("kills")
   end
+  
+  def team_in_game(team)
+    hash = match.team1.id + match.team2.id + id
+    if team == match.team2
+      hash += 1
+    end
+    return ["Bohaterowie", "Czarne charaktery"][hash%2]
+  end
 end

@@ -131,7 +131,7 @@ class Match < ActiveRecord::Base
     end
   end
   
-  def can_be_edited_by? (user)   
+  def can_be_edited_by? (user) # FIXME: merge with @edit_mode in the controller
     ((!processed and judge == user) or (!processed and !locked_by_judge and (team1.has_member? user or team2.has_member? user)))
   end
   
