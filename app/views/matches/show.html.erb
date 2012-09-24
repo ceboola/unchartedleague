@@ -1,4 +1,4 @@
-<h1><%= match_teams(@match) %></h1>
+<h1><%= match_teams_without_awards(@match) %></h1>
 
 <% if @match.processed %>
   <h2><%= t('matches.result') %>: <%= @match.detailed_result %></h2>

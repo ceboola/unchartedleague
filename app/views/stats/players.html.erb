@@ -25,8 +25,8 @@
       <% i += 1 %>        
       <tr>
         <td class="text-center"><%= i %></td>
-        <td class="text-center"><%= "#{stats.teams.collect { |x| x.full_tag }.join(" ")} #{stats.user}" %></td>
-        <td class="text-center"><%= stats.matches.size %></td>
+        <td class="text-center"><%= "#{stats.teams.collect { |x| x.full_tag }.join(" ")} #{name_with_award_image(stats.user)}".html_safe %></td>
+        <td class="text-center"><%= stats.matches %></td>
         <td class="text-center"><%= stats.maps %></td>         
         <td class="text-center"><%= if stats.skill > 0 then stats.skill.round(1) else "-" end %></td>
         <td class="text-center"><%= stats.kdr.round(2) %></td>
@@ -36,7 +36,7 @@
         <td class="text-center"><%= stats.kills_per_map.round(1) %></td>
         <td class="text-center"><%= stats.deaths_per_map.round(1) %></td>
         <td class="text-center"><%= stats.assists_per_map.round(1) %></td>
-        <td class="text-center"><%= stats.competition_activity.round(1) %>%</td>
+        <td class="text-center"><%= stats.activity.round(1) %>%</td>
       </tr>
     <% end %>
   </tbody>

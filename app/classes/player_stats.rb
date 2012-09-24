@@ -1,38 +1,43 @@
 class PlayerStats 
-  attr_accessor :user, :kills, :assists, :deaths, :maps, :teams, :matches, :competition_activity
+  attr_accessor :user, :kills, :assists, :deaths, :maps, :teams, :matches, :activity, :debug
 
-  def initialize(user, options = {})
+  def initialize(user)
     @user = user
-    competition = options[:competition]
-    @teams = Team.all_user_teams(user)
-    teams_ids = @teams.collect { |x| x.id }
-        
-    matches_scoped =  Match.where('(team1_id in (?) or team2_id in (?)) and processed = ?', teams_ids, teams_ids, true).scoped
-    if !competition.nil?
-      matches_scoped = matches_scoped.where('competition_id = ?', competition.id).scoped
-    end
-    
-    team_matches = matches_scoped.all
-    
     @kills = 0
     @assists = 0
     @deaths = 0
     @maps = 0    
-    @matches = Set.new
-    
-    for m in team_matches
-      if m.has_valid_scores?
-        for me in m.match_entries          
-          @kills += me.kills
-          @deaths += me.deaths
-          @assists += me.assists
-          @maps += 1
-          @matches << m          
-        end
-      end
+    @teams = Array.new
+    @matches_for_teams = {}
+    @matches = 0
+  end
+  
+  def add_match_entry me
+    @kills += me.kills
+    @deaths += me.deaths
+    @assists += me.assists
+    @maps += 1    
+    unless @teams.include? me.team
+      @teams << me.team       
+    end
+    unless @matches_for_teams.has_key? me.team
+      @matches_for_teams[me.team] = Array.new
     end
     
-    @competition_activity = (100.0 * @matches.size / team_matches.size)
+    unless @matches_for_teams[me.team].include? me.match_map.match
+      @matches_for_teams[me.team] << me.match_map.match
+      @matches += 1
+    end
+  end
+  
+  def calculate_activity team_matches # FIXME: hide this logic (player stats need to be covered by some kind of team stats)    
+    @activity = 0    
+    for team in @teams
+      if team_matches.has_key? team and team_matches[team] > 0
+        temp_activity = (100.0 * @matches_for_teams[team].size / team_matches[team])        
+        @activity = temp_activity if temp_activity > @activity        
+      end
+    end
   end
 
   def diff
@@ -48,7 +53,7 @@ class PlayerStats
   end
 
   def skill
-    if (@deaths > 0 or @kills > 0) and @competition_activity >= 50.0
+    if (@deaths > 0 or @kills > 0) and @activity >= 50.0
       100 * ((@kills + 0.65 * @assists) / (@kills + 0.65 * @assists + @deaths))
     else
       0

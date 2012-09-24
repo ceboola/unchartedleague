@@ -9,7 +9,7 @@
   <% for match_entry in match_map.match_entries %>
     <% if match_entry.team == team %>      
       <tr>          
-        <td><%= match_entry.user %></td>
+        <td><%= name_with_award_image(match_entry.user) %></td>
         <td><%= match_entry.kills %></td>
         <td><%= match_entry.deaths %></td>  
         <td><%= match_entry.assists %></td> 

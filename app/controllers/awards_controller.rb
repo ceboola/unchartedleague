@@ -11,7 +11,7 @@ class AwardsController < ApplicationController
   
   def create
     @award = Award.new(params[:award])
-    if @award.save      
+    if @award.save!     
       flash[:success] = "Dodano"      
       redirect_to awards_path
     else

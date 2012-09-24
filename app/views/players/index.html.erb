@@ -32,7 +32,7 @@
   <tbody>
     <% for user in @users do %>      
       <tr>
-        <td><%= user %></td>
+        <td><%= name_with_award_image(user) %></td>
         <td><%= (user.teams.any? ? user.teams.join(', ') : t('teams.none')) %></td>
         <td><%= time_ago_in_words(user.created_at) %></td>
         <% if @team %>

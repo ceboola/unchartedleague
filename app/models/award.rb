@@ -4,7 +4,7 @@ class Award < ActiveRecord::Base
   belongs_to :team
   belongs_to :competition
   
-  validates :name, :presence => true, :length => { :maximum => 10 }
+  validates :name, :presence => true, :length => { :maximum => 20 }
   validates :icon_url, :presence => true
   validates :inline_icon_url, :presence => true
   validates :importance, :presence => true, :numericality => { :only_integer => true }
