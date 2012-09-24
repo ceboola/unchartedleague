@@ -1,6 +1,6 @@
 <h1><%= t('stats.players.page_title') %></h1>
 
-<h2>Ekstraklasa (sezon 4)</h2>
+<h2><%= @competition.long_name %></h2>
 <table id="minimalist-table-hor-a" class="ranking-table-active" summary="<%= t('stats.players.page_title') %>">
   <thead>
     <tr>
@@ -42,11 +42,11 @@
   </tbody>
 </table><br />
 
-<h3>Legenda</h3>
+<h3>Uwagi</h3>
 <ul class="fancy">
-  <li>Pole Aktywność oznacza procent meczów drużyny, w których dany gracz brał udział (wystarczy jedna mapa),</li>
-  <li>Pole skill jest obliczane tylko dla graczy, którzy rozegrali przynajmniej 50% meczów drużyny (pole Aktywność),</li>
-  <li>Mecze zakończone walkowerem nie wliczają się do statystyk.</li>
+  <li>Pole Aktywność oznacza procent meczów drużyny, w których dany gracz brał udział (w przypadku dwóch drużyn, brany jest większy procent).</li>
+  <li>Pole Skill jest obliczane tylko dla graczy, którzy rozegrali przynajmniej 50% meczów którejś ze swoich drużyn (pole Aktywność).</li>
+  <li>Mecze zakończone walkowerem nie wliczają się do statystyk.</li>  
 </ul>
 
 

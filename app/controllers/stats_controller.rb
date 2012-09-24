@@ -29,23 +29,23 @@ class StatsController < ApplicationController
   end
 
   def players
-    competition = Competition.find(params[:competition_id])
+    @competition = Competition.find(params[:competition_id])
     @stats = {}
-    @team_matches = {} # FIXME: there's gotta be a better way
+    team_matches = {} # FIXME: there's gotta be a better way
     
-    for c in competition.all_competitions
+    for c in @competition.all_competitions
       for m in c.matches
         if m.has_valid_scores?
-          if !@team_matches.has_key? m.team1
-            @team_matches[m.team1] = 1
+          if !team_matches.has_key? m.team1
+            team_matches[m.team1] = 1
           else
-            @team_matches[m.team1] += 1
+            team_matches[m.team1] += 1
           end
 
-          if !@team_matches.has_key? m.team2
-            @team_matches[m.team2] = 1
+          if !team_matches.has_key? m.team2
+            team_matches[m.team2] = 1
           else
-            @team_matches[m.team2] += 1
+            team_matches[m.team2] += 1
           end
 
           for me in m.match_entries
@@ -59,7 +59,7 @@ class StatsController < ApplicationController
     end
     
     for v in @stats.values
-      v.calculate_activity @team_matches # FIXME: there's gotta be a better way
+      v.calculate_activity team_matches # FIXME: there's gotta be a better way
     end
     
     @stats = @stats.values.sort_by { |x| [-x.skill, -x.kdr, -x.diff, -x.kills, -x.assists, x.deaths, -x.maps] }
