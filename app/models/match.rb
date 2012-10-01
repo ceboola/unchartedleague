@@ -103,7 +103,9 @@ class Match < ActiveRecord::Base
   end
   
   def detailed_result(user = nil) # FIXME: combine with result method
-    if forfeiting_team.nil?
+    if not_played?
+      "brak"
+    elsif forfeiting_team.nil?
       if processed or user == judge
         team1wins = 0
         team2wins = 0

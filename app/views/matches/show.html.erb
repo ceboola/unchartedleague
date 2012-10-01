@@ -51,7 +51,8 @@
     <% end %>
     <% if can? :manage, @match %>
       <p style="padding-top: 5px;"><%= link_to "Remove all match entries (#{@match.match_entries.size})", match_path(@match, :remove_all_results => true), :method => :put, :confirm => "Pewny?" %> (admin only)</p>
-    <% end %>
+      <p style="padding-top: 5px;"><%= link_to "Remove match", match_path(@match), :method => :delete, :confirm => "Pewny?" %> (admin , not available yet)</p>
+  <% end %>
   </div><br/>
 <% end %>
   
