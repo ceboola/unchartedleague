@@ -1,5 +1,5 @@
 class TeamStats
-  attr_accessor :team, :matches, :maps, :wins, :losses, :points, :frags_diff, :frags_for, :frags_against, :assists, :priority
+  attr_accessor :team, :matches, :not_played, :maps, :wins, :losses, :points, :frags_diff, :frags_for, :frags_against, :assists, :priority
   
   # initializes TeamStats object for given Team object
   #
@@ -30,6 +30,7 @@ class TeamStats
     matches_played = matches_scoped.all + additional_matches_ids.collect { |x| Match.find(x) }.reject { |x| x.team1 != team and x.team2 != team }     
         
     @matches = 0
+    @not_played = 0
     @maps = 0
     @wins = 0
     @losses = 0    
@@ -37,8 +38,8 @@ class TeamStats
     @frags_against = 0
     @assists = 0
     for m in matches_played
-      unless m.not_played?
-        @matches += 1
+      @matches += 1
+      unless m.not_played?        
         team1wins = 0
         team2wins = 0
         team1frags = 0
@@ -95,16 +96,17 @@ class TeamStats
           @frags_for += team2frags
           @frags_against += team1frags
         end
+      else
+        @not_played += 1
       end
     end
     
-    @frags_diff = @frags_for - @frags_against
-    # @assists = Match.joins(:match_maps).joins(:match_entries).where('team_id = ? and competition_id = ? and processed = ?', team.id, competition.id, true).sum('assists')
+    @frags_diff = @frags_for - @frags_against    
   end
 
   def per_match(attr)
-    if @matches > 0
-      return (attr / @matches.to_f).round(2)
+    if (@matches - @not_played) > 0
+      return (attr / (@matches - @not_played).to_f).round(2)
     end
     return 0
   end

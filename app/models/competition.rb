@@ -94,7 +94,7 @@ class Competition < ActiveRecord::Base
       :starting_points => {},
       :reject_conditions => ["x.matches == 0"],
       :sorting_condition => "[-x.points, -x.frags_diff, -x.frags_for]",
-      :fields => "['matches', 'points', 'maps', 'wins', 'losses', 'frags_for', 'frags_against', 'frags_diff']",
+      :fields => "['matches', 'points', 'maps', 'wins', 'losses', 'not_played', 'frags_for', 'frags_against', 'frags_diff']",
       :additional_fields => {}
     }
     if team_stats_config.present?

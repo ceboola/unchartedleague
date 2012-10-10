@@ -29,11 +29,12 @@ pl:
     
   stats:
     page_title: "Tabele"
-    matches: "Mecze"
+    matches: "Mcz."
+    not_played: "Brak"
     maps: "Map"
     points: "Pkt"
-    wins: "Wygrane"
-    losses: "Przegrane"
+    wins: "Wyg."
+    losses: "Przeg."
     frags_for: "Fragi"
     frags_against: "Śmierci"
     frags_diff: "Różnica"
@@ -45,7 +46,6 @@ pl:
     least_deaths: "najmniej śmierci"
     skill: "Skill"
     kdr: "K/D"
-    matches: "Mcz."
     frags_per_map: "Fr/m"
     deaths_per_map: "Ś/m"
     assists_per_map: "As/m"
