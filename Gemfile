@@ -25,3 +25,8 @@ group :development do
   gem 'sqlite3', '1.3.4'
   gem 'sqlite3-ruby', '1.3.3'
 end
+
+group :test, :development do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
