@@ -8,6 +8,8 @@ gem 'pg'
 gem 'aws-s3'
 gem 'kaminari'
 gem 'opinio', '0.5'
+gem 'formtastic'
+gem 'redcarpet'
 
 group :production do
   gem 'thin'
@@ -29,4 +31,5 @@ end
 group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'capybara'
 end

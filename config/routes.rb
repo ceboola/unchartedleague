@@ -23,6 +23,7 @@ Unchartedleague::Application.routes.draw do
   resources :match_time_proposals
   resources :rounds
   resources :awards
+  resources :articles
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
