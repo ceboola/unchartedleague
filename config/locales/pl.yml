@@ -214,7 +214,7 @@ pl:
     add_article: "Dodaj artykuł"
     remove_article: "Usuń artykuł"   
   
-  unauthorized:
+  unauthorized: # devise error messages
     manage:
       all: "Nie masz prawa zarządzać tym zasobem."
       match_entry: "Nie masz prawa zarządzać wynikami tego meczu."

@@ -9,8 +9,10 @@ class Ability
       can :manage, Match
       can :manage, Award
       can :manage, Comment
+      can :manage, Article
     else
       can :read, Competition
+      can :read, Article
       cannot [:read, :manage], Award
     end
   end  

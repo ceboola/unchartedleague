@@ -1,2 +1,5 @@
-<h1>ArticlesController#new</h1>
-<p>Find me in app/views/articles_controller/new.html.erb</p>
+<h1><%= t('articles.add_article') %></h1>
+<%= semantic_form_for @article do |f| %>
+  <%= f.inputs %>
+  <%= f.actions %>
+<% end %>

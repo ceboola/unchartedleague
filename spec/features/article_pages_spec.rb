@@ -29,7 +29,7 @@ describe "Articles" do
   end
   
   describe "new article page" do
-    describe "by invalid user" do
+    describe "requested by invalid user" do
       before(:each) do
         @user = FactoryGirl.create(:user)
         login @user
@@ -38,11 +38,12 @@ describe "Articles" do
       it "doesn't show a form" do
         visit new_article_path
         page.should_not have_selector('form')
-        page.should_not have_selector('input', :type => 'submit')
+        page.should_not have_selector('input[@type="submit"]')
+        devise_alert_should_be_shown_on(page)
       end
     end
     
-    describe "by valid user" do
+    describe "requested by valid user" do
       before(:each) do
         @user = FactoryGirl.create(:admin)
         login @user
@@ -51,7 +52,7 @@ describe "Articles" do
       it "shows a form" do
         visit new_article_path
         page.should have_selector('form')
-        page.should have_selector('input', :type => 'submit')
+        page.should have_selector('input[@type="submit"]')
       end
     end
   end

@@ -4,8 +4,8 @@ describe ArticlesController do
   describe 'GET index' do
     it "assigns @articles" do
       article = FactoryGirl.create(:article)
-      get :index
+      post :index
       assigns(:articles).should eq([article])
     end
-  end
+  end  
 end
