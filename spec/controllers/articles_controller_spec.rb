@@ -1,17 +1,11 @@
 require 'spec_helper'
 
 describe ArticlesController do
-  describe "GET 'index'" do
-    it "returns http success" do
+  describe 'GET index' do
+    it "assigns @articles" do
+      article = FactoryGirl.create(:article)
       get :index
-      response.should be_success
-    end
-  end
-
-  describe "GET 'new'" do
-    it "returns http success" do
-      get :new
-      response.should be_success
+      assigns(:articles).should eq([article])
     end
   end
 end

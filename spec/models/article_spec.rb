@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Article do
   before(:each) do
+    @author = FactoryGirl.create(:author)
     @article = FactoryGirl.build(:article)
   end
   
@@ -20,6 +21,10 @@ describe Article do
   
   it "has author from User database" do
     @article.author.should be_kind_of User
-    @article.author.psn_name.should eq "miciek"
+    @article.author.psn_name.should eq @author.psn_name
+  end
+  
+  it "has content_preview which is a preview of content" do
+    @article.content_preview[0].should == @article.content[0]
   end
 end

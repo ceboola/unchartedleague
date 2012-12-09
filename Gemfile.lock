@@ -82,6 +82,8 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    launchy (2.1.2)
+      addressable (~> 2.3)
     libwebsocket (0.1.7.1)
       addressable
       websocket
@@ -193,7 +195,9 @@ DEPENDENCIES
   formtastic
   jquery-rails (= 1.0.19)
   kaminari
+  launchy
   mongrel (>= 1.2.0.pre2)
+  nokogiri
   opinio (= 0.5)
   pg
   rails (= 3.1.1)

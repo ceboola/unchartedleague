@@ -2,15 +2,15 @@
 
 FactoryGirl.define do
   factory :author, class: User do
-    id 1
-    psn_name "miciek"
-    email "miciek@gmail.com"
+    id 666
+    psn_name "author"
+    email "author@gmail.com"
     password "jkl008AB"
   end
   
   factory :article do
     title "Title"
     content "Content"
-    author
+    author_id 666
   end
 end

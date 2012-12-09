@@ -208,6 +208,11 @@ pl:
     team_too_small: "Drużyna ma za mało graczy!"
     sign_up_ended: "Termin zapisów do rozgrywek wygasł."
     no_promotion: "brak awansu"
+    
+  articles:
+    page_title: "Blog"
+    add_article: "Dodaj artykuł"
+    remove_article: "Usuń artykuł"   
   
   unauthorized:
     manage:
@@ -441,6 +446,13 @@ pl:
         competition: "Rozgrywki"
         scheduled_at: "Termin meczu"
         processed: "Zakończony"
+        
+      article:
+        one: "artykuł"
+        other: "artykuły"        
+        title: "tytuł"
+        content: "zawartość"
+        author: "autor"
         
       match_map:
         one: "Wynik na mapie"

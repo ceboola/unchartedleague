@@ -5,6 +5,10 @@ class Article < ActiveRecord::Base
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
       :autolink => true, :space_after_headers => true)
       
-    markdown.render(content).strip
+    markdown.render(content).strip.html_safe
+  end
+  
+  def content_preview
+    Nokogiri::HTML.parse(html_content).css('p').first.text
   end
 end

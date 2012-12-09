@@ -10,6 +10,7 @@ gem 'kaminari'
 gem 'opinio', '0.5'
 gem 'formtastic'
 gem 'redcarpet'
+gem 'nokogiri'
 
 group :production do
   gem 'thin'
@@ -32,4 +33,5 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'launchy' # save_and_open_page
 end

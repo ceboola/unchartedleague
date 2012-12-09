@@ -1,0 +1,11 @@
+#article_list {    
+    padding-left: 50px;
+    ul { list-style: none; font-style:italic; font-size:24px; }
+    ul li { }
+    ul li p { padding:8px; font-style:normal; font-family:Arial; font-size:13px; border-left: 1px solid #999; }
+    ul li p em { display:block; }
+    span.date {
+        color: #acacac;
+        font-size: 12px;
+    }    
+}
