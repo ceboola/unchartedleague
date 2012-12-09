@@ -450,9 +450,9 @@ pl:
       article:
         one: "artykuł"
         other: "artykuły"        
-        title: "tytuł"
-        content: "zawartość"
-        author: "autor"
+        title: "Tytuł"
+        content: "Zawartość"
+        author: "Autor"
         
       match_map:
         one: "Wynik na mapie"

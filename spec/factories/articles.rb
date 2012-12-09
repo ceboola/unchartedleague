@@ -13,4 +13,10 @@ FactoryGirl.define do
     content "Content"
     author_id 666
   end
+  
+  factory :article_with_author, :class => "Article" do
+    title "Title"
+    content "Content"
+    author
+  end
 end

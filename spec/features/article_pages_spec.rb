@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require 'spec_helper'
 
 describe "Articles" do
@@ -47,12 +49,22 @@ describe "Articles" do
       before(:each) do
         @user = FactoryGirl.create(:admin)
         login @user
-      end
-
-      it "shows a form" do
         visit new_article_path
-        page.should have_selector('form')
-        page.should have_selector('input[@type="submit"]')
+      end
+      
+      subject { page }
+
+      it "shows a form" do        
+        should have_selector('form')
+        should have_selector('input[@type="submit"]')
+      end
+      
+      it "allows to create valid article" do
+        fill_in "Tytuł", :with => "Title_ahaha"
+        fill_in "Zawartość", :with => "simple content"
+        expect do
+          click_button "Create Article" # TODO
+        end.to change(Article, :count).by(1)
       end
     end
   end
