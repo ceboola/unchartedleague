@@ -14,6 +14,10 @@ describe Article do
     @article.content.should eq "Content"
   end
   
+  it "can be published" do    
+    @article.published.should eq TRUE
+  end
+  
   it "has html_content which is rendered from Markdown markup" do
     @article.content = "This is *bongos*, indeed"
     @article.html_content.should eq "<p>This is <em>bongos</em>, indeed</p>"    

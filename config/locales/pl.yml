@@ -211,8 +211,11 @@ pl:
     
   articles:
     page_title: "Blog"
+    written_by: "autor: "
     add_article: "Dodaj artykuł"
-    remove_article: "Usuń artykuł"   
+    remove_article: "Usuń artykuł"
+    edit_article: "Edytuj artykuł"
+    unpublished: "Nieopublikowany"
   
   unauthorized: # devise error messages
     manage:
@@ -453,6 +456,7 @@ pl:
         title: "Tytuł"
         content: "Zawartość"
         author: "Autor"
+        published: "Opublikowany"
         
       match_map:
         one: "Wynik na mapie"

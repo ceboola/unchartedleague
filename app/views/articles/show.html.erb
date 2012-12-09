@@ -1,4 +1,7 @@
 <h1><%= @article.title %></h1>
+<% if can? :manage, @article %>
+  <span class="fancy admin_panel"><%= link_to t('articles.edit_article'), edit_article_path(@article) %></span>
+<% end %>
 <section id="author"><%= t('articles.written_by') %> <%= @article.author %></section>
 <section id="date"><%= time_tag @article.created_at %></section>
 
