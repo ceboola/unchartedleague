@@ -6,8 +6,10 @@
         <p>
           <em>
              <%= link_to article.title, article %> 
-             <span class="dates"><%= time_tag article.created_at %></span>
-             <span><%= t("articles.unpublished") %></span>
+             <span class="dates"><%= time_tag article.created_at %></span>             
+             <% unless article.published? %>
+              <span style="color: red;"><%= t("articles.unpublished") %></span>
+             <% end %>
              <% if can? :manage, article %>
               <span class="fancy admin_panel"><%= link_to t('articles.edit_article'), edit_article_path(article) %></span>
              <% end %>

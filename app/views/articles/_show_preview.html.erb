@@ -1,0 +1,14 @@
+<h1><%= @article.title %></h1>
+
+<article>
+  <% if @article.image_url.present? %>
+    <div class="photo"><img src="<%= @article.image_url %>" alt="<%= @article.title %>" title="<%= @article.title %>" /></div>
+  <% end %>
+  <div class="content">
+    <%= @article.content_preview %>
+  </div>
+</article>
+
+<section id="read_more">
+  <%= link_to "Czytaj dalej (#{pluralize_localized(@article.comment_count, "komentarz")})", article_path(@article) %>
+</section>

@@ -17,4 +17,8 @@ class Article < ActiveRecord::Base
   def content_preview
     Nokogiri::HTML.parse(html_content).css('p').first.text
   end
+  
+  def comment_count
+    Comment.where("commentable_type = ? and commentable_id = ?", "Article", id).count
+  end
 end

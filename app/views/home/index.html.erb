@@ -1,3 +1,9 @@
+<% if @article.present? %>  
+  <%= render "articles/show_preview", :article => @article %>
+<% end %>
+
+<hr />
+
 <div style="margin-left: 100px; margin-right: 100px; text-align: center;">
   <h1>Ostatnie mecze</h1>
   <% if @matches.any? %>
@@ -12,17 +18,3 @@
   Nie rozegrano jeszcze żadnych meczów w ramach <a href="/competitions/12">Eliminacji do Ekstraklasy (sezon 5)</a>.
   <% end %>
 </div>
-<br/>
-
-<h1>Aktualności</h1>
-
-<ul class="fancy">
-  <li>Przypominamy, że od tego sezonu obowiązuje przydział stron przed każdą mapą. Aby zobaczyć, kto gra kim, należy wejść na stronę meczu.</li>
-  <li>Zapraszamy do śledzenia wpisów na naszym <a href="https://twitter.com/unchartedleague" target="_blank">twitterze</a>, aby być na bieżąco z nowymi ogłoszeniami.</li>
-  <li>Pierwsza kolejka startuje 17. września.</li>
-  <li>Eliminacje do Ekstraklasy zostały zakończone. Pełne wyniki dostępne są w dziale <%= link_to t('stats.page_title'), stats_ranking_path(12) %>.</li>
-</ul>
-
-
-
-

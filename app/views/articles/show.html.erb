@@ -9,7 +9,9 @@
 </section>
 
 <article>
-  <div class="photo"><img src="<%= @article.image_url %>" alt="<%= @article.title %>" title="<%= @article.title %>" /></div>
+  <% if @article.image_url.present? %>
+    <div class="photo"><img src="<%= @article.image_url %>" alt="<%= @article.title %>" title="<%= @article.title %>" /></div>
+  <% end %>
   <div class="content">
     <%= @article.html_content %>
   </div>

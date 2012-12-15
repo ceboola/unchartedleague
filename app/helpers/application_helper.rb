@@ -24,6 +24,16 @@ module ApplicationHelper
       else
         return "#{count} propozycji"
       end
+    end
+    
+    if unit == "komentarz" 
+      if count == 1
+        return "1 komentarz"
+      elsif (count % 10 == 2 or count % 10 == 3 or count % 10 == 4) and (count <= 10 or count > 19)
+        return "#{count} komentarze"
+      else
+        return "#{count} komentarzy"
+      end
     end 
     pluralize(count, unit)
   end
