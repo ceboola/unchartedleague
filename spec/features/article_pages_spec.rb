@@ -196,21 +196,29 @@ describe "Articles" do
       page.should_not have_selector('a', :text => "Edytuj")
     end
     
-    it "allows to add comments" do
-      pending
-      # add article
-      # visit article page
-      # check for form
-      # fill in form
-      # check that comment was created in db
-    end    
+    it "doesn't allow to add comments for not logged in user" do
+      visit article_path(article)
+      page.should_not have_selector('textarea[@id="comment_area"]')
+      page.should_not have_selector('input[@type="submit"][@value="Dodaj komentarz"]')      
+    end
+    
+    it "allows to add comments for logged in user" do
+      login FactoryGirl.create(:user)
+      visit article_path(article)      
+      page.should have_selector('textarea[@id="comment_area"]')
+      page.should have_selector('input[@type="submit"][@value="Dodaj komentarz"]')
+      fill_in "Dodaj komentarz", :with => "simple comment"
+      expect do
+        click_button "Dodaj komentarz"
+      end.to change(Comment, :count).by(1)
+    end
     
     it "has a list of comments" do
-      pending
-      # add article
-      # add 2 comments to article
-      # visit article page
-      # check for those 2 comments
+      user = FactoryGirl.create(:user)
+      comment = FactoryGirl.create(:comment_for_article, :owner_id => user.id, :commentable_id => article.id)
+      login user
+      visit article_path(article)
+      page.should have_content(comment.body)
     end
   end
 end

@@ -31,4 +31,8 @@ describe Article do
   it "has content_preview which is a preview of content" do
     @article.content_preview[0].should == @article.content[0]
   end
+  
+  it "has image_url" do
+    @article.should respond_to :image_url
+  end  
 end

@@ -1,5 +1,5 @@
-<h1><%= t('articles.add_article') %></h1>
+<h1><%= t('articles.edit_article') %></h1>
 <%= semantic_form_for @article do |f| %>
-  <%= f.inputs :title, :content, :published %>
+  <%= f.inputs :title, :content, :image_url, :published %>
   <%= f.actions %>
 <% end %>

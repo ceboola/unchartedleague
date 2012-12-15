@@ -9,7 +9,7 @@ FactoryGirl.define do
   end
   
   factory :user do
-    id 3636
+    id 2
     psn_name "user_normal"
     email "user@normal.com"
     password "aa22jkl008AB"

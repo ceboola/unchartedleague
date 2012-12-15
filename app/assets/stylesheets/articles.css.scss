@@ -7,5 +7,16 @@
     span.date {
         color: #acacac;
         font-size: 12px;
-    }    
+    } 
+}
+
+#author_date {
+    span.date {
+        color: #7b7b7b;
+        font-size: 15px;
+    }
+    span.author {        
+        font-size: 15px;
+        font-weight: bold;
+    }
 }

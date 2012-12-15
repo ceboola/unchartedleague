@@ -1,10 +1,19 @@
-<h1><%= @article.title %></h1>
 <% if can? :manage, @article %>
   <span class="fancy admin_panel"><%= link_to t('articles.edit_article'), edit_article_path(@article) %></span>
 <% end %>
-<section id="author"><%= t('articles.written_by') %> <%= @article.author %></section>
-<section id="date"><%= time_tag @article.created_at %></section>
-
+<h1><%= @article.title %></h1>
+  
+<section id="author_date">
+  <span class="date"><%= time_tag @article.created_at %></span>
+  <%= t('articles.written_by') %>
+  <span class="author"><%= @article.author %></span>  
+</section>
+  
 <article>
+  <div class="Post-Photo"><img src="<%= @article.image_url %>" alt="<%= @article.title %>" title="<%= @article.title %>" /></div>
   <%= @article.html_content %>
 </article>
+
+<%=
+    comments_for @article, :page => params[:page]
+%>

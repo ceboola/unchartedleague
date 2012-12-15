@@ -5,6 +5,8 @@ class Article < ActiveRecord::Base
   validates :content, :presence => true
   validates :author, :presence => true
   
+  opinio_subjectum
+  
   def html_content
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
       :autolink => true, :space_after_headers => true)
