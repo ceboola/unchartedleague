@@ -207,7 +207,7 @@ describe "Articles" do
       visit article_path(article)      
       page.should have_selector('textarea[@id="comment_area"]')
       page.should have_selector('input[@type="submit"][@value="Dodaj komentarz"]')
-      fill_in "Dodaj komentarz", :with => "simple comment"
+      fill_in "Dodaj komentarz", :with => "very simple comment"
       expect do
         click_button "Dodaj komentarz"
       end.to change(Comment, :count).by(1)
