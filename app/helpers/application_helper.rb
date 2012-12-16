@@ -35,6 +35,16 @@ module ApplicationHelper
         return "#{count} komentarzy"
       end
     end 
+    
+    if unit == "raz" 
+      if count == 1
+        return "1 raz"
+      elsif (count % 10 == 2 or count % 10 == 3 or count % 10 == 4) and (count <= 10 or count > 19)
+        return "#{count} razy"
+      else
+        return "#{count} razy"
+      end
+    end 
     pluralize(count, unit)
   end
   

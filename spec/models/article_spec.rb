@@ -32,7 +32,11 @@ describe Article do
     @article.content_preview[0].should == @article.content[0]
   end
   
-  it "has image_url" do
+  it "has image_url attribute" do
     @article.should respond_to :image_url
+  end  
+  
+  it "has views attribute" do
+    @article.should respond_to :views
   end  
 end

@@ -216,6 +216,7 @@ pl:
     remove_article: "Usuń artykuł"
     edit_article: "Edytuj artykuł"
     unpublished: "Nieopublikowany"
+    read: "przeczytano"
   
   unauthorized: # devise error messages
     manage:

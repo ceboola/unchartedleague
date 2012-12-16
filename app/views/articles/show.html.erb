@@ -6,6 +6,7 @@
 <section id="author_date">
   <span class="author"><%= @article.author %></span>
   <span class="date"> / <%= time_tag @article.created_at %></span>
+  <span class="views"> / <%= t('articles.read') %> <%= pluralize_localized(@article.views, "raz") %></span>
 </section>
 
 <article>

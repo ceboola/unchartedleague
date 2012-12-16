@@ -11,6 +11,8 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    @article.views += 1
+    @article.save!
   end
 
   def new
@@ -20,6 +22,7 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(params[:article])
     @article.author = current_user
+    @article.views = 0
     if @article.save   
       flash[:success] = "Dodano"      
       redirect_to article_path(@article)

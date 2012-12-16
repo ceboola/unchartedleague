@@ -12,12 +12,14 @@ FactoryGirl.define do
     title "Title"
     content "Content"
     author_id 666
+    views 3
     published TRUE
   end
   
   factory :article_with_author, :class => "Article" do
     title "Title"
     content "Content"
+    views 3
     published TRUE
     author
   end

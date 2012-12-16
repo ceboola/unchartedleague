@@ -180,7 +180,7 @@ describe "Articles" do
       before { visit article_path(article) }
 
       it { should have_selector('h1', text: article.title)}
-      it { should have_selector('section', text: article.author.psn_name)}
+      it { should have_selector('section', text: article.author.psn_name)}      
       it { should have_selector('article') }
     end
     
@@ -219,6 +219,11 @@ describe "Articles" do
       login user
       visit article_path(article)
       page.should have_content(comment.body)
+    end
+    
+    it "has a views counter" do
+      visit article_path(article)
+      page.should have_content("#{article.views + 1} razy")
     end
   end
 end
