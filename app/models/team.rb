@@ -69,7 +69,11 @@ class Team < ActiveRecord::Base
   end
   
   def owner
-    owner_participation.user
+    unless owner_participation.nil? 
+      owner_participation.user
+    else
+      nil
+    end
   end
   
   def to_s

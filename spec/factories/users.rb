@@ -14,4 +14,10 @@ FactoryGirl.define do
     email "user@normal.com"
     password "aa22jkl008AB"
   end
+  
+  factory :random_user, :class => "User" do
+    sequence(:psn_name) { |n| "user#{n}" }
+    sequence(:email) { |n| "user#{n}@unchartedleague.com" }
+    password "aa22jkl008AB"
+  end
 end
