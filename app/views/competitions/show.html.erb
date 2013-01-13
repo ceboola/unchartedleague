@@ -53,6 +53,7 @@
   <% end %>
 </center>
 
+<% if @competition.competition_maps.any? %>
 <h2><%= t('maps.page_title') %></h2>  
 <table id="minimalist-table-hor-a" summary="<%= t('maps.page_title') %>">
   <% i = 0 %>
@@ -71,6 +72,7 @@
     </tr>
   <% end %>
 </table>
+<% end %>
 
 <h2>Regulamin</h2>  
 <%= @competition.regulations.html_safe %>
