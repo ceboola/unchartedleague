@@ -17,7 +17,7 @@ class RoundsController < ApplicationController
   
   def new
     @judges = CompetitionJudge.where("competition_id = ?", 13).collect { |x| x.user }
-    @teams = Team.all
+    @teams = Team.order("LOWER(name) asc")
 
     @round = Round.new
     used_teams = []
