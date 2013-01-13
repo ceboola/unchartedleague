@@ -1,9 +1,6 @@
-<h1><%= article.title %></h1>
+<h2 style="margin-top: 20px;"><%= article.title %></h2>
 
 <article>
-  <% if article.image_url.present? %>
-    <div class="photo"><img src="<%= article.image_url %>" alt="<%= article.title %>" title="<%= article.title %>" /></div>
-  <% end %>
   <div class="content">
     <%= article.content_preview %>
   </div>

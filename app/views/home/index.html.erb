@@ -1,6 +1,10 @@
-<% if @article.present? %>  
-  <%= render "articles/show_preview", :article => @article %>
-
+<% if @articles.present? and @articles.any? %>  
+  <%= render :partial => "articles/show_preview", :locals => { :article => @articles.first } %>
+  <% 
+    for i in 1...@articles.size do
+      concat render(:partial => "articles/show_small_preview", :locals => { :article => @articles[i] })
+    end
+  %>
   <hr />
 <% end %>
 
