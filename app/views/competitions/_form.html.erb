@@ -31,7 +31,15 @@
   <%= f.fields_for :competition_judges do |m| %>
     <%= render 'competitions/competition_judge_fields', :f => m %>
   <% end %>
-  <p><%= link_to_add_competition_judge_fields "add judge", f %></p></br>
+  <p><%= link_to_add_competition_judge_fields "add judge", f %></p>
+  
+  <h4><%= f.label :competition_maps %></h4>
+  <%= f.fields_for :competition_maps do |m| %>
+    <%= render 'competitions/competition_map_fields', :f => m %>
+  <% end %>
+  <p><%= link_to_add_competition_map_fields "add map", f %></p>
+  
+  </br>
 
   <h4><%= f.label :regulations %></h4>
   <p><%= f.text_area :regulations %></p>

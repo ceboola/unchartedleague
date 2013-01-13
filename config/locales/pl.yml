@@ -217,6 +217,9 @@ pl:
     edit_article: "Edytuj artykuł"
     unpublished: "Nieopublikowany"
     read: "przeczytano"
+    
+  maps:
+    page_title: "Mapy"
   
   unauthorized: # devise error messages
     manage:

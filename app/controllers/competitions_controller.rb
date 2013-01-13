@@ -27,7 +27,7 @@ class CompetitionsController < ApplicationController
     @competition = Competition.new(params[:competition])
     if @competition.save
       flash[:success] = @competition.name + " created"
-      redirect_to edit_competition_path(@competition)
+      redirect_to @competition
     else
       flash[:error] = "Problem while saving"
       render 'new'
@@ -38,7 +38,7 @@ class CompetitionsController < ApplicationController
     @competition = Competition.find(params[:id])
     if @competition.update_attributes(params[:competition])
       flash[:success] = @competition.name + " updated"
-      redirect_to edit_competition_path(@competition)
+      redirect_to @competition
     else
       flash[:error] = "Problem while saving changes"
       render @competition

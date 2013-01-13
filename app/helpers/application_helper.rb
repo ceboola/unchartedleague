@@ -60,7 +60,7 @@ module ApplicationHelper
     link_to_function(name, "add_fields(this, \"match\", \"#{escape_javascript(fields)}\")")
   end
   
-  def link_to_add_competition_entry_fields(name, f)
+  def link_to_add_competition_entry_fields(name, f) # FIXME: one methode to rule them all
     new_entry = CompetitionEntry.new
     fields = f.fields_for(:competition_entries, new_entry, :child_index => "new_competition_entry") do |builder|
       render("competition_entry_fields", :f => builder)
@@ -68,11 +68,19 @@ module ApplicationHelper
     link_to_function(name, "add_fields(this, \"competition_entry\", \"#{escape_javascript(fields)}\")")
   end
   
-  def link_to_add_competition_judge_fields(name, f)
+  def link_to_add_competition_judge_fields(name, f) # FIXME: one methode to rule them all
     new_judge = CompetitionJudge.new
     fields = f.fields_for(:competition_judges, new_judge, :child_index => "new_competition_judge") do |builder|
       render("competition_judge_fields", :f => builder)
     end
     link_to_function(name, "add_fields(this, \"competition_judge\", \"#{escape_javascript(fields)}\")")
+  end
+  
+  def link_to_add_competition_map_fields(name, f) # FIXME: one methode to rule them all
+    new_map = CompetitionMap.new
+    fields = f.fields_for(:competition_maps, new_map, :child_index => "new_competition_map") do |builder|
+      render("competition_map_fields", :f => builder)
+    end
+    link_to_function(name, "add_fields(this, \"competition_map\", \"#{escape_javascript(fields)}\")")
   end
 end

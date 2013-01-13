@@ -1,5 +1,5 @@
 class Map < ActiveRecord::Base
-  belongs_to :competition
+  has_many :competition_maps, :dependent => :destroy
   
   def to_s
     name

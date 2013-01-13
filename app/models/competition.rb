@@ -3,6 +3,7 @@ class Competition < ActiveRecord::Base
   has_many :teams, :through => :competition_entries
   has_many :competition_entries, :dependent => :destroy  
   has_many :competition_judges, :dependent => :destroy
+  has_many :competition_maps, :dependent => :destroy
   has_many :rounds
   has_many :matches
   
@@ -10,6 +11,7 @@ class Competition < ActiveRecord::Base
   
   accepts_nested_attributes_for :competition_entries, :allow_destroy => true
   accepts_nested_attributes_for :competition_judges, :allow_destroy => true
+  accepts_nested_attributes_for :competition_maps, :allow_destroy => true
   
   def root
     c = self
