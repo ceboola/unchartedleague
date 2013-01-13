@@ -1,0 +1,7 @@
+<%= semantic_form_for @map do |f| %>
+  <%= f.inputs :name, :image_url %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>

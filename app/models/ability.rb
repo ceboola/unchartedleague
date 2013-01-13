@@ -10,6 +10,7 @@ class Ability
       can :manage, Award
       can :manage, Comment
       can :manage, Article
+      can :manage, Map
     else
       can :read, Competition
       can :read, Article

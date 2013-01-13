@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <td class="text-center" style="vertical-align: top;">
+      <div><%= image_tag @map.image_url, :alt => @map.name %></div>
+      <h3><%= @map.name %></h3>
+    </td>
+  </tr>
+</table>
+
+<%= link_to 'Edit', edit_map_path(@map) %> |
+<%= link_to 'Back', maps_path %>
