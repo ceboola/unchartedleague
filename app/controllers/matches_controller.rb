@@ -16,7 +16,7 @@ class MatchesController < ApplicationController
   end
   
   def index 
-    @competition = Competition.find(13) # FIXME (also hardcoded in query in show!!!!
+    @competition = Competition.find(22) # FIXME (also hardcoded in query in show!!!!
     active_competitions = @competition.all_competitions
     if user_signed_in? and params[:show_my].present? and params[:show_my] == 'true'
       @matches = Match.user_matches(current_user).where("competition_id in (?)", active_competitions).order("scheduled_at asc") # pagination?
@@ -48,7 +48,7 @@ class MatchesController < ApplicationController
 
     if @match.scheduled_at.nil? 
       if user_signed_in?
-        teams = Team.joins(:competitions, :team_participations).where("user_id = ? and role = ? and competitions.id = ? and (teams.id = ? or teams.id = ?)", current_user.id, 0, 13, @match.team1.id, @match.team2.id) # FIXME: hardcoded competition!!!!
+        teams = Team.joins(:competitions, :team_participations).where("user_id = ? and role = ? and competitions.id = ? and (teams.id = ? or teams.id = ?)", current_user.id, 0, 22, @match.team1.id, @match.team2.id) # FIXME: hardcoded competition!!!!
         if teams.empty?
           @managed_team = nil
         else

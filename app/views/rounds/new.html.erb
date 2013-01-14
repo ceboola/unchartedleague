@@ -2,13 +2,16 @@
 
 <%= form_for @round do |f| %>
   <%= f.label :competition_id %>
-  <%= f.select :competition_id, Competition.all.collect { |x| [x.name, x.id] } %><br/>
+  <%= f.select :competition_id, Competition.all.collect { |x| [x.long_name, x.id] } %><br/>
   <%= f.label :starts %>
   <%= datetime_select("round", "starts", :start_year => 2012, :end_year => 2012) %><br/>
   <%= f.label :ends %>
   <%= datetime_select("round", "ends", :start_year => 2012, :end_year => 2012) %><br />
   <%= f.label :number %>
-  <%= f.text_field :number %><br/>
+  <%= f.text_field :number, :size => 4 %>
+  <%= f.label :round_name %>
+  <%= f.text_field :round_name %><br/>
+  <br/>
   <%= f.label :matches %>
   <%= f.fields_for :matches do |m| %>
     <%= render 'rounds/match_fields', :f => m, :teams => @teams, :judges => @judges, :competitions => Competition.all %>

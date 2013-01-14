@@ -36,7 +36,7 @@
     
 <% if @rounds.present? %>
   <% for round in @rounds %>
-    <h2><%= round.competition.name %> - <%= round.number %>. <%= t('matches.round_robin_round') %></h2>
+    <h2><%= round.competition.name %> - <%= round.name %></h2>
     <% if Time.now < round.ends %>
       <h3><%= t('matches.deadline') %>: <%= time_tag(round.ends) %></h3>
     <% end %>

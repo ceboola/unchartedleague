@@ -4,7 +4,7 @@
   <%= f.select(:team1_id, teams.collect { |x| [x.full_name, x.id] }) %>
   <%= f.select(:team2_id, teams.collect { |x| [x.full_name, x.id] }) %>
   <%= f.select(:judge_id, judges.collect { |x| [x, x.id] }) %>
-  <%= f.select(:competition_id, competitions.collect { |x| [x.name, x.id] }) %>
+  <%= f.select(:competition_id, competitions.collect { |x| [x.long_name, x.id] }) %>
   <%= f.hidden_field :_destroy %>
   <%= link_to_function "remove", "remove_fields(this)" %>
 </p>
