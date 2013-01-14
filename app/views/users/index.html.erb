@@ -32,7 +32,12 @@
   <tbody>
     <% for user in @users do %>      
       <tr>
-        <td><%= name_with_award_image(user) %></td>
+        <td>
+          <%= name_with_award_image(user) %>
+          <% if can? :manage, user %>
+            <div class="admin_panel"><%= link_to "edit", edit_user_path(user) %></div>
+          <% end %>
+        </td>
         <td><%= (user.teams.any? ? user.teams.join(', ') : t('teams.none')) %></td>
         <td><%= time_ago_in_words(user.created_at) %></td>
         <% if @team %>

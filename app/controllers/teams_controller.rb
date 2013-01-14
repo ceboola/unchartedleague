@@ -1,4 +1,6 @@
-class TeamsController < ApplicationController  
+class TeamsController < ApplicationController
+  load_and_authorize_resource
+  
   def index
     if user_signed_in? and params[:show_my].present? and params[:show_my] == 'true'
       @teams = Team.user_teams(current_user).scoped
@@ -60,6 +62,22 @@ class TeamsController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       flash[:error] = t('teams.doesnt_exist')
       redirect_to teams_path
+    end
+  end
+  
+  # GET /teams/1/edit
+  def edit
+    @team = Team.find(params[:id])
+  end
+
+  # PUT /teams/1
+  def update
+    @team = Team.find(params[:id])
+
+    if @team.update_attributes(params[:team])
+      redirect_to @team, notice: 'Team was successfully updated.'        
+    else
+      render action: "edit"       
     end
   end
 end

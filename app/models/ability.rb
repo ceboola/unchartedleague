@@ -11,9 +11,13 @@ class Ability
       can :manage, Comment
       can :manage, Article
       can :manage, Map
+      can :manage, Team
+      can :manage, User
     else
       can :read, Competition
       can :read, Article
+      can :read, Team
+      can :read, User
       cannot [:read, :manage], Award
     end
   end  

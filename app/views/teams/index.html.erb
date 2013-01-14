@@ -30,7 +30,12 @@
     <tbody>
       <% for team in @teams do %>
         <tr>
-          <td><%= team %></td>
+          <td>
+            <%= team %>
+            <% if can? :manage, team %>
+              <div class="admin_panel"><%= link_to "edit", edit_team_path(team) %></div>
+            <% end %>
+          </td>
           <td><%= team.owner %></td>
           <td><%= team.users.size %></td>
           <td><%= time_ago_in_words(team.created_at) %></td>        

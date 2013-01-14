@@ -2,8 +2,7 @@ Unchartedleague::Application.routes.draw do
   opinio_model
 
   root :to => 'home#index'  
-  devise_for :users
-  get "players/index"
+  devise_for :users  
   match 'matches/:id/check_results' => 'matches#check_results', :via => :get
   match 'matches/:id/commit_results' => 'matches#commit_results', :via => :post
   match 'stats/:competition_id/ranking' => 'stats#ranking', :via => :get, :as => :stats_ranking
@@ -24,6 +23,7 @@ Unchartedleague::Application.routes.draw do
   resources :rounds
   resources :awards
   resources :articles
+  resources :users
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

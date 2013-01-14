@@ -1,0 +1,7 @@
+<%= semantic_form_for @user do |f| %>
+  <%= f.inputs :psn_name, :email %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>
