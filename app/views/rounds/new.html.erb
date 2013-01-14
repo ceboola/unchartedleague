@@ -4,9 +4,9 @@
   <%= f.label :competition_id %>
   <%= f.select :competition_id, Competition.all.collect { |x| [x.long_name, x.id] } %><br/>
   <%= f.label :starts %>
-  <%= datetime_select("round", "starts", :start_year => 2012, :end_year => 2012) %><br/>
+  <%= datetime_select("round", "starts", :start_year => 2012, :end_year => Date.current.year + 1) %><br/>
   <%= f.label :ends %>
-  <%= datetime_select("round", "ends", :start_year => 2012, :end_year => 2012) %><br />
+  <%= datetime_select("round", "ends", :start_year => 2012, :end_year => Date.current.year + 1) %><br />
   <%= f.label :number %>
   <%= f.text_field :number, :size => 4 %>
   <%= f.label :round_name %>
