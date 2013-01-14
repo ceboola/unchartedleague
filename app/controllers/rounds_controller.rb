@@ -16,12 +16,12 @@ class RoundsController < ApplicationController
   end
   
   def new
-    @judges = CompetitionJudge.where("competition_id = ?", 13).collect { |x| x.user }
+    @judges = CompetitionJudge.where("competition_id = ?", 22).collect { |x| x.user } # FIXME: competition id is hardcoded!!
     @teams = Team.order("LOWER(name) asc")
 
     @round = Round.new
     used_teams = []
-    for c in Competition.find([14,15]) do
+    for c in Competition.find([14,15]) do # FIXME
       for t in c.teams
         unless used_teams.include? t
           played_with = [t] + used_teams
