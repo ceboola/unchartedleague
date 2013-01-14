@@ -208,6 +208,7 @@ pl:
     team_too_small: "Drużyna ma za mało graczy!"
     sign_up_ended: "Termin zapisów do rozgrywek wygasł."
     no_promotion: "brak awansu"
+    playoff_tree: "Drzewko pucharowe"
     
   articles:
     page_title: "Blog"

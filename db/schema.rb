@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130114194335) do
+ActiveRecord::Schema.define(:version => 20130114200335) do
 
   create_table "articles", :force => true do |t|
     t.string    "title"
@@ -72,19 +72,19 @@ ActiveRecord::Schema.define(:version => 20130114194335) do
   end
 
   create_table "competitions", :force => true do |t|
-    t.string    "name"
-    t.text      "description"
-    t.string    "logo_url"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.integer   "parent_competition_id"
-    t.timestamp "signup_ends"
-    t.text      "team_stats_config"
-    t.timestamp "starts"
-    t.timestamp "ends"
-    t.text      "regulations"
-    t.integer   "season"
-    t.string    "status"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "parent_competition_id"
+    t.datetime "signup_ends"
+    t.text     "team_stats_config"
+    t.datetime "starts"
+    t.datetime "ends"
+    t.text     "regulations"
+    t.integer  "season"
+    t.string   "status"
+    t.string   "challonge_module_url"
   end
 
   create_table "maps", :force => true do |t|

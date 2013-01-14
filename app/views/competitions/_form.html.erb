@@ -20,7 +20,7 @@
   <p><%= f.label :signup_ends %> <%= datetime_select("competition", "signup_ends") %></p>  
   <p><%= f.label :description %> <%= f.text_area :description %></p>  
   <p><%= f.label :team_stats_config %> <%= f.text_area :team_stats_config %></p>
-  <p><%= f.label :logo_url %> <%= f.text_field :logo_url %></p>
+  <p><%= f.label :challonge_module_url %> <%= f.text_field :challonge_module_url, :size => 100 %></p>
   <h4><%= f.label :competition_entries %></h4>
   <%= f.fields_for :competition_entries do |m| %>
     <%= render 'competitions/competition_entry_fields', :f => m %>

@@ -53,6 +53,11 @@
   <% end %>
 </center>
 
+<% if @competition.challonge_module_url.present? %>
+  <h2><%= t('competitions.playoff_tree') %></h2>
+  <iframe class="round" src="<%= @competition.challonge_module_url %>" width="930" height="470" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
+<% end %>
+  
 <% if @competition.competition_maps.any? %>
 <h2><%= t('maps.page_title') %></h2>  
 <table id="minimalist-table-hor-a" summary="<%= t('maps.page_title') %>">
