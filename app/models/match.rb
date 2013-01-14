@@ -23,9 +23,9 @@ class Match < ActiveRecord::Base
   end
   
   def generate_match_maps    
-    maps = Map.select("id").sort_by { rand }.slice(0...3)
-    for map in maps
-      match_maps.build(:map_id => map.id)
+    map_ids = competition.competition_maps.collect { |x| x.map_id }.sort_by { rand }.slice(0...3)
+    for map_id in map_ids
+      match_maps.build(:map_id => map_id)
     end
   end
   

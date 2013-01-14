@@ -100,7 +100,7 @@
           <%= hidden_field_tag "match_time_proposal[team_id]", @managed_team.id %>      
           <div class="wrapper-block">
             <label><%= t('activerecord.attributes.match.scheduled_at') %>:<span class="small-label"><%= t('matches.propose_your_time') %></span></label>
-            <%= datetime_select("match_time_proposal", "proposal", :start_year => 2012, :end_year => 2012) %>
+            <%= datetime_select("match_time_proposal", "proposal", :start_year => Date.current.year - 1, :end_year => Date.current.year + 1) %>
           </div>    
           <input type="submit" value="<%= t('matches.propose') %>" class="submit btn-form" />
         <% end %>
