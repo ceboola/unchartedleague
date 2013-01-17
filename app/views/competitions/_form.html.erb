@@ -21,6 +21,12 @@
   <p><%= f.label :description %> <%= f.text_area :description %></p>  
   <p><%= f.label :team_stats_config %> <%= f.text_area :team_stats_config %></p>
   <p><%= f.label :challonge_module_url %> <%= f.text_field :challonge_module_url, :size => 100 %></p>
+  <p><%= f.label :score_counted %> <%= f.check_box :score_counted %></p>
+  <p><%= f.label :kills_counted %> <%= f.check_box :kills_counted %></p>
+  <p><%= f.label :deaths_counted %> <%= f.check_box :deaths_counted %></p>
+  <p><%= f.label :assists_counted %> <%= f.check_box :assists_counted %></p>
+  <p><%= f.label :score_base %> <%= f.select(:score_base, ["score", "kills"]) %></p>
+  
   <h4><%= f.label :competition_entries %></h4>
   <%= f.fields_for :competition_entries do |m| %>
     <%= render 'competitions/competition_entry_fields', :f => m %>

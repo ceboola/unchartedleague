@@ -50,7 +50,7 @@ class MatchMap < ActiveRecord::Base
   belongs_to :match
   belongs_to :map
   
-  has_many :match_entries, :dependent => :destroy, :order => 'kills desc, deaths asc, assists desc'
+  has_many :match_entries, :dependent => :destroy, :order => 'score desc, kills desc, deaths asc, assists desc' # FIXME
   has_one :match_map_image, :dependent => :destroy
 
   accepts_nested_attributes_for :match_entries, :reject_if => :entry_blank?
@@ -60,7 +60,7 @@ class MatchMap < ActiveRecord::Base
   validates :match_entries, :member_uniqueness => true, :team_size => { :min => "min_players_per_team", :max => "max_players_per_team" }
  
   def entry_blank? (attributes)
-    attributes["kills"].blank? and attributes["deaths"].blank? and attributes["assists"].blank?    
+    attributes["score"].blank? and attributes["kills"].blank? and attributes["deaths"].blank? and attributes["assists"].blank?    
   end
    
   def remove_blank_users
@@ -91,7 +91,7 @@ class MatchMap < ActiveRecord::Base
     MatchEntry.where("match_map_id = ? and team_id = ?", id, match.team2.id).sum("kills")
   end
   
-  def team_in_game(team)
+  def team_in_game(team) # FIXME
     hash = match.team1.id + match.team2.id + id
     if team == match.team2
       hash += 1

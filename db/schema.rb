@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130117190236) do
+ActiveRecord::Schema.define(:version => 20130117195211) do
 
   create_table "articles", :force => true do |t|
     t.string    "title"
@@ -85,6 +85,11 @@ ActiveRecord::Schema.define(:version => 20130117190236) do
     t.integer   "season"
     t.string    "status"
     t.string    "challonge_module_url"
+    t.boolean   "score_counted",         :default => false
+    t.boolean   "kills_counted",         :default => true
+    t.boolean   "deaths_counted",        :default => true
+    t.boolean   "assists_counted",       :default => true
+    t.string    "score_base",            :default => "kills"
   end
 
   create_table "maps", :force => true do |t|
