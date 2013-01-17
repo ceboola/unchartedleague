@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130114200335) do
+ActiveRecord::Schema.define(:version => 20130117190236) do
 
   create_table "articles", :force => true do |t|
     t.string    "title"
@@ -65,33 +65,33 @@ ActiveRecord::Schema.define(:version => 20130114200335) do
   end
 
   create_table "competition_maps", :force => true do |t|
-    t.integer  "competition_id"
-    t.integer  "map_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "competition_id"
+    t.integer   "map_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "competitions", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "parent_competition_id"
-    t.datetime "signup_ends"
-    t.text     "team_stats_config"
-    t.datetime "starts"
-    t.datetime "ends"
-    t.text     "regulations"
-    t.integer  "season"
-    t.string   "status"
-    t.string   "challonge_module_url"
+    t.string    "name"
+    t.text      "description"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.integer   "parent_competition_id"
+    t.timestamp "signup_ends"
+    t.text      "team_stats_config"
+    t.timestamp "starts"
+    t.timestamp "ends"
+    t.text      "regulations"
+    t.integer   "season"
+    t.string    "status"
+    t.string    "challonge_module_url"
   end
 
   create_table "maps", :force => true do |t|
-    t.string   "name"
-    t.string   "image_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "name"
+    t.string    "image_url"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "match_entries", :force => true do |t|
@@ -212,8 +212,8 @@ ActiveRecord::Schema.define(:version => 20130114200335) do
   end
 
   create_table "users", :force => true do |t|
-    t.string    "email",                                                :null => false
-    t.string    "encrypted_password",     :limit => 128,                :null => false
+    t.string    "email",                                                    :null => false
+    t.string    "encrypted_password",     :limit => 128,                    :null => false
     t.string    "reset_password_token"
     t.timestamp "reset_password_sent_at"
     t.timestamp "remember_created_at"
@@ -226,6 +226,7 @@ ActiveRecord::Schema.define(:version => 20130114200335) do
     t.timestamp "updated_at"
     t.string    "psn_name"
     t.string    "authentication_token"
+    t.boolean   "banned",                                :default => false
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

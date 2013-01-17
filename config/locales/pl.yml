@@ -221,6 +221,9 @@ pl:
     
   maps:
     page_title: "Mapy"
+    
+  users:
+    banned: "Konto zostało zawieszone do odwołania za naruszenie regulaminu."
   
   unauthorized: # devise error messages
     manage:
