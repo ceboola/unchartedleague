@@ -77,7 +77,7 @@
         <% end %>
       </td>
       <td>
-        <%= form_tag players_index_path, :method => :get do %>
+        <%= form_tag users_path, :method => :get do %>
           <%= hidden_field_tag 'team_invite_id', @team.id %>
           <%= submit_tag t('teams.invite'), :class => 'submit button', :name => nil %>    
         <% end %>
