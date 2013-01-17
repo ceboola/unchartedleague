@@ -122,6 +122,7 @@ pl:
     map: "Mapa"
     maps: "Mapy"
     results: "Wyniki"
+    score: "Wynik"
     kills: "Fragi"
     deaths: "Śmierci"
     assists: "Asysty"

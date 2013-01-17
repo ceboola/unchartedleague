@@ -79,6 +79,15 @@ class Match < ActiveRecord::Base
         wins = 2
       end
     end
+    return wins
+  end
+  
+  def winning_team
+    if maps_won_by_team(team1) > maps_won_by_team(team2)
+      team1
+    else
+      team2
+    end
   end
 
   def team_score_on_map (team, map)

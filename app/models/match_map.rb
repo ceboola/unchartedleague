@@ -84,11 +84,11 @@ class MatchMap < ActiveRecord::Base
   end
   
   def team1score
-    MatchEntry.where("match_map_id = ? and team_id = ?", id, match.team1.id).sum("kills")
+    MatchEntry.where("match_map_id = ? and team_id = ?", id, match.team1.id).sum(match.competition.score_base)
   end
   
   def team2score
-    MatchEntry.where("match_map_id = ? and team_id = ?", id, match.team2.id).sum("kills")
+    MatchEntry.where("match_map_id = ? and team_id = ?", id, match.team2.id).sum(match.competition.score_base)
   end
   
   def team_in_game(team) # FIXME

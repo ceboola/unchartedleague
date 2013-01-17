@@ -6,9 +6,18 @@
   <table id="match_entries">
     <thead>
       <th scope="col"><%= t('players.player').capitalize %></th>
-      <th scope="col"><%= t('matches.kills').capitalize[0..1] %>.</th>
-      <th scope="col"><%= t('matches.deaths').capitalize[0..1] %>.</th>
-      <th scope="col"><%= t('matches.assists').capitalize[0..1] %>.</th>
+      <% if match_map.match.competition.score_counted? %>
+        <th scope="col"><%= t('matches.score').capitalize %></th>
+      <% end %>
+      <% if match_map.match.competition.kills_counted? %>
+        <th scope="col"><%= t('matches.kills').capitalize[0..1] %>.</th>
+      <% end %>
+      <% if match_map.match.competition.deaths_counted? %>
+        <th scope="col"><%= t('matches.deaths').capitalize[0..1] %>.</th>
+      <% end %>
+      <% if match_map.match.competition.assists_counted? %>
+        <th scope="col"><%= t('matches.assists').capitalize[0..1] %>.</th>
+      <% end %>
     </thead>  
     <%= f.hidden_field :results_updated_token, :value => results_updated_token %>
     <%= f.hidden_field :match_entries_token, :value => match_entries_token %>
@@ -19,9 +28,18 @@
         <%= me.hidden_field :match_id %>
         <tr>          
           <td><%= me.select(:user_id, team.all_users.collect {|x| [x, x.id]}, { :include_blank => t('remove')} ) %></td>
-          <td><%= me.text_field :kills, :class => "number" %></td>
-          <td><%= me.text_field :deaths, :class => "number" %></td>  
-          <td><%= me.text_field :assists, :class => "number" %></td> 
+          <% if match_map.match.competition.score_counted? %>
+            <td><%= me.text_field :score, :class => "number" %></td>
+          <% end %>
+          <% if match_map.match.competition.kills_counted? %>
+            <td><%= me.text_field :kills, :class => "number" %></td>
+          <% end %>
+          <% if match_map.match.competition.deaths_counted? %>
+            <td><%= me.text_field :deaths, :class => "number" %></td>
+          <% end %>
+          <% if match_map.match.competition.assists_counted? %>
+            <td><%= me.text_field :assists, :class => "number" %></td> 
+          <% end %>
         </tr>
       <% end %>
     <% end %>

@@ -27,7 +27,7 @@
     <% end %>
   <% end %>
 </table>
-<% if match.forfeiting_team.nil? and not match.not_played? %>
+<% if match.competition.score_base.eql?("kills") and match.forfeiting_team.nil? and not match.not_played? %>
   <div class="best_players round">
     <% stats = PlayerStats.best_match_players(match) %>
     <table>
@@ -47,6 +47,8 @@
       </tr>
     </table>
   </div>
+<% elsif match.competition.score_base.eql?("score") %>
+  <h2 style="margin-top: 30px; font-weight: bold;">Awans: <%= match.winning_team.full_name %></h3>
 <% else %>
   <% unless match.not_played? %>
     walkower

@@ -2,17 +2,35 @@
 <table>
   <thead>
     <th scope="col"><%= t('players.player').capitalize %></th>
-    <th scope="col"><%= t('matches.kills').capitalize %></th>
-    <th scope="col"><%= t('matches.deaths').capitalize %></th>
-    <th scope="col"><%= t('matches.assists').capitalize %></th>
+    <% if match_map.match.competition.score_counted? %>
+      <th scope="col"><%= t('matches.score').capitalize %></th>
+    <% end %>
+    <% if match_map.match.competition.kills_counted? %>
+      <th scope="col"><%= t('matches.kills').capitalize %></th>
+    <% end %>
+    <% if match_map.match.competition.deaths_counted? %>
+      <th scope="col"><%= t('matches.deaths').capitalize %></th>
+    <% end %>
+    <% if match_map.match.competition.assists_counted? %>
+      <th scope="col"><%= t('matches.assists').capitalize %></th>
+    <% end %>
   </thead>  
   <% for match_entry in match_map.match_entries %>
     <% if match_entry.team == team %>      
       <tr>          
-        <td><%= name_with_award_image(match_entry.user) %></td>
-        <td><%= match_entry.kills %></td>
-        <td><%= match_entry.deaths %></td>  
-        <td><%= match_entry.assists %></td> 
+        <td><%= name_with_award_image(match_entry.user) %></td>        
+        <% if match_map.match.competition.score_counted? %>
+          <td><%= match_entry.score %></td>
+        <% end %>
+        <% if match_map.match.competition.kills_counted? %>
+          <td><%= match_entry.kills %></td>
+        <% end %>
+        <% if match_map.match.competition.deaths_counted? %>
+          <td><%= match_entry.deaths %></td>
+        <% end %>
+        <% if match_map.match.competition.assists_counted? %>
+          <td><%= match_entry.assists %></td>
+        <% end %>
       </tr>
     <% end %>
   <% end %>  
