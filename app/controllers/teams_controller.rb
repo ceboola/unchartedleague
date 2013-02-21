@@ -1,10 +1,25 @@
 class TeamsController < ApplicationController
   load_and_authorize_resource
   
-  def index
-    if user_signed_in? and params[:show_my].present? and params[:show_my] == 'true'
+  def index    
+    unless params[:show].present?
+      params[:show] = 'active'
+    end
+    if user_signed_in? and params[:show] == 'my'
       @teams = Team.user_teams(current_user).scoped
-    else
+    elsif params[:show] == 'new'
+      @teams = Team.where('created_at >= ?', 2.month.ago).scoped
+    elsif params[:show] == 'active'
+      matches = Match.where('scheduled_at >= ?', 3.month.ago)
+      team_ids = []
+      for match in matches
+        if match.has_valid_scores?
+          team_ids << match.team1.id
+          team_ids << match.team2.id
+        end
+      end
+      @teams = Team.where('id in (?)', team_ids).scoped
+    elsif
       @teams = Team.scoped
     end
     @teams = @teams.order("lower(name) asc").page params[:page]   

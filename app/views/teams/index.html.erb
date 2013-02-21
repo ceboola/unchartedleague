@@ -1,18 +1,29 @@
 <h1><%= t('teams.page_title') %></h1>
 
-<% if user_signed_in? %>
-  <div id="filter_buttons">
-    <label for="allTeamsToggleButton"><%= t('teams.all') %></label>
-    <input type="radio" name="show_filter" id="allTeamsToggleButton" 
-           onClick="goTo('<%=  url_for :action => 'index', :show_my => nil %>')"
-           <%= unless current_page?(:show_my => 'true', :page => params[:page]) then 'checked' else '' end %> />
+<div id="filter_buttons">
+  <label for="activeTeamsToggleButton"><%= t('teams.active') %></label>
+  <input type="radio" name="show_filter" id="activeTeamsToggleButton" 
+         onClick="goTo('<%=  url_for :action => 'index', :show => 'active' %>')"
+         <%= if params[:show] == 'active' then 'checked' else '' end %> />
 
+  <label for="newTeamsToggleButton"><%= t('teams.new') %></label>
+  <input type="radio" name="show_filter" id="newTeamsToggleButton" 
+         onClick="goTo('<%=  url_for :action => 'index', :show => 'new' %>')"
+         <%= if params[:show] == 'new' then 'checked' else '' end %> />
+
+  <% if user_signed_in? %>
     <label for="myTeamsToggleButton"><%= t('teams.my') %></label>
     <input type="radio" name="show_filter" id="myTeamsToggleButton" 
-           onClick="goTo('<%=  url_for :action => 'index', :show_my => 'true' %>')" 
-           <%= if current_page?(:show_my => 'true', :page => params[:page]) then 'checked' else '' end %> />
-  </div>
-<% end %>
+           onClick="goTo('<%=  url_for :action => 'index', :show => 'my' %>')" 
+           <%= if params[:show] == 'my' then 'checked' else '' end %> />
+  <% end %>
+
+  <label for="allTeamsToggleButton"><%= t('teams.all') %></label>
+  <input type="radio" name="show_filter" id="allTeamsToggleButton" 
+         onClick="goTo('<%=  url_for :action => 'index', :show => 'all' %>')"
+         <%= if params[:show] == 'all' then 'checked' else '' end %> />
+</div>
+
 
 <% if @teams.any? %>
   <table id="minimalist-table-hor-a" summary="<%= t('teams.page_title') %>">
@@ -22,7 +33,7 @@
         <th scope="col"><%= t('players.roles.captain').capitalize %></th>
         <th scope="col"><%= t('teams.members_quantity') %></th>
         <th scope="col"><%= t('teams.exists_since') %></th>
-        <th scope="col"><%= t('competitions.page_title') %></th>
+        <th scope="col"><%= t('teams.last_competition') %></th>
         <th scope="col"><%= t('more') %></th>      
         <th scope="col"></th>  
       </tr>
@@ -31,7 +42,7 @@
       <% for team in @teams do %>
         <tr>
           <td>
-            <%= team %>
+            <%= name_with_award_image(team, team.full_name) %>
             <% if can? :manage, team %>
               <div class="admin_panel"><%= link_to "edit", edit_team_path(team) %></div>
             <% end %>
@@ -39,7 +50,7 @@
           <td><%= team.owner %></td>
           <td><%= team.users.size %></td>
           <td><%= time_ago_in_words(team.created_at) %></td>        
-          <td><%= (team.competitions.any? ? team.competitions.join(', ') : t('none')) %></td>
+          <td><%= (team.competitions.any? ? team.competitions.last.root.long_name : t('none')) %></td>
           <td>
             <%= form_tag team_path(team), :method => :get do %>
               <%= submit_tag t('teams.more'), :class => 'submit button', :name => nil %>    
