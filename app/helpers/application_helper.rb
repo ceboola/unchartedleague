@@ -83,4 +83,12 @@ module ApplicationHelper
     end
     link_to_function(name, "add_fields(this, \"competition_map\", \"#{escape_javascript(fields)}\")")
   end
+  
+  def link_to_add_competition_optional_map_fields(name, f) # FIXME: one methode to rule them all
+    new_map = CompetitionOptionalMap.new
+    fields = f.fields_for(:competition_optional_maps, new_map, :child_index => "new_competition_optional_map") do |builder|
+      render("competition_map_fields", :f => builder)
+    end
+    link_to_function(name, "add_fields(this, \"competition_optional_map\", \"#{escape_javascript(fields)}\")")
+  end
 end

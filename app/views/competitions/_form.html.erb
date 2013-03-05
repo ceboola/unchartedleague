@@ -45,6 +45,12 @@
   <% end %>
   <p><%= link_to_add_competition_map_fields "add map", f %></p>
   
+  <h4><%= f.label :competition_optional_maps %></h4>
+  <%= f.fields_for :competition_optional_maps do |m| %>
+    <%= render 'competitions/competition_map_fields', :f => m %>
+  <% end %>
+  <p><%= link_to_add_competition_optional_map_fields "add opt map", f %></p>
+  
   </br>
 
   <h4><%= f.label :regulations %></h4>

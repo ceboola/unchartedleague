@@ -58,6 +58,9 @@
   <iframe class="round" src="<%= @competition.challonge_module_url %>" width="930" height="470" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
 <% end %>
   
+<h2>Regulamin</h2>  
+<%= @competition.regulations.html_safe %>
+
 <% if @competition.competition_maps.any? %>
 <h2><%= t('maps.page_title') %></h2>  
 <table id="minimalist-table-hor-a" summary="<%= t('maps.page_title') %>">
@@ -79,5 +82,23 @@
 </table>
 <% end %>
 
-<h2>Regulamin</h2>  
-<%= @competition.regulations.html_safe %>
+<% if @competition.competition_optional_maps.any? #FIXME: remove copy-paste %>
+<h2><%= t('competitions.optional_maps') %></h2>  
+<table id="minimalist-table-hor-a" summary="<%= t('competitions.optional_maps') %>">
+  <% i = 0 %>
+  <% while i < @competition.competition_optional_maps.size do %>
+    <tr>          
+      <% 3.times do %>        
+        <td class="text-center" style="vertical-align: top;">
+          <% if i < @competition.competition_optional_maps.size %>
+            <% map = @competition.competition_optional_maps[i].map %>
+            <div><%= image_tag map.image_url, :alt => map.name %></div>
+            <h3><%= map.name %></h3>
+          <% end %>
+        </td>
+      <% i += 1 %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+<% end %>

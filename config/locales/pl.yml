@@ -213,6 +213,7 @@ pl:
     sign_up_ended: "Termin zapisów do rozgrywek wygasł."
     no_promotion: "brak awansu"
     playoff_tree: "Drzewko pucharowe"
+    optional_maps: "Mapy opcjonalne"
     
   articles:
     page_title: "Blog"
