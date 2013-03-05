@@ -61,7 +61,7 @@ class Team < ActiveRecord::Base
   
   def owner_participation
     for tp in team_participations
-      if tp.is_owner?
+      if tp.is_owner? and tp.active?
         return tp
       end
     end
