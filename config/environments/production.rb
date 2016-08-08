@@ -57,18 +57,18 @@ Unchartedleague::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  
+
   # Configuration of devise
   config.action_mailer.default_url_options = { :host => 'pl.unchartedleague.com' }
-  
+
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :domain               => 'unchartedleague.com',
-    :user_name            => 'hq@unchartedleague.com',
-    :password             => '323fsaAYFW',
+    :address              => ENV['MAIL_ADDRESS'],
+    :port                 => ENV['MAIL_PORT'],
+    :domain               => ENV['MAIL_DOMAIN'],
+    :user_name            => ENV['MAIL_USER_NAME'],
+    :password             => ENV['MAIL_PASSWORD'],
     :authentication       => 'plain',
-    :enable_starttls_auto => true  
+    :enable_starttls_auto => true
   }
 end

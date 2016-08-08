@@ -3,7 +3,7 @@ db/*.sqlite3
 log/*.log
 tmp/
 .sass-cache/
-/nbproject/private/
 *.swp
 public/assets/*.*
 public/assets/**/*
+Gemfile.lock

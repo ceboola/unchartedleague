@@ -23,22 +23,11 @@ Unchartedleague::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   # Do not compress assets
-  config.assets.compress = false
+  config.assets.compress = true
 
   # Expands the lines which load the assets
   config.assets.debug = true
-  
+
   # Configuration of devise
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :domain               => 'unchartedleague.com',
-    :user_name            => 'hq@unchartedleague.com',
-    :password             => '323fsaAYFW',
-    :authentication       => 'plain',
-    :enable_starttls_auto => true  
-  }
 end
